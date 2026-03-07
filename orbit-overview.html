@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit — AI-Powered Permanent Capital Vehicle</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --off-white: #f5f2eb;
+    --cream: #ede9df;
+    --gold: #c8a96e;
+    --gold-light: #e2c998;
+    --green: #3d7a5a;
+    --green-light: #5aad82;
+    --rust: #b85c38;
+    --muted: #6b6560;
+    --border: rgba(200,169,110,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(61,122,90,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+  }
+  .logo span { color: var(--off-white); }
+
+  .nav-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .hero-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 60px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::after {
+    content: '';
+    width: 60px; height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--off-white);
+    max-width: 800px;
+    margin-bottom: 32px;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 56px;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--off-white);
+    letter-spacing: -0.03em;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hero-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 60px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    color: var(--off-white);
+  }
+
+  /* ── STRUCTURE ── */
+  .structure-section {
+    background: #0d0d0d;
+  }
+
+  .structure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .struct-cell {
+    background: var(--black);
+    padding: 36px 32px;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .struct-cell:hover { background: #111; }
+
+  .struct-cell.featured {
+    background: #0e120f;
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .struct-icon {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .struct-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--off-white);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .struct-body {
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .struct-highlight {
+    color: var(--green-light);
+    font-weight: 500;
+  }
+
+  /* ── MOAT ── */
+  .moat-section {}
+
+  .moat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .moat-card {
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .moat-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .moat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .moat-card:hover::before { opacity: 1; }
+
+  .moat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.04em;
+  }
+
+  .moat-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--off-white);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .moat-body {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* ── NEXUS ── */
+  .nexus-section {
+    background: #0d0d0d;
+  }
+
+  .nexus-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .nexus-col {
+    background: var(--black);
+  }
+
+  .nexus-header {
+    padding: 20px 20px 16px;
+    border-bottom: 2px solid var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--gold);
+  }
+
+  .nexus-items {
+    padding: 16px 0;
+  }
+
+  .nexus-item {
+    padding: 8px 20px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(200,169,110,0.06);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nexus-item:hover {
+    color: var(--off-white);
+    background: rgba(200,169,110,0.04);
+  }
+  .nexus-item:last-child { border-bottom: none; }
+
+  /* ── FLYWHEEL ── */
+  .flywheel-section {}
+
+  .flywheel-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .flywheel-diagram {
+    position: relative;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    animation: spin linear infinite;
+  }
+  .orbit-ring:nth-child(1) {
+    width: 380px; height: 380px;
+    animation-duration: 40s;
+    border-style: dashed;
+  }
+  .orbit-ring:nth-child(2) {
+    width: 280px; height: 280px;
+    animation-duration: 28s;
+    animation-direction: reverse;
+    border-color: rgba(61,122,90,0.25);
+  }
+
+  .orbit-center {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(200,169,110,0.12), rgba(200,169,110,0.03));
+    border-radius: 50%;
+    border: 1px solid rgba(200,169,110,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orbit-center-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .orbit-center-sub {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .orbit-node {
+    position: absolute;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    text-align: center;
+    color: var(--off-white);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    z-index: 5;
+    line-height: 1.3;
+    padding: 6px;
+    transition: border-color 0.3s;
+  }
+  .orbit-node:hover { border-color: var(--gold); }
+
+  .flywheel-points {}
+
+  .flywheel-point {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .flywheel-point:last-child { border-bottom: none; }
+
+  .fp-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0.5;
+    min-width: 28px;
+    padding-top: 2px;
+    letter-spacing: 0.05em;
+  }
+  .fp-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--off-white);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .fp-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── VERTICALS ── */
+  .verticals-section {
+    background: #0d0d0d;
+  }
+
+  .verticals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .vertical-card {
+    background: var(--black);
+    padding: 36px 28px;
+    transition: background 0.3s;
+  }
+  .vertical-card:hover { background: #111; }
+  .vertical-card.primary { background: #0e120f; }
+
+  .v-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .v-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); }
+
+  .v-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--off-white);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .v-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .v-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .v-chip {
+    font-size: 10px;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 120px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'ORBIT';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 300px;
+    font-weight: 800;
+    color: rgba(200,169,110,0.03);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cta-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .cta-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--off-white);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .cta-title em { font-style: italic; color: var(--gold); }
+
+  .cta-body {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  .cta-pill {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 14px 36px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .cta-pill:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* ── CAPITAL STRUCTURE ── */
+  .capital-section { background: #0d0d0d; }
+
+  .capital-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cap-layer {
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .cap-layer + .cap-layer { border-top: none; }
+
+  .cap-layer-header {
+    padding: 28px 36px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    background: rgba(200,169,110,0.03);
+  }
+
+  .cap-layer-tag {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    min-width: 64px;
+  }
+
+  .cap-layer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--off-white);
+    letter-spacing: -0.01em;
+  }
+
+  .cap-layer-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  .cap-layer-body {
+    padding: 8px 0 16px;
+  }
+
+  .cap-row {
+    display: grid;
+    grid-template-columns: 200px 100px 1fr;
+    align-items: start;
+    gap: 24px;
+    padding: 20px 36px;
+    border-bottom: 1px solid rgba(200,169,110,0.06);
+    transition: background 0.2s;
+  }
+  .cap-row:hover { background: rgba(200,169,110,0.03); }
+  .cap-row:last-of-type { border-bottom: none; }
+  .cap-row.highlight { background: rgba(61,122,90,0.05); }
+  .cap-row.highlight:hover { background: rgba(61,122,90,0.08); }
+
+  .cap-party {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--off-white);
+    letter-spacing: -0.01em;
+    padding-top: 2px;
+  }
+
+  .cap-pct {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .cap-pct span { font-size: 16px; }
+
+  .cap-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+
+  .cap-callout {
+    margin: 8px 36px 8px;
+    padding: 16px 20px;
+    border-left: 2px solid var(--gold);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    background: rgba(200,169,110,0.04);
+  }
+  .cap-callout em { color: var(--off-white); font-style: normal; font-weight: 500; }
+
+  .cap-arrow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 36px;
+  }
+  .cap-arrow-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .cap-arrow-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .cap-why {
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+
+  .cap-why-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .cap-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 48px;
+  }
+
+  .cap-why-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .cap-why-icon {
+    font-size: 18px;
+    color: var(--gold);
+    min-width: 24px;
+    padding-top: 1px;
+    opacity: 0.7;
+  }
+
+  .cap-why-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .cap-why-text strong { color: var(--off-white); font-weight: 500; }
+
+  .v-bracket {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  .verticals-footnote {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-top: 28px;
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    background: rgba(200,169,110,0.03);
+  }
+
+  .vf-asterisk {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 16px;
+    padding-top: 1px;
+  }
+
+  .vf-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── TARGET CRITERIA ── */
+  .target-section {}
+
+  .target-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .target-card {
+    background: var(--black);
+    padding: 36px 32px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .target-card:hover { background: #111; }
+
+  .target-card.highlight-card {
+    background: #0e120f;
+    grid-column: span 1;
+  }
+  .target-card.highlight-card:hover { background: #111b13; }
+  .target-card.highlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green-light);
+  }
+
+  .target-icon {
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+
+  .target-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--off-white);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .target-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .target-signal {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    opacity: 0.7;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    line-height: 1.6;
+  }
+
+  .target-summary {
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    align-items: center;
+    background: rgba(200,169,110,0.03);
+  }
+
+  .ts-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.6;
+  }
+
+  .ts-text {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--off-white);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  @media (max-width: 1100px) {
+    .target-grid { grid-template-columns: repeat(2, 1fr); }
+    .target-summary { grid-template-columns: 1fr; gap: 16px; }
+  }
+  @media (max-width: 700px) {
+    .target-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .moat-grid { grid-template-columns: repeat(2, 1fr); }
+    .nexus-grid { grid-template-columns: repeat(3, 1fr); }
+    .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+    .flywheel-layout { grid-template-columns: 1fr; }
+    .flywheel-diagram { display: none; }
+    .struct-cell.featured { grid-template-columns: 1fr; }
+    .structure-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .hero, section { padding: 60px 24px; }
+    .hero-stats { flex-wrap: wrap; gap: 32px; }
+    .moat-grid { grid-template-columns: 1fr; }
+    .nexus-grid { grid-template-columns: 1fr 1fr; }
+    .verticals-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <nav class="nav">
+    <div class="logo">Orbit<span>.</span></div>
+    <div class="nav-tag">Permanent Capital Vehicle — Confidential</div>
+  </nav>
+
+  <div class="hero-body">
+    <div class="eyebrow">AI-Powered Holdco</div>
+    <h1 class="hero-headline">
+      The data moat<br>that compounds<br>
+      <em>forever.</em>
+    </h1>
+    <p class="hero-sub">
+      Orbit is a permanent capital vehicle acquiring recurring services businesses — MSPs, pool services, waste management, elevator maintenance, and beyond — deploying a shared AI operating stack and payments intelligence layer that gets smarter with every portfolio company added.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">70–80<span>%</span></div>
+        <div class="stat-label">Orbit ownership per portfolio co.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>∞</span></div>
+        <div class="stat-label">Holding period</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7<span>+</span></div>
+        <div class="stat-label">AI verticals in Nexus stack</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <span>Orbit Holdings GP — Recurring Services Businesses</span>
+    <span>Powered by Alternative Payments × Nexus AI</span>
+  </div>
+</div>
+
+<!-- STRUCTURE -->
+<section class="structure-section reveal">
+  <div class="section-label">Corporate Architecture</div>
+  <h2 class="section-title">Hub-and-spoke,<br>built to compound.</h2>
+
+  <div class="structure-grid">
+    <div class="struct-cell featured">
+      <div>
+        <div class="struct-icon">Layer 01 — GP</div>
+        <div class="struct-title">Orbit Holdings</div>
+        <div class="struct-body">The general partner. Raises capital, sets thesis, owns <span class="struct-highlight">70–80% of each portfolio company</span>. Manages the shared IP stack and data infrastructure. NAV-based valuation creates a compounding asset base — not a fund with a clock. Alternative Payments contributes data infrastructure and payments rails via a preferred commercial agreement, not equity — keeping the cap table clean and the economics in AP's P&L.</div>
+      </div>
+      <div>
+        <div class="struct-icon">Layer 02 — Platform</div>
+        <div class="struct-title">Nexus AI</div>
+        <div class="struct-body">The shared operating system deployed across all portfolio companies. 7 functional pillars: Sales, CX, Ops, EPD, Finance/Payments, Risk, and Data. Each vertical gets the full stack. <span class="struct-highlight">Data flows upward to the GP</span>, creating a proprietary intelligence layer no single company could build alone.</div>
+      </div>
+      <div>
+        <div class="struct-icon">Layer 03 — Alpha</div>
+        <div class="struct-title">Investment Engineers</div>
+        <div class="struct-body">A dedicated team that identifies acquisition targets, runs diligence with AI-assisted analysis, and integrates new companies onto the Nexus platform within 90 days. <span class="struct-highlight">Deal sourcing, diligence, and integration are productized</span> — not ad hoc.</div>
+      </div>
+    </div>
+    <div class="struct-cell">
+      <div class="struct-icon">Portfolio</div>
+      <div class="struct-title">MSP</div>
+      <div class="struct-body">Core vertical. Deep payments & recurring billing infrastructure. 1,000+ customers as reference class.</div>
+    </div>
+    <div class="struct-cell">
+      <div class="struct-icon">Portfolio</div>
+      <div class="struct-title">Pool Services</div>
+      <div class="struct-body">Fragmented, route-based, high-LTV customers. Scheduling, dispatch, and AR automation unlock immediate margin.</div>
+    </div>
+    <div class="struct-cell">
+      <div class="struct-icon">Portfolio</div>
+      <div class="struct-title">Waste Management</div>
+      <div class="struct-body">Underdeveloped payment infrastructure. High contract volume, regulatory complexity. Nexus stack creates asymmetric value.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA MOAT -->
+<section class="reveal">
+  <div class="section-label">Core Differentiation</div>
+  <h2 class="section-title">Four compounding<br>moats in one vehicle.</h2>
+  <div class="moat-grid">
+    <div class="moat-card">
+      <div class="moat-num">01</div>
+      <div class="moat-title">Payments Data Intelligence</div>
+      <div class="moat-body">Every transaction across every portfolio company flows into a shared data warehouse. Invoice data, ACH patterns, churn signals, payment behavior — trained into proprietary models that no single operator can replicate. The more companies acquired, the smarter the models.</div>
+    </div>
+    <div class="moat-card">
+      <div class="moat-num">02</div>
+      <div class="moat-title">Nexus AI Operating Stack</div>
+      <div class="moat-body">Purpose-built AI tools across 50+ use cases — BDR sequencing, AR automation, health scoring, autonomous support — shared across the portfolio at near-zero marginal cost per company. Competitive advantage that accelerates with each deployment.</div>
+    </div>
+    <div class="moat-card">
+      <div class="moat-num">03</div>
+      <div class="moat-title">Talent & CTRL-TAB</div>
+      <div class="moat-body">Centralized talent acquisition brings world-class operators into each vertical faster than individual companies can recruit. The holdco becomes the employer of choice across recurring services industries.</div>
+    </div>
+    <div class="moat-card">
+      <div class="moat-num">04</div>
+      <div class="moat-title">Cost Arbitrage at Scale</div>
+      <div class="moat-body">Payment processing economics, low-cost geography centers, shared procurement, and automated ERP implementation — savings that compound across each acquisition, improving unit economics firm-wide rather than company-by-company.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXUS STACK -->
+<section class="nexus-section reveal">
+  <div class="section-label">The Operating System</div>
+  <h2 class="section-title">Nexus AI — deployed<br>across every portfolio company.</h2>
+  <div class="nexus-grid">
+    <div class="nexus-col">
+      <div class="nexus-header">Sales</div>
+      <div class="nexus-items">
+        <div class="nexus-item">Outbound prospecting & AI BDR sequencing</div>
+        <div class="nexus-item">Call recording, scoring & rep coaching</div>
+        <div class="nexus-item">CRM hygiene & contact enrichment</div>
+        <div class="nexus-item">Proposal / quote generation</div>
+        <div class="nexus-item">Win/loss analysis & pipeline forecasting</div>
+        <div class="nexus-item">Churn prediction & expansion signals</div>
+        <div class="nexus-item">Competitive intelligence monitoring</div>
+        <div class="nexus-item">Lead scoring & intent data aggregation</div>
+        <div class="nexus-item">Contract renewal & auto-renewal triggers</div>
+        <div class="nexus-item">Pricing optimization engine</div>
+        <div class="nexus-item">Commission tracking & dispute resolution</div>
+      </div>
+    </div>
+    <div class="nexus-col">
+      <div class="nexus-header">Customer Success</div>
+      <div class="nexus-items">
+        <div class="nexus-item">AI Tier-1 autonomous support resolution</div>
+        <div class="nexus-item">Ticketing triage & intelligent routing</div>
+        <div class="nexus-item">Customer health scoring & dashboarding</div>
+        <div class="nexus-item">Onboarding workflow automation</div>
+        <div class="nexus-item">Escalation management & SLA monitoring</div>
+        <div class="nexus-item">Knowledge base generation</div>
+        <div class="nexus-item">CSAT/NPS surveying & closed-loop follow-up</div>
+        <div class="nexus-item">Self-service customer portal</div>
+        <div class="nexus-item">Multilingual support automation</div>
+        <div class="nexus-item">Proactive outreach on usage anomalies</div>
+        <div class="nexus-item">Retention playbook automation</div>
+      </div>
+    </div>
+    <div class="nexus-col">
+      <div class="nexus-header">Operations</div>
+      <div class="nexus-items">
+        <div class="nexus-item">Contract lifecycle management</div>
+        <div class="nexus-item">Vendor management & procurement</div>
+        <div class="nexus-item">Scheduling & dispatch optimization</div>
+        <div class="nexus-item">Compliance & license tracking</div>
+        <div class="nexus-item">KPI dashboards & BI</div>
+        <div class="nexus-item">HR onboarding & offboarding workflows</div>
+        <div class="nexus-item">Document management & e-signatures</div>
+        <div class="nexus-item">SOP creation & maintenance (AI-gen)</div>
+        <div class="nexus-item">Fleet & equipment tracking</div>
+        <div class="nexus-item">Route optimization</div>
+        <div class="nexus-item">Internal audit & policy enforcement</div>
+      </div>
+    </div>
+    <div class="nexus-col">
+      <div class="nexus-header">Finance / Payments</div>
+      <div class="nexus-items">
+        <div class="nexus-item">AR automation & intelligent collections</div>
+        <div class="nexus-item">Payment processing (card, ACH, surcharge)</div>
+        <div class="nexus-item">Revenue recognition & invoicing</div>
+        <div class="nexus-item">Financial close automation</div>
+        <div class="nexus-item">Risk scoring & fraud monitoring</div>
+        <div class="nexus-item">Subscription & recurring billing</div>
+        <div class="nexus-item">Multi-entity consolidation</div>
+        <div class="nexus-item">Cash flow forecasting</div>
+        <div class="nexus-item">Tax compliance automation</div>
+        <div class="nexus-item">Payroll processing</div>
+        <div class="nexus-item">Cap table & equity management</div>
+      </div>
+    </div>
+    <div class="nexus-col">
+      <div class="nexus-header">Data Pipeline / BI</div>
+      <div class="nexus-items">
+        <div class="nexus-item">Shared data warehouse / lakehouse</div>
+        <div class="nexus-item">ETL pipelines & data normalization</div>
+        <div class="nexus-item">Business intelligence layer</div>
+        <div class="nexus-item">AI model training on vertical data</div>
+        <div class="nexus-item">Benchmarking across portfolio companies</div>
+        <div class="nexus-item">Cross-portfolio behavior analytics</div>
+        <div class="nexus-item">LLM fine-tuning on vertical datasets</div>
+        <div class="nexus-item">Shared vector DB for institutional knowledge</div>
+        <div class="nexus-item">End-client health scoring</div>
+        <div class="nexus-item">M&A deal sourcing & diligence AI</div>
+        <div class="nexus-item">Automated ERP implementation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLYWHEEL -->
+<section class="reveal">
+  <div class="section-label">The Flywheel</div>
+  <h2 class="section-title">Why this compounds<br>and others don't.</h2>
+  <div class="flywheel-layout">
+    <div class="flywheel-diagram">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-center">
+        <div class="orbit-center-name">Orbit</div>
+        <div class="orbit-center-sub">Data Core</div>
+      </div>
+      <div class="orbit-node" style="top:10px;left:50%;transform:translateX(-50%)">MSP</div>
+      <div class="orbit-node" style="top:50%;right:10px;transform:translateY(-50%)">Pool Svcs</div>
+      <div class="orbit-node" style="bottom:10px;left:50%;transform:translateX(-50%)">Waste Mgmt</div>
+      <div class="orbit-node" style="top:50%;left:10px;transform:translateY(-50%)">Elevator</div>
+    </div>
+    <div class="flywheel-points">
+      <div class="flywheel-point">
+        <div class="fp-num">01</div>
+        <div>
+          <div class="fp-title">Acquire a recurring services business</div>
+          <div class="fp-body">Target fragmented verticals with underdeveloped payment infrastructure, high contract volume, and route-based or subscription revenue models. Deploy Investment Engineers for AI-assisted diligence.</div>
+        </div>
+      </div>
+      <div class="flywheel-point">
+        <div class="fp-num">02</div>
+        <div>
+          <div class="fp-title">Plug into Nexus + Alternative Payments</div>
+          <div class="fp-body">Day 1 deployment: AR automation, payment processing, AI BDR, health scoring. 90-day integration playbook. Immediate margin expansion and data capture begins.</div>
+        </div>
+      </div>
+      <div class="flywheel-point">
+        <div class="fp-num">03</div>
+        <div>
+          <div class="fp-title">Data flows to the holdco</div>
+          <div class="fp-body">Transaction data, customer behavior, churn signals, and payment patterns consolidate in Orbit's shared warehouse. Models retrain. Benchmarks sharpen. The GP gets smarter.</div>
+        </div>
+      </div>
+      <div class="flywheel-point">
+        <div class="fp-num">04</div>
+        <div>
+          <div class="fp-title">Next acquisition is cheaper and faster</div>
+          <div class="fp-body">Better deal sourcing models. Faster integration. More accurate underwriting. Lower cost of capital as the track record builds. The flywheel tightens with every turn.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="verticals-section reveal">
+  <div class="section-label">Target Markets</div>
+  <h2 class="section-title">Initial verticals.<br>One operating system.</h2>
+  <div class="verticals-grid">
+    <div class="vertical-card primary">
+      <div class="v-tag"><div class="v-dot"></div>Core Vertical</div>
+      <div class="v-name">MSP <span class="v-bracket">[I]</span></div>
+      <div class="v-body">Managed service providers. 80% of Alternative Payments' existing customer base. Deeply understood. High NRR, subscription-led, relationship-driven with a dedicated technical account manager. The foundational proof point for the Orbit thesis — data flywheel already in motion.</div>
+      <div class="v-chips">
+        <div class="v-chip">Subscription billing</div>
+        <div class="v-chip">High NRR</div>
+        <div class="v-chip">IT services</div>
+        <div class="v-chip">PSA integrations</div>
+      </div>
+    </div>
+    <div class="vertical-card">
+      <div class="v-tag"><div class="v-dot"></div>Expansion</div>
+      <div class="v-name">Pool Services <span class="v-bracket">[II]</span></div>
+      <div class="v-body">Route-based, high-frequency, deeply fragmented. The pool technician relationship is personal and sticky — customers stay for years. Scheduling, dispatch, AR, and seasonal billing are all manual today. Nexus route optimization and collections automation deliver immediate margin expansion.</div>
+      <div class="v-chips">
+        <div class="v-chip">Route optimization</div>
+        <div class="v-chip">Field dispatch</div>
+        <div class="v-chip">Seasonal billing</div>
+        <div class="v-chip">Commercial focus</div>
+      </div>
+    </div>
+    <div class="vertical-card">
+      <div class="v-tag"><div class="v-dot"></div>Expansion</div>
+      <div class="v-name">Waste Management <span class="v-bracket">[III]</span></div>
+      <div class="v-body">Regulatory mandates create captive recurring revenue. High contract volume, severe tech debt, and underdeveloped payment infrastructure. Nexus compliance tracking, fleet management, and AR automation create asymmetric value where legacy operators have no comparable tools.</div>
+      <div class="v-chips">
+        <div class="v-chip">Compliance tracking</div>
+        <div class="v-chip">Fleet management</div>
+        <div class="v-chip">Contract lifecycle</div>
+        <div class="v-chip">Specialty focus</div>
+      </div>
+    </div>
+    <div class="vertical-card">
+      <div class="v-tag"><div class="v-dot"></div>Expansion</div>
+      <div class="v-name">Elevator Maintenance <span class="v-bracket">[IV]</span></div>
+      <div class="v-body">Regulated inspection cycles create legally mandated recurring revenue — building owners cannot defer service. Extremely sticky relationships, strong margins, and severe tech debt in service tracking and compliance reporting. Fragmented outside the three national giants, with hundreds of independent operators as acquisition targets.</div>
+      <div class="v-chips">
+        <div class="v-chip">Regulatory mandate</div>
+        <div class="v-chip">High margins</div>
+        <div class="v-chip">Predictive maintenance</div>
+        <div class="v-chip">Compliance automation</div>
+      </div>
+    </div>
+  </div>
+  <div class="verticals-footnote">
+    <span class="vf-asterisk">*</span>
+    <span class="vf-text">The above verticals represent Orbit's initial focus markets. We are actively conducting diligence across a number of additional recurring services industries that meet our acquisition criteria — including landscaping, fire & life safety, commercial HVAC, pest control, and others. The Nexus operating stack and Alternative Payments infrastructure are designed to be vertical-agnostic; the playbook transfers wherever there are recurring contracts, in-person relationships, and underinvested back-office technology.</span>
+  </div>
+</section>
+
+<!-- TARGET CRITERIA -->
+<section class="target-section reveal">
+  <div class="section-label">Acquisition Criteria</div>
+  <h2 class="section-title">What we're<br>looking for.</h2>
+
+  <div class="target-grid">
+
+    <div class="target-card">
+      <div class="target-icon">⟳</div>
+      <div class="target-title">Recurring B2B Services</div>
+      <div class="target-body">Contract-based or subscription revenue with predictable renewal cycles. No transactional, project-based, or one-time revenue businesses. The recurring model is the prerequisite — it's what makes payments data meaningful and AR automation valuable.</div>
+      <div class="target-signal">Monthly or annual contracts · High renewal rates · Invoice-driven</div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon">◈</div>
+      <div class="target-title">AI Defensibility</div>
+      <div class="target-body">The business must operate in a vertical where proprietary data creates durable advantage — not just where AI can cut costs. We look for companies sitting on untapped transaction, behavioral, or operational data that Nexus can train on and compound over time.</div>
+      <div class="target-signal">Proprietary data assets · Vertical-specific workflows · Model trainability</div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon">◉</div>
+      <div class="target-title">Relationship-Led, Automation-Ready</div>
+      <div class="target-body">The client relationship is human and in-person — that's the moat. But the back office, billing, collections, scheduling, support, and reporting are ripe for full automation. We're not replacing the relationship; we're eliminating everything around it that shouldn't require a human.</div>
+      <div class="target-signal">Field services · Account management · High-touch client retention</div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon">⌖</div>
+      <div class="target-title">Significant Tech Debt</div>
+      <div class="target-body">Legacy systems, manual processes, spreadsheet-based ops, disconnected tools. The more underinvested the technology, the greater the margin expansion opportunity when Nexus deploys. We aren't intimidated by complexity — we've productized the integration playbook.</div>
+      <div class="target-signal">Manual AR · Disconnected CRM · No BI layer · Legacy billing</div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon">↗</div>
+      <div class="target-title">Mid Single-Digit Organic Growth</div>
+      <div class="target-body">We're not chasing hypergrowth. Steady, durable 4–7% organic revenue growth in a stable vertical signals a healthy business without the valuation premium of a high-growth SaaS company. Growth accelerates post-acquisition as Nexus Sales and CX tools deploy.</div>
+      <div class="target-signal">4–7% organic growth · Stable customer base · Low churn</div>
+    </div>
+
+    <div class="target-card highlight-card">
+      <div class="target-icon">◐</div>
+      <div class="target-title">EBITDA Margins: 15–20% → 30%+</div>
+      <div class="target-body">We target businesses with healthy but not optimized margins. 15–20% at entry signals a real business with pricing power. The path to 30%+ is repeatable: AP payment processing economics, Nexus automation replacing manual headcount, shared services at the holdco level, and low-cost geography arbitrage. Margin expansion is the return engine.</div>
+      <div class="target-signal">Entry: 15–20% EBITDA · Target: 30%+ · Timeline: 24–36 months</div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon">⋮⋮</div>
+      <div class="target-title">Fragmented Market with M&A Runway</div>
+      <div class="target-body">The ideal vertical has hundreds of sub-scale operators with no dominant platform player. Fragmentation means acquisition multiples stay low, integration playbooks are reusable, and Orbit can consolidate market share systematically. Each acquisition expands the data flywheel and improves underwriting for the next one.</div>
+      <div class="target-signal">No dominant player · Sub-scale operators · Replicable deal thesis</div>
+    </div>
+
+  </div>
+
+  <div class="target-summary">
+    <div class="ts-label">The ideal Orbit company in one sentence</div>
+    <div class="ts-text">A founder-led B2B services business with sticky recurring contracts, in-person client relationships, 15–20% EBITDA margins, meaningful tech debt, and a fragmented competitive landscape — sitting inside a vertical where payments data and AI automation can compound into a durable moat.</div>
+  </div>
+
+</section>
+
+<!-- CAPITAL STRUCTURE -->
+<section class="capital-section reveal">
+  <div class="section-label">Capitalization Model</div>
+  <h2 class="section-title">Two raises.<br>Three classes of return.</h2>
+
+  <div class="capital-layout">
+
+    <!-- LAYER 1: GP -->
+    <div class="cap-layer">
+      <div class="cap-layer-header">
+        <div class="cap-layer-tag">Layer 01</div>
+        <div class="cap-layer-name">Orbit GP Raise</div>
+        <div class="cap-layer-sub">Holdco level — platform, team, pipeline</div>
+      </div>
+      <div class="cap-layer-body">
+        <div class="cap-row">
+          <div class="cap-party">Outside Investors</div>
+          <div class="cap-pct">20<span>%</span></div>
+          <div class="cap-note">Growth capital. NAV-based liquidity via periodic tender offers as portfolio appreciates.</div>
+        </div>
+        <div class="cap-row highlight">
+          <div class="cap-party">Founders / GP Team</div>
+          <div class="cap-pct">80<span>%</span></div>
+          <div class="cap-note">Permanent equity. Carries the platform premium — Nexus IP, deal pipeline, payments data infrastructure.</div>
+        </div>
+        <div class="cap-callout">
+          Alternative Payments does <em>not</em> take equity in Orbit GP. Instead, AP receives a preferred processing and data agreement with each portfolio company — more valuable than a minority holdco stake, and zero dilution to the cap table.
+        </div>
+      </div>
+    </div>
+
+    <div class="cap-arrow">
+      <div class="cap-arrow-line"></div>
+      <div class="cap-arrow-label">Orbit deploys capital + Nexus stack into each subsidiary</div>
+      <div class="cap-arrow-line"></div>
+    </div>
+
+    <!-- LAYER 2: SUBSIDIARIES -->
+    <div class="cap-layer">
+      <div class="cap-layer-header">
+        <div class="cap-layer-tag">Layer 02</div>
+        <div class="cap-layer-name">Per-Subsidiary Raise</div>
+        <div class="cap-layer-sub">Repeated at each acquisition — independent cap tables</div>
+      </div>
+      <div class="cap-layer-body">
+        <div class="cap-row highlight">
+          <div class="cap-party">Orbit GP</div>
+          <div class="cap-pct">70–80<span>%</span></div>
+          <div class="cap-note">Board control (2 of 3 seats). Mandates Nexus adoption, AP processing, and upward data sharing. No negotiation required.</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-party">Outside Sub-Level Investors</div>
+          <div class="cap-pct">20<span>%</span></div>
+          <div class="cap-note">Preferred with 2× liquidation preference. Drag-along rights after year 5. Focused return profile on the individual operating company.</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-party">Founder / Operator Rollover</div>
+          <div class="cap-pct">10<span>%</span></div>
+          <div class="cap-note">Retained equity with 3-year EBITDA earnout. Keeps founders aligned without giving them blocking power. Vests into meaningful upside as the business scales under Nexus.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY THIS WORKS -->
+    <div class="cap-why">
+      <div class="cap-why-title">Why two raises instead of one</div>
+      <div class="cap-why-grid">
+        <div class="cap-why-item">
+          <div class="cap-why-icon">↑</div>
+          <div class="cap-why-text"><strong>NAV compounds at the GP level.</strong> Each successful sub-level raise at a higher valuation marks up Orbit's NAV — giving holdco investors a return signal without a forced exit.</div>
+        </div>
+        <div class="cap-why-item">
+          <div class="cap-why-icon">⊕</div>
+          <div class="cap-why-text"><strong>Two bites of the apple.</strong> Orbit earns returns both as a GP (holdco appreciation) and as a majority operator (subsidiary cash flows and exits). Sub-level investors fund growth without diluting the holdco.</div>
+        </div>
+        <div class="cap-why-item">
+          <div class="cap-why-icon">⚙</div>
+          <div class="cap-why-text"><strong>Control is non-negotiable.</strong> 70–80% ownership means Orbit can mandate Nexus, mandate AP as processor, and mandate data sharing upward — without founder consent. The flywheel runs on control, not cooperation.</div>
+        </div>
+        <div class="cap-why-item">
+          <div class="cap-why-icon">◎</div>
+          <div class="cap-why-text"><strong>Clean related-party structure.</strong> AP's economics flow through a commercial agreement at the subsidiary level — arms-length, auditable, and conflict-free. No cross-ownership that creates investor confusion or governance disputes.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <div class="cta-eyebrow">Orbit Holdings</div>
+  <h2 class="cta-title">
+    Permanent capital.<br>
+    <em>Permanent edge.</em>
+  </h2>
+  <p class="cta-body">
+    Unlike traditional PE funds constrained by 10-year clocks, Orbit's permanent structure means the data moat, the AI stack, and the network effects compound indefinitely. The longer we hold, the wider the moat.
+  </p>
+  <div class="cta-pill">Request Overview Deck</div>
+</section>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>
