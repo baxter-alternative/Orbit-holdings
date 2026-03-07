@@ -739,13 +739,15 @@ const tip={backgroundColor:'#EDE7DC',titleColor:'#1C1712',bodyColor:'#6B5C3E',bo
 const sc=(left=G,right=null)=>{const o={x:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU}},y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU},position:'left'}};if(right)o.y2={grid:{display:false},ticks:{color:right,callback:v=>v+'%'},position:'right'};return o;};
 
 function auth(){
-  if(document.getElementById('pw').value==='orbit2026'){
+  const val = document.getElementById('pw').value.trim();
+  if(val==='orbit2026'){
     document.getElementById('gate').style.display='none';
     document.getElementById('portal').style.display='block';
-    initCharts();
+    setTimeout(initCharts, 100);
   } else {
     document.getElementById('pw-err').style.display='block';
     document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
   }
 }
 document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')auth();});
@@ -826,6 +828,7 @@ function renderTrend(tid){
 }
 
 function initCharts(){
+  try {
   new Chart(document.getElementById('c-rev'),{
     type:'bar',
     data:{labels:MO,datasets:[
@@ -850,6 +853,9 @@ function initCharts(){
               y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU,callback:v=>'$'+v+'K'},position:'left'},
               y2:{grid:{display:false},ticks:{color:G,callback:v=>v+'%'},position:'right'}}}
   });
+  } catch(e){ console.warn('Chart init error:', e); }
+}
+
 // ── ORDER FORM ──
 const prices = { apex: 48.40, cw: 31.20, gp: 112.60 };
 let orderType = 'sell';
