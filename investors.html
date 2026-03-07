@@ -155,8 +155,133 @@
   .auto-trend-lbl { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; margin-bottom:10px; font-weight:600; }
   .auto-trend-wrap { position:relative; width:100%; height:110px; }
 
-  @media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.p-grid{grid-template-columns:1fr}.auto-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:700px){.nav,.section{padding-left:24px;padding-right:24px}.kpi-grid{grid-template-columns:1fr 1fr}.auto-grid{grid-template-columns:1fr}}
+  /* ── LENDER ── */
+  .lender-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(139,105,20,0.15); border:1px solid rgba(139,105,20,0.15); margin-bottom:40px; }
+  .lender-kpi { background:#F2EDE4; padding:24px 22px; }
+  .lkpi-lbl { font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#8B7355; margin-bottom:8px; }
+  .lkpi-val { font-family:'Playfair Display',serif; font-size:28px; font-weight:600; color:#1C1712; line-height:1; margin-bottom:4px; }
+  .lkpi-val span { color:#8B6914; }
+  .lkpi-sub { font-size:11px; color:#8B7355; }
+  .lkpi-sub.warn { color:#8B3A1C; font-weight:600; }
+  .lkpi-sub.ok { color:#3A7A4E; font-weight:600; }
+
+  .lender-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+  .lender-card { border:1px solid rgba(139,105,20,0.18); overflow:hidden; }
+  .lender-card-hd { padding:18px 24px; background:#EDE7DC; border-bottom:1px solid rgba(139,105,20,0.15); display:flex; justify-content:space-between; align-items:center; }
+  .lender-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; color:#1C1712; }
+  .lender-card-tag { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:4px 10px; }
+  .lct-revolving { color:#8B6914; border:1px solid rgba(139,105,20,0.3); background:rgba(139,105,20,0.08); }
+  .lct-term { color:#3A7A4E; border:1px solid rgba(58,122,78,0.3); background:rgba(58,122,78,0.08); }
+  .lct-sub { color:#3A5AA0; border:1px solid rgba(58,90,160,0.3); background:rgba(58,90,160,0.08); }
+
+  .facility-rows { }
+  .facility-row { display:grid; grid-template-columns:200px 1fr; gap:0; padding:13px 24px; border-bottom:1px solid rgba(139,105,20,0.06); align-items:baseline; }
+  .facility-row:last-child { border-bottom:none; }
+  .facility-row:hover { background:rgba(139,105,20,0.03); }
+  .fr-lbl { font-size:11px; font-weight:600; color:#8B7355; letter-spacing:0.04em; }
+  .fr-val { font-size:13px; font-weight:600; color:#1C1712; }
+  .fr-val.bronze { color:#8B6914; font-family:'Playfair Display',serif; font-size:18px; }
+  .fr-val.green { color:#3A7A4E; }
+  .fr-val.warn { color:#8B3A1C; }
+
+  .util-bar-wrap { margin:0 24px 20px; }
+  .util-bar-labels { display:flex; justify-content:space-between; font-size:11px; color:#8B7355; margin-bottom:6px; font-weight:500; }
+  .util-bar-track { height:8px; background:rgba(139,105,20,0.12); border-radius:2px; overflow:hidden; }
+  .util-bar-fill { height:100%; border-radius:2px; transition:width 0.6s ease; }
+  .util-bar-fill.low { background:#3A7A4E; }
+  .util-bar-fill.mid { background:#8B6914; }
+  .util-bar-fill.high { background:#8B3A1C; }
+
+  .covenant-table { width:100%; border-collapse:collapse; }
+  .covenant-table th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:10px 14px; text-align:left; border-bottom:2px solid #8B6914; background:rgba(139,105,20,0.04); }
+  .covenant-table td { padding:14px 14px; border-bottom:1px solid rgba(139,105,20,0.07); font-size:12px; color:#1C1712; vertical-align:middle; }
+  .covenant-table tr:hover td { background:rgba(139,105,20,0.03); }
+  .cov-name { font-weight:600; color:#1C1712; }
+  .cov-req { color:#6B5C3E; }
+  .cov-actual { font-weight:700; }
+  .cov-actual.pass { color:#3A7A4E; }
+  .cov-actual.warn { color:#8B3A1C; }
+  .cov-status { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:4px 10px; }
+  .cov-pass { color:#3A7A4E; background:rgba(58,122,78,0.1); border:1px solid rgba(58,122,78,0.25); }
+  .cov-warn { color:#8B6914; background:rgba(139,105,20,0.1); border:1px solid rgba(139,105,20,0.25); }
+  .cov-fail { color:#8B3A1C; background:rgba(139,58,28,0.1); border:1px solid rgba(139,58,28,0.25); }
+
+  /* ── LIQUIDITY ── */
+  .liq-banner { padding:20px 28px; background:#EDE7DC; border:1px solid rgba(139,105,20,0.18); border-left:3px solid #8B6914; margin-bottom:36px; display:flex; align-items:center; gap:16px; }
+  .liq-banner-icon { font-size:18px; color:#8B6914; }
+  .liq-banner-text { font-size:13px; color:#6B5C3E; line-height:1.6; }
+  .liq-banner-text strong { color:#1C1712; }
+
+  .liq-price-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(139,105,20,0.15); border:1px solid rgba(139,105,20,0.15); margin-bottom:36px; }
+  .liq-price-card { background:#F2EDE4; padding:28px 24px; }
+  .liq-price-card.featured { background:#EDE7DC; }
+  .lpc-co { font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#8B6914; margin-bottom:6px; }
+  .lpc-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:#1C1712; margin-bottom:16px; }
+  .lpc-price { font-family:'Playfair Display',serif; font-size:38px; font-weight:600; color:#1C1712; line-height:1; margin-bottom:4px; }
+  .lpc-price span { color:#8B6914; font-size:18px; }
+  .lpc-change { font-size:12px; font-weight:600; margin-bottom:20px; }
+  .lpc-change.up { color:#3A7A4E; }
+  .lpc-change.dn { color:#8B3A1C; }
+  .lpc-metrics { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-top:16px; border-top:1px solid rgba(139,105,20,0.15); }
+  .lpc-m-lbl { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#8B7355; margin-bottom:3px; }
+  .lpc-m-val { font-size:14px; font-weight:600; color:#1C1712; }
+
+  .liq-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+  .liq-card { border:1px solid rgba(139,105,20,0.18); overflow:hidden; }
+  .liq-card-hd { padding:16px 24px; background:#EDE7DC; border-bottom:1px solid rgba(139,105,20,0.15); }
+  .liq-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; color:#1C1712; }
+  .liq-card-sub { font-size:11px; color:#8B7355; margin-top:3px; }
+  .liq-card-body { padding:24px; }
+
+  .order-form { display:flex; flex-direction:column; gap:14px; }
+  .order-tabs { display:flex; gap:1px; background:rgba(139,105,20,0.15); width:fit-content; margin-bottom:4px; }
+  .order-tab { padding:8px 20px; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; cursor:pointer; background:#F2EDE4; transition:all 0.2s; }
+  .order-tab.sell-active { color:#8B3A1C; background:#EDE7DC; }
+  .order-tab.buy-active { color:#3A7A4E; background:#EDE7DC; }
+  .order-field { display:flex; flex-direction:column; gap:5px; }
+  .order-field label { font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#8B7355; }
+  .order-field select, .order-field input {
+    background:#fff; border:1px solid rgba(139,105,20,0.25); color:#1C1712;
+    font-family:'Outfit',sans-serif; font-size:14px; font-weight:500;
+    padding:11px 14px; outline:none; transition:border-color 0.2s; width:100%;
+  }
+  .order-field select:focus, .order-field input:focus { border-color:#8B6914; }
+  .order-summary { background:rgba(139,105,20,0.05); border:1px solid rgba(139,105,20,0.15); padding:14px 16px; }
+  .os-row { display:flex; justify-content:space-between; font-size:12px; color:#6B5C3E; margin-bottom:6px; }
+  .os-row:last-child { margin-bottom:0; font-weight:700; color:#1C1712; border-top:1px solid rgba(139,105,20,0.15); padding-top:8px; margin-top:4px; }
+  .order-btn { padding:13px; font-family:'Outfit',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; border:none; transition:opacity 0.2s; }
+  .order-btn.sell-btn { background:#8B3A1C; color:#F2EDE4; }
+  .order-btn.buy-btn { background:#3A7A4E; color:#F2EDE4; }
+  .order-btn:hover { opacity:0.88; }
+
+  .order-book { width:100%; border-collapse:collapse; }
+  .order-book th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:8px 12px; border-bottom:1px solid rgba(139,105,20,0.18); text-align:right; }
+  .order-book th:first-child { text-align:left; }
+  .order-book td { padding:10px 12px; font-size:12px; border-bottom:1px solid rgba(139,105,20,0.06); text-align:right; }
+  .order-book td:first-child { text-align:left; font-weight:600; color:#1C1712; }
+  .order-book tr:hover td { background:rgba(139,105,20,0.03); }
+  .ob-bid { color:#3A7A4E; font-weight:600; }
+  .ob-ask { color:#8B3A1C; font-weight:600; }
+  .ob-spread-row td { font-size:10px; color:#8B7355; background:rgba(139,105,20,0.04); text-align:center; padding:6px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; }
+
+  .liq-history { width:100%; border-collapse:collapse; }
+  .liq-history th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:9px 14px; border-bottom:2px solid #8B6914; background:rgba(139,105,20,0.04); text-align:left; }
+  .liq-history td { padding:13px 14px; border-bottom:1px solid rgba(139,105,20,0.07); font-size:12px; color:#1C1712; }
+  .liq-history tr:hover td { background:rgba(139,105,20,0.03); }
+  .txn-buy { color:#3A7A4E; font-weight:600; }
+  .txn-sell { color:#8B3A1C; font-weight:600; }
+  .txn-pending { color:#8B6914; font-weight:600; }
+
+  @media(max-width:1100px){
+    .lender-kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .lender-grid{grid-template-columns:1fr}
+    .liq-price-row{grid-template-columns:1fr 1fr}
+    .liq-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:700px){
+    .lender-kpi-grid{grid-template-columns:1fr 1fr}
+    .liq-price-row{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -180,6 +305,8 @@
       <div class="nav-tab" onclick="showSec('financials',this)">Financials</div>
       <div class="nav-tab" onclick="showSec('pipeline',this)">M&A Pipeline</div>
       <div class="nav-tab" onclick="showSec('nexus',this)">Nexus AI</div>
+      <div class="nav-tab" onclick="showSec('lender',this)">Lender</div>
+      <div class="nav-tab" onclick="showSec('liquidity',this)">Liquidity</div>
     </div>
     <div class="nav-right"><a href="index.html">← Back to Orbit</a></div>
   </nav>
@@ -414,6 +541,194 @@
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-plan"></div><div class="auto-stlbl">Planned</div></div><div class="auto-title">Seller Outreach Automation</div><div class="auto-body">Automated outreach to scored acquisition targets with personalized messaging.</div><div class="auto-metrics"><div><div class="am-val">Q4 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
     </div></div>
   </div>
+
+  <!-- ══ LENDER ══ -->
+  <div class="section" id="sec-lender">
+    <div class="eyebrow">Credit Facility</div>
+    <h1 class="sec-title">Lender Dashboard</h1>
+    <p class="sec-sub">Senior secured credit facility · Orbit Holdings GP · March 2026 · Placeholder data</p>
+
+    <div class="lender-kpi-grid">
+      <div class="lender-kpi"><div class="lkpi-lbl">Total Committed</div><div class="lkpi-val">$25<span>M</span></div><div class="lkpi-sub">Across all facilities</div></div>
+      <div class="lender-kpi"><div class="lkpi-lbl">Total Drawn</div><div class="lkpi-val">$14.2<span>M</span></div><div class="lkpi-sub ok">57% utilized</div></div>
+      <div class="lender-kpi"><div class="lkpi-lbl">Available Capacity</div><div class="lkpi-val">$10.8<span>M</span></div><div class="lkpi-sub">Undrawn & available</div></div>
+      <div class="lender-kpi"><div class="lkpi-lbl">Blended Interest Rate</div><div class="lkpi-val">8.4<span>%</span></div><div class="lkpi-sub">SOFR + 320bps</div></div>
+    </div>
+
+    <div class="lender-grid">
+      <div class="lender-card">
+        <div class="lender-card-hd"><div class="lender-card-title">Revolving Credit Facility</div><div class="lender-card-tag lct-revolving">Revolving</div></div>
+        <div class="facility-rows">
+          <div class="facility-row"><div class="fr-lbl">Commitment</div><div class="fr-val bronze">$15.0M</div></div>
+          <div class="facility-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$8.5M</div></div>
+          <div class="facility-row"><div class="fr-lbl">Available</div><div class="fr-val green">$6.5M</div></div>
+          <div class="facility-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 300bps (8.2%)</div></div>
+          <div class="facility-row"><div class="fr-lbl">Maturity</div><div class="fr-val">March 2028</div></div>
+          <div class="facility-row"><div class="fr-lbl">Lender</div><div class="fr-val">First National Bank</div></div>
+          <div class="facility-row"><div class="fr-lbl">Security</div><div class="fr-val">First lien on portfolio co. assets</div></div>
+        </div>
+        <div class="util-bar-wrap">
+          <div class="util-bar-labels"><span>Drawn: $8.5M</span><span>Committed: $15.0M (57%)</span></div>
+          <div class="util-bar-track"><div class="util-bar-fill mid" style="width:57%"></div></div>
+        </div>
+      </div>
+      <div class="lender-card">
+        <div class="lender-card-hd"><div class="lender-card-title">Term Loan A</div><div class="lender-card-tag lct-term">Term</div></div>
+        <div class="facility-rows">
+          <div class="facility-row"><div class="fr-lbl">Original Principal</div><div class="fr-val bronze">$10.0M</div></div>
+          <div class="facility-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$5.7M</div></div>
+          <div class="facility-row"><div class="fr-lbl">Amortization</div><div class="fr-val">$350K / quarter</div></div>
+          <div class="facility-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 350bps (8.7%)</div></div>
+          <div class="facility-row"><div class="fr-lbl">Maturity</div><div class="fr-val">June 2029</div></div>
+          <div class="facility-row"><div class="fr-lbl">Lender</div><div class="fr-val">Blue Ridge Capital</div></div>
+          <div class="facility-row"><div class="fr-lbl">PIK Toggle</div><div class="fr-val">Available (unused)</div></div>
+        </div>
+        <div class="util-bar-wrap">
+          <div class="util-bar-labels"><span>Outstanding: $5.7M</span><span>Original: $10.0M (57% remaining)</span></div>
+          <div class="util-bar-track"><div class="util-bar-fill low" style="width:57%"></div></div>
+        </div>
+      </div>
+      <div class="lender-card" style="grid-column:span 2">
+        <div class="lender-card-hd"><div class="lender-card-title">Financial Covenants</div><div class="lender-card-tag lct-revolving">Tested Quarterly</div></div>
+        <div style="padding:20px 24px">
+          <table class="covenant-table">
+            <thead><tr><th>Covenant</th><th>Requirement</th><th>Current</th><th>Headroom</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cov-name">Total Leverage Ratio</div><div style="font-size:11px;color:#8B7355">Net Debt / EBITDA</div></td><td class="cov-req">≤ 4.0×</td><td class="cov-actual pass">2.6×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">1.4× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
+              <tr><td><div class="cov-name">Interest Coverage Ratio</div><div style="font-size:11px;color:#8B7355">EBITDA / Interest Expense</div></td><td class="cov-req">≥ 3.0×</td><td class="cov-actual pass">4.2×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">1.2× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
+              <tr><td><div class="cov-name">Fixed Charge Coverage</div><div style="font-size:11px;color:#8B7355">EBITDA – Capex / Fixed Charges</div></td><td class="cov-req">≥ 1.25×</td><td class="cov-actual pass">1.61×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">0.36× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
+              <tr><td><div class="cov-name">Minimum Liquidity</div><div style="font-size:11px;color:#8B7355">Cash + Revolver Availability</div></td><td class="cov-req">≥ $3.0M</td><td class="cov-actual pass">$8.4M</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">$5.4M cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
+              <tr><td><div class="cov-name">Revenue Growth</div><div style="font-size:11px;color:#8B7355">YoY Portfolio Revenue</div></td><td class="cov-req">≥ 5% YoY</td><td class="cov-actual pass">18% YoY</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">13% cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
+              <tr><td><div class="cov-name">Debt Service Coverage</div><div style="font-size:11px;color:#8B7355">NOI / Debt Service</div></td><td class="cov-req">≥ 1.20×</td><td class="cov-actual warn">1.22×</td><td style="font-size:12px;color:#8B6914;font-weight:600">0.02× cushion</td><td><span class="cov-status cov-warn">⚠ Watch</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LIQUIDITY ══ -->
+  <div class="section" id="sec-liquidity">
+    <div class="eyebrow">Private Markets Exchange</div>
+    <h1 class="sec-title">Investor Liquidity</h1>
+    <p class="sec-sub">Secondary market for Orbit Holdings portfolio company shares · NAV-based pricing · Placeholder data · All transactions subject to transfer restrictions and board approval</p>
+
+    <div class="liq-banner">
+      <div class="liq-banner-icon">ℹ</div>
+      <div class="liq-banner-text"><strong>How it works:</strong> Share prices are derived from each portfolio company's most recent NAV calculation, updated quarterly. Buyers and sellers are matched on this platform. All transfers require Orbit Holdings board approval and are subject to ROFR provisions in each company's shareholder agreement. Settlement T+10 business days.</div>
+    </div>
+
+    <div class="liq-price-row">
+      <div class="liq-price-card featured">
+        <div class="lpc-co">MSP · Active</div>
+        <div class="lpc-name">Apex MSP Group</div>
+        <div class="lpc-price">$48<span>.40 / share</span></div>
+        <div class="lpc-change up">↑ +$2.10 (+4.5%) vs. last quarter</div>
+        <div class="lpc-metrics">
+          <div><div class="lpc-m-lbl">Shares Outstanding</div><div class="lpc-m-val">420,000</div></div>
+          <div><div class="lpc-m-lbl">Implied Market Cap</div><div class="lpc-m-val">$20.3M</div></div>
+          <div><div class="lpc-m-lbl">NAV / Share</div><div class="lpc-m-val">$48.40</div></div>
+          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
+        </div>
+      </div>
+      <div class="liq-price-card featured">
+        <div class="lpc-co">Pool Services · Active</div>
+        <div class="lpc-name">ClearWater Pool Co.</div>
+        <div class="lpc-price">$31<span>.20 / share</span></div>
+        <div class="lpc-change up">↑ +$1.40 (+4.7%) vs. last quarter</div>
+        <div class="lpc-metrics">
+          <div><div class="lpc-m-lbl">Shares Outstanding</div><div class="lpc-m-val">310,000</div></div>
+          <div><div class="lpc-m-lbl">Implied Market Cap</div><div class="lpc-m-val">$9.7M</div></div>
+          <div><div class="lpc-m-lbl">NAV / Share</div><div class="lpc-m-val">$31.20</div></div>
+          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
+        </div>
+      </div>
+      <div class="liq-price-card">
+        <div class="lpc-co">Orbit Holdings GP</div>
+        <div class="lpc-name">GP Unit Price</div>
+        <div class="lpc-price">$112<span>.60 / unit</span></div>
+        <div class="lpc-change up">↑ +$8.20 (+7.9%) vs. last quarter</div>
+        <div class="lpc-metrics">
+          <div><div class="lpc-m-lbl">Units Outstanding</div><div class="lpc-m-val">180,000</div></div>
+          <div><div class="lpc-m-lbl">GP NAV</div><div class="lpc-m-val">$20.3M</div></div>
+          <div><div class="lpc-m-lbl">NAV / Unit</div><div class="lpc-m-val">$112.60</div></div>
+          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="liq-grid">
+      <div class="liq-card">
+        <div class="liq-card-hd"><div class="liq-card-title">Place an Order</div><div class="liq-card-sub">Submit buy or sell interest · Subject to approval</div></div>
+        <div class="liq-card-body">
+          <div class="order-form">
+            <div class="order-tabs">
+              <div class="order-tab sell-active" id="tab-sell" onclick="setOrderType('sell')">Sell Shares</div>
+              <div class="order-tab" id="tab-buy" onclick="setOrderType('buy')">Buy Shares</div>
+            </div>
+            <div class="order-field">
+              <label>Company</label>
+              <select id="ord-co" onchange="updateOrderSummary()">
+                <option value="apex" data-price="48.40">Apex MSP Group — $48.40 / share</option>
+                <option value="cw" data-price="31.20">ClearWater Pool Co. — $31.20 / share</option>
+                <option value="gp" data-price="112.60">Orbit Holdings GP — $112.60 / unit</option>
+              </select>
+            </div>
+            <div class="order-field">
+              <label>Number of Shares</label>
+              <input type="number" id="ord-qty" value="500" min="100" step="100" oninput="updateOrderSummary()"/>
+            </div>
+            <div class="order-field">
+              <label>Order Type</label>
+              <select><option>NAV (Market Price)</option><option>Limit Order</option></select>
+            </div>
+            <div class="order-summary">
+              <div class="os-row"><span>Shares</span><span id="s-qty">500</span></div>
+              <div class="os-row"><span>Price per Share</span><span id="s-price">$48.40</span></div>
+              <div class="os-row"><span>Gross Value</span><span id="s-gross">$24,200</span></div>
+              <div class="os-row"><span>Platform Fee (1%)</span><span id="s-fee">$242</span></div>
+              <div class="os-row"><span>Net Proceeds</span><span id="s-net">$23,958</span></div>
+            </div>
+            <button class="order-btn sell-btn" id="ord-btn" onclick="submitOrder()">Submit Sell Order</button>
+            <div id="ord-confirm" style="display:none;font-size:12px;color:#3A7A4E;font-weight:600;text-align:center;padding:10px;background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);">✓ Order submitted. Pending board approval. You'll be notified within 5 business days.</div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-card">
+        <div class="liq-card-hd"><div class="liq-card-title">Live Order Book</div><div class="liq-card-sub">Apex MSP Group · As of March 2026</div></div>
+        <div class="liq-card-body" style="padding:16px">
+          <table class="order-book">
+            <thead><tr><th style="text-align:left">Type</th><th>Shares</th><th>Price</th><th>Investor</th></tr></thead>
+            <tbody>
+              <tr><td class="ob-ask">Ask</td><td>2,000</td><td class="ob-ask">$49.80</td><td style="font-size:11px;color:#8B7355">Inv. #A-014</td></tr>
+              <tr><td class="ob-ask">Ask</td><td>1,500</td><td class="ob-ask">$49.20</td><td style="font-size:11px;color:#8B7355">Inv. #A-008</td></tr>
+              <tr><td class="ob-ask">Ask</td><td>800</td><td class="ob-ask">$48.90</td><td style="font-size:11px;color:#8B7355">Inv. #A-021</td></tr>
+              <tr class="ob-spread-row"><td colspan="4">— NAV: $48.40 · Spread: $0.60 (1.2%) —</td></tr>
+              <tr><td class="ob-bid">Bid</td><td>1,200</td><td class="ob-bid">$48.30</td><td style="font-size:11px;color:#8B7355">Inv. #A-003</td></tr>
+              <tr><td class="ob-bid">Bid</td><td>2,500</td><td class="ob-bid">$47.90</td><td style="font-size:11px;color:#8B7355">Inv. #A-017</td></tr>
+              <tr><td class="ob-bid">Bid</td><td>900</td><td class="ob-bid">$47.50</td><td style="font-size:11px;color:#8B7355">Inv. #A-006</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="eyebrow" style="margin-bottom:16px">Recent Transactions</div>
+      <table class="liq-history">
+        <thead><tr><th>Date</th><th>Company</th><th>Type</th><th>Shares</th><th>Price</th><th>Gross Value</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Mar 4, 2026</td><td>Apex MSP Group</td><td class="txn-sell">Sell</td><td>1,000</td><td>$48.10</td><td>$48,100</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
+          <tr><td>Feb 22, 2026</td><td>ClearWater Pool Co.</td><td class="txn-buy">Buy</td><td>2,500</td><td>$30.40</td><td>$76,000</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
+          <tr><td>Feb 14, 2026</td><td>Orbit Holdings GP</td><td class="txn-sell">Sell</td><td>400</td><td>$108.20</td><td>$43,280</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
+          <tr><td>Jan 31, 2026</td><td>Apex MSP Group</td><td class="txn-buy">Buy</td><td>3,200</td><td>$46.30</td><td>$148,160</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
+          <tr><td>Jan 18, 2026</td><td>ClearWater Pool Co.</td><td class="txn-sell">Sell</td><td>600</td><td>$29.80</td><td>$17,880</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
+          <tr><td>Jan 8, 2026</td><td>Apex MSP Group</td><td class="txn-pending">Transfer</td><td>1,800</td><td>$46.30</td><td>$83,340</td><td><span class="cov-status cov-warn" style="font-size:10px">⟳ Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -535,6 +850,51 @@ function initCharts(){
               y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU,callback:v=>'$'+v+'K'},position:'left'},
               y2:{grid:{display:false},ticks:{color:G,callback:v=>v+'%'},position:'right'}}}
   });
+// ── ORDER FORM ──
+const prices = { apex: 48.40, cw: 31.20, gp: 112.60 };
+let orderType = 'sell';
+
+function setOrderType(type) {
+  orderType = type;
+  const sellTab = document.getElementById('tab-sell');
+  const buyTab = document.getElementById('tab-buy');
+  const btn = document.getElementById('ord-btn');
+  if (type === 'sell') {
+    sellTab.className = 'order-tab sell-active';
+    buyTab.className = 'order-tab';
+    btn.className = 'order-btn sell-btn';
+    btn.textContent = 'Submit Sell Order';
+  } else {
+    buyTab.className = 'order-tab buy-active';
+    sellTab.className = 'order-tab';
+    btn.className = 'order-btn buy-btn';
+    btn.textContent = 'Submit Buy Order';
+  }
+  updateOrderSummary();
+}
+
+function updateOrderSummary() {
+  const sel = document.getElementById('ord-co');
+  const co = sel.value;
+  const price = prices[co];
+  const qty = parseInt(document.getElementById('ord-qty').value) || 0;
+  const gross = price * qty;
+  const fee = gross * 0.01;
+  const net = gross - fee;
+  document.getElementById('s-qty').textContent = qty.toLocaleString();
+  document.getElementById('s-price').textContent = '$' + price.toFixed(2);
+  document.getElementById('s-gross').textContent = '$' + gross.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+  document.getElementById('s-fee').textContent = '$' + fee.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+  document.getElementById('s-net').textContent = '$' + net.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+}
+
+function submitOrder() {
+  document.getElementById('ord-confirm').style.display = 'block';
+  document.getElementById('ord-btn').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('ord-confirm').style.display = 'none';
+    document.getElementById('ord-btn').style.display = 'block';
+  }, 6000);
 }
 </script>
 </body>
