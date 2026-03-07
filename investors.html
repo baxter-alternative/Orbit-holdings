@@ -273,14 +273,96 @@
   .txn-pending { color:#8B6914; font-weight:600; }
 
   @media(max-width:1100px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .p-grid{grid-template-columns:1fr}
+    .auto-grid{grid-template-columns:repeat(2,1fr)}
     .lender-kpi-grid{grid-template-columns:repeat(2,1fr)}
     .lender-grid{grid-template-columns:1fr}
+    .lender-card[style*="span 2"]{grid-column:span 1}
     .liq-price-row{grid-template-columns:1fr 1fr}
     .liq-grid{grid-template-columns:1fr}
   }
   @media(max-width:700px){
+    /* Nav */
+    .nav{padding:0 16px;flex-wrap:wrap;height:auto;min-height:56px}
+    .nav-logo{padding:14px 0;font-size:18px}
+    .nav-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;width:100%;border-top:1px solid rgba(139,105,20,0.12);padding-bottom:2px}
+    .nav-tab{padding:12px 14px;font-size:10px;white-space:nowrap;flex-shrink:0}
+    .nav-right{display:none}
+
+    /* Gate */
+    .gate-form{width:90%;max-width:340px}
+
+    /* Sections */
+    .section{padding:32px 16px}
+    .sec-title{font-size:clamp(24px,7vw,34px)}
+
+    /* KPI grid */
+    .kpi-grid{grid-template-columns:1fr 1fr}
+    .kpi-val{font-size:24px}
+
+    /* Portfolio */
+    .p-grid{grid-template-columns:1fr}
+    .p-metrics{grid-template-columns:repeat(2,1fr)}
+    .p-card-hd{flex-direction:column;gap:10px;align-items:flex-start}
+
+    /* Run rate */
+    .run-row{flex-direction:column;gap:10px}
+
+    /* Chart cards */
+    .chart-card{padding:18px 14px}
+    .chart-hd{flex-direction:column;gap:8px;align-items:flex-start}
+    .chart-wrap{height:180px}
+
+    /* Fin table — scroll horizontally */
+    .fin-tbl{font-size:11px}
+    .fin-tbl th,.fin-tbl td{padding:8px 8px}
+    .chart-detail{overflow-x:auto}
+
+    /* Co tabs */
+    .co-tabs{width:100%}
+    .co-tab{flex:1;text-align:center;padding:8px 10px}
+
+    /* Pipeline table — scroll */
+    .pipe-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .pipe-tbl{min-width:640px}
+
+    /* Nexus */
+    .nx-nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .nx-tab{white-space:nowrap;flex-shrink:0;padding:8px 14px}
+    .auto-grid{grid-template-columns:1fr}
+    .auto-card{padding:18px 16px}
+
+    /* Lender */
     .lender-kpi-grid{grid-template-columns:1fr 1fr}
+    .lender-grid{grid-template-columns:1fr}
+    .lender-card[style*="span 2"]{grid-column:span 1}
+    .covenant-table{font-size:11px}
+    .covenant-table th,.covenant-table td{padding:8px 8px}
+    .cov-status{padding:3px 6px;font-size:9px}
+    .facility-row{grid-template-columns:120px 1fr;gap:8px;padding:11px 16px}
+    .lender-card-hd{flex-direction:column;gap:8px;align-items:flex-start;padding:14px 16px}
+
+    /* Covenant table — scroll */
+    .covenant-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .covenant-table{min-width:580px}
+
+    /* Liquidity */
     .liq-price-row{grid-template-columns:1fr}
+    .liq-price-card{padding:20px}
+    .lpc-price{font-size:28px}
+    .lpc-metrics{grid-template-columns:1fr 1fr}
+    .liq-grid{grid-template-columns:1fr}
+    .liq-banner{flex-direction:column;gap:8px;padding:16px}
+    .order-book th,.order-book td{padding:8px 8px;font-size:11px}
+
+    /* Transaction history — scroll */
+    .liq-hist-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .liq-history{min-width:580px}
+    .liq-history th,.liq-history td{padding:10px 10px;font-size:11px}
+
+    /* Cap rows in lender */
+    .cap-row{padding:12px 16px}
   }
 </style>
 </head>
@@ -470,6 +552,7 @@
     <div class="eyebrow">M&A Pipeline</div>
     <h1 class="sec-title">Acquisition Pipeline</h1>
     <p class="sec-sub">Active targets under evaluation · Placeholder data · Confidential</p>
+    <div class="pipe-tbl-wrap">
     <table class="pipe-tbl">
       <thead><tr><th>Target</th><th>Stage</th><th>Est. Revenue</th><th>Rev Growth</th><th>EBITDA</th><th>EBITDA %</th><th>Summary</th></tr></thead>
       <tbody>
@@ -591,6 +674,7 @@
       <div class="lender-card" style="grid-column:span 2">
         <div class="lender-card-hd"><div class="lender-card-title">Financial Covenants</div><div class="lender-card-tag lct-revolving">Tested Quarterly</div></div>
         <div style="padding:20px 24px">
+          <div class="covenant-wrap">
           <table class="covenant-table">
             <thead><tr><th>Covenant</th><th>Requirement</th><th>Current</th><th>Headroom</th><th>Status</th></tr></thead>
             <tbody>
@@ -602,12 +686,11 @@
               <tr><td><div class="cov-name">Debt Service Coverage</div><div style="font-size:11px;color:#8B7355">NOI / Debt Service</div></td><td class="cov-req">≥ 1.20×</td><td class="cov-actual warn">1.22×</td><td style="font-size:12px;color:#8B6914;font-weight:600">0.02× cushion</td><td><span class="cov-status cov-warn">⚠ Watch</span></td></tr>
             </tbody>
           </table>
+          </div><!-- /covenant-wrap -->
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ══ LIQUIDITY ══ -->
   <div class="section" id="sec-liquidity">
     <div class="eyebrow">Private Markets Exchange</div>
     <h1 class="sec-title">Investor Liquidity</h1>
@@ -715,6 +798,7 @@
 
     <div style="margin-top:8px">
       <div class="eyebrow" style="margin-bottom:16px">Recent Transactions</div>
+      <div class="liq-hist-wrap">
       <table class="liq-history">
         <thead><tr><th>Date</th><th>Company</th><th>Type</th><th>Shares</th><th>Price</th><th>Gross Value</th><th>Status</th></tr></thead>
         <tbody>
@@ -726,12 +810,9 @@
           <tr><td>Jan 8, 2026</td><td>Apex MSP Group</td><td class="txn-pending">Transfer</td><td>1,800</td><td>$46.30</td><td>$83,340</td><td><span class="cov-status cov-warn" style="font-size:10px">⟳ Pending</span></td></tr>
         </tbody>
       </table>
+      </div><!-- /liq-hist-wrap -->
     </div>
   </div>
-
-</div>
-
-<script>
 const MO=['Oct','Nov','Dec','Jan','Feb','Mar'];
 const G='#8B6914',GR='#3A7A4E',MU='#8B7355',WH='#1C1712',RD='#8B3A1C';
 Chart.defaults.color=MU; Chart.defaults.font.family="'Outfit',sans-serif"; Chart.defaults.font.size=10;
