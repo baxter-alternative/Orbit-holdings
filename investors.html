@@ -2,378 +2,318 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Orbit Holdings — Investor Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root {
-    --black: #F2EDE4; --off-white: #1C1712; --gold: #8B6914; --green-light: #3A7A4E;
-    --red: #8B3A1C; --muted: #6B5C3E; --border: rgba(139,105,20,0.18);
-    --card-bg: #EDE7DC; --section-bg: #EAE4D8;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#F2EDE4; color:#1C1712; font-family:'Outfit',sans-serif; overflow-x:hidden; }
+/* ── RESET ── */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
 
-  #gate { position:fixed; inset:0; z-index:1000; background:#F2EDE4; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:32px; border-top:4px solid #8B6914; }
-  .gate-logo { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:#1C1712; }
-  .gate-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
-  .gate-form { display:flex; flex-direction:column; gap:12px; width:320px; }
-  .gate-input { background:#FFFFFF; border:1px solid rgba(139,105,20,0.25); color:#1C1712; font-family:'Outfit',sans-serif; font-size:14px; padding:14px 18px; outline:none; }
-  .gate-input:focus { border-color:#8B6914; }
-  .gate-btn { background:#8B6914; color:#F2EDE4; border:none; font-family:'Outfit',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:14px; cursor:pointer; }
-  .gate-btn:hover { opacity:0.85; }
-  .gate-error { font-size:11px; color:var(--red); text-align:center; display:none; }
+/* ── TOKENS ── */
+:root{
+  --bg:#F2EDE4; --bg2:#EAE3D8; --bg3:#E0D8CC;
+  --text:#1C1712; --text2:#4A3D28; --muted:#7A6A50;
+  --bronze:#8B6914; --bronze2:#C49A2E;
+  --green:#3A7A4E; --red:#8B3A1C;
+  --border:rgba(139,105,20,0.18); --border2:rgba(139,105,20,0.30);
+}
 
-  #portal { display:none; }
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+.top-bar{height:3px;background:linear-gradient(90deg,var(--bronze),var(--bronze2),var(--bronze));}
 
-  .nav { position:sticky; top:0; z-index:100; background:rgba(242,237,228,0.97); backdrop-filter:blur(12px); border-bottom:1px solid rgba(139,105,20,0.15); padding:0 60px; display:flex; align-items:center; box-shadow:0 1px 12px rgba(139,105,20,0.06); }
-  .nav-logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#1C1712; padding:20px 0; margin-right:48px; letter-spacing:0.01em; }
-  .nav-logo span { color:#8B6914; }
-  .nav-tabs { display:flex; }
-  .nav-tab { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:22px 20px; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; white-space:nowrap; font-weight:500; }
-  .nav-tab:hover { color:#1C1712; }
-  .nav-tab.active { color:#8B6914; border-bottom-color:#8B6914; }
-  .nav-right { margin-left:auto; font-size:11px; }
-  .nav-right a { color:#6B5C3E; text-decoration:none; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; }
-  .nav-right a:hover { color:#8B6914; }
+/* ── GATE ── */
+#gate{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;padding:24px;}
+.gate-logo{font-family:'Playfair Display',serif;font-size:clamp(24px,6vw,32px);font-weight:700;color:var(--text);}
+.gate-logo span{color:var(--bronze);}
+.gate-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-align:center;}
+.gate-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;}
+.gate-input{background:#fff;border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:16px;padding:14px 16px;outline:none;border-radius:0;-webkit-appearance:none;}
+.gate-input:focus{border-color:var(--bronze);}
+.gate-btn{background:var(--bronze);color:var(--bg);border:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:15px;cursor:pointer;touch-action:manipulation;}
+.gate-error{font-size:12px;color:var(--red);text-align:center;display:none;}
 
-  .section { display:none; padding:60px; min-height:calc(100vh - 65px); background:#F2EDE4; }
-  .section.active { display:block; }
-  .eyebrow { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8B6914; margin-bottom:12px; font-weight:600; }
-  .sec-title { font-family:'Playfair Display',serif; font-size:clamp(26px,3vw,42px); font-weight:600; letter-spacing:-0.01em; margin-bottom:8px; color:#1C1712; }
-  .sec-sub { font-size:13px; color:#6B5C3E; margin-bottom:48px; line-height:1.7; font-weight:400; }
+#portal{display:none;}
 
-  /* KPI */
-  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(139,105,20,0.15); border:1px solid rgba(139,105,20,0.15); margin-bottom:52px; }
-  .kpi-card { background:#F2EDE4; padding:28px 24px; transition:background 0.2s; }
-  .kpi-lbl { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#8B7355; margin-bottom:10px; font-weight:600; }
-  .kpi-val { font-family:'Playfair Display',serif; font-size:30px; font-weight:600; letter-spacing:-0.01em; margin-bottom:5px; color:#1C1712; }
-  .kpi-val span { color:#8B6914; }
-  .kpi-d { font-size:11px; }
-  .kpi-d.up { color:#3A7A4E; font-weight:500; }
-  .kpi-d.nt { color:#8B7355; }
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(242,237,228,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-top{display:flex;align-items:center;padding:0 20px;height:56px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);}
+.nav-logo span{color:var(--bronze);}
+.nav-back{margin-left:auto;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+.nav-back:hover{color:var(--bronze);}
+.nav-tabs{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid var(--border);scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:13px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;touch-action:manipulation;}
+.nav-tab.active{color:var(--bronze);border-bottom-color:var(--bronze);}
 
-  /* PORTFOLIO DIVIDERS */
-  .p-divider { display:flex; align-items:center; gap:16px; margin-bottom:18px; margin-top:4px; }
-  .p-div-lbl { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#8B7355; white-space:nowrap; font-weight:600; }
-  .p-div-line { flex:1; height:1px; background:rgba(139,105,20,0.18); }
-  .p-div-badge { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; white-space:nowrap; }
-  .badge-active { color:#3A7A4E; border:1px solid rgba(58,122,78,0.3); background:rgba(58,122,78,0.08); font-weight:600; }
-  .badge-pipe { color:#8B6914; border:1px solid rgba(139,105,20,0.3); background:rgba(139,105,20,0.08); font-weight:600; }
+/* ── SECTION ── */
+.section{display:none;padding:24px 20px;min-height:calc(100vh - 100px);}
+.section.active{display:block;}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,38px);font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.1;}
+.sec-sub{font-size:12px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
 
-  /* PORTFOLIO CARDS */
-  .p-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-bottom:36px; }
-  .p-card { border:1px solid rgba(139,105,20,0.18); padding:26px; transition:all 0.3s; background:#F2EDE4; }
-  .p-card.act { border-color:rgba(58,122,78,0.25); background:#EDE7DC; }
-  .p-card.act:hover { border-color:#3A7A4E; }
-  .p-card.pip { opacity:0.72; }
-  .p-card.pip:hover { border-color:#8B6914; opacity:1; }
-  .p-card-hd { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
-  .p-card-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:#1C1712; }
-  .p-card-vert { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; margin-top:4px; font-weight:500; }
-  .p-badge { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; }
-  .p-badge.act { color:#3A7A4E; border:1px solid rgba(58,122,78,0.3); background:rgba(58,122,78,0.1); font-weight:600; }
-  .p-badge.pip { color:#8B6914; border:1px solid rgba(139,105,20,0.25); background:rgba(139,105,20,0.08); font-weight:600; }
-  .p-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
-  .pm-lbl { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#8B7355; margin-bottom:4px; font-weight:500; }
-  .pm-val { font-family:'Outfit',sans-serif; font-size:18px; font-weight:600; color:#1C1712; }
-  .pm-val.gold { color:#8B6914; }
-  .pm-val.green { color:#3A7A4E; }
+/* ── KPI GRID ── */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px;}
+.kpi-card{background:var(--bg);padding:18px 16px;}
+.kpi-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.kpi-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);line-height:1;}
+.kpi-val span{color:var(--bronze);}
+.kpi-d{font-size:11px;margin-top:4px;}
+.kpi-d.up{color:var(--green);font-weight:500;}
+.kpi-d.nt{color:var(--muted);}
 
-  /* FINANCIALS */
-  .run-row { display:flex; gap:18px; margin-bottom:32px; flex-wrap:wrap; }
-  .rr-card { flex:1; min-width:180px; border:1px solid rgba(139,105,20,0.18); padding:18px 22px; background:#EDE7DC; }
-  .rr-lbl { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; margin-bottom:7px; font-weight:600; }
-  .rr-val { font-family:'Playfair Display',serif; font-size:26px; font-weight:600; color:#8B6914; letter-spacing:-0.01em; }
-  .rr-sub { font-size:11px; color:#8B7355; margin-top:3px; font-weight:400; }
+/* ── PORTFOLIO DIVIDER ── */
+.p-divider{display:flex;align-items:center;gap:12px;margin:28px 0 14px;}
+.p-div-lbl{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.p-div-line{flex:1;height:1px;background:var(--border);}
+.p-div-badge{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;white-space:nowrap;}
+.badge-active{color:var(--green);border:1px solid rgba(58,122,78,0.3);background:rgba(58,122,78,0.08);}
+.badge-pipe{color:var(--bronze);border:1px solid var(--border2);background:rgba(139,105,20,0.07);}
 
-  .chart-card { border:1px solid rgba(139,105,20,0.18); padding:28px; margin-bottom:22px; cursor:pointer; transition:all 0.3s; background:#F2EDE4; }
-  .chart-card:hover { border-color:#8B6914; background:#EDE7DC; }
-  .chart-hd { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; }
-  .chart-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; color:#1C1712; }
-  .chart-sub { font-size:11px; color:#8B7355; margin-top:3px; }
-  .chart-hint { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(139,105,20,0.5); padding-top:3px; font-weight:600; }
-  .chart-wrap { height:210px; position:relative; }
-  .chart-detail { display:none; border-top:1px solid rgba(139,105,20,0.15); margin-top:22px; padding-top:22px; }
-  .chart-detail.open { display:block; }
+/* ── PORTFOLIO CARDS ── */
+.p-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:28px;}
+.p-card{border:1px solid var(--border);padding:20px;background:var(--bg);}
+.p-card.act{border-color:rgba(58,122,78,0.25);background:var(--bg2);}
+.p-card.pip{opacity:0.8;}
+.p-card-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px;}
+.p-card-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);}
+.p-card-vert{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+.p-badge{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;flex-shrink:0;}
+.p-badge.act{color:var(--green);border:1px solid rgba(58,122,78,0.3);background:rgba(58,122,78,0.1);}
+.p-badge.pip{color:var(--bronze);border:1px solid var(--border2);background:rgba(139,105,20,0.08);}
+.p-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.pm-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.pm-val{font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:var(--text);}
+.pm-val.gold{color:var(--bronze);}
+.pm-val.green{color:var(--green);}
 
-  .co-tabs { display:flex; gap:1px; background:rgba(139,105,20,0.18); width:fit-content; margin-bottom:24px; }
-  .co-tab { padding:8px 18px; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; cursor:pointer; background:#F2EDE4; font-weight:500; }
-  .co-tab.active { color:#8B6914; background:#EDE7DC; font-weight:600; }
+/* ── FINANCIALS ── */
+.run-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.rr-card{border:1px solid var(--border);padding:16px;background:var(--bg2);}
+.rr-lbl{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.rr-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--bronze);line-height:1;}
+.rr-sub{font-size:11px;color:var(--muted);margin-top:3px;}
 
-  .fin-tbl { width:100%; border-collapse:collapse; font-size:12px; }
-  .fin-tbl th { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:10px 13px; text-align:right; border-bottom:1px solid rgba(139,105,20,0.18); font-weight:600; }
-  .fin-tbl th:first-child { text-align:left; }
-  .fin-tbl td { padding:11px 13px; text-align:right; border-bottom:1px solid rgba(139,105,20,0.07); color:#1C1712; }
-  .fin-tbl td:first-child { text-align:left; color:#6B5C3E; }
-  .fin-tbl tr:hover td { background:rgba(139,105,20,0.04); }
-  .fin-tbl .sr td { font-family:'Outfit',sans-serif; font-size:11px; font-weight:700; color:#8B6914; background:rgba(139,105,20,0.06); letter-spacing:0.05em; text-transform:uppercase; }
-  .fin-tbl .tr td { font-weight:700; color:#1C1712; border-top:1px solid rgba(139,105,20,0.18); }
-  .pos { color:#3A7A4E; font-weight:500; }
-  .rr { color:#8B6914; font-weight:700; }
+.chart-card{border:1px solid var(--border);padding:20px;margin-bottom:16px;background:var(--bg);cursor:pointer;}
+.chart-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px;}
+.chart-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.chart-hint{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);opacity:0.5;flex-shrink:0;padding-top:3px;}
+.chart-wrap{position:relative;height:200px;width:100%;}
+.chart-detail{display:none;border-top:1px solid var(--border);margin-top:18px;padding-top:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.chart-detail.open{display:block;}
 
-  /* PIPELINE */
-  .pipe-tbl { width:100%; border-collapse:collapse; }
-  .pipe-tbl th { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#8B7355; padding:11px 15px; text-align:left; border-bottom:2px solid #8B6914; background:rgba(139,105,20,0.06); font-weight:700; }
-  .pipe-tbl td { padding:17px 15px; border-bottom:1px solid rgba(139,105,20,0.08); vertical-align:top; font-size:12px; color:#1C1712; }
-  .pipe-tbl tr:hover td { background:rgba(139,105,20,0.04); }
-  .pipe-name { font-family:'Playfair Display',serif; font-size:15px; font-weight:600; margin-bottom:3px; color:#1C1712; }
-  .pipe-vert { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; font-weight:500; }
-  .stg { display:inline-block; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:4px 9px; }
-  .stg-s { background:rgba(139,105,20,0.1); color:#8B6914; border:1px solid rgba(139,105,20,0.25); font-weight:600; }
-  .stg-d { background:rgba(58,122,78,0.1); color:#3A7A4E; border:1px solid rgba(58,122,78,0.25); font-weight:600; }
-  .stg-l { background:rgba(70,100,180,0.08); color:#3A5AA0; border:1px solid rgba(70,100,180,0.25); font-weight:600; }
-  .pipe-big { font-family:'Outfit',sans-serif; font-size:15px; font-weight:600; color:#1C1712; }
-  .pipe-sm { font-size:10px; color:#8B7355; margin-top:2px; }
-  .pipe-sum { font-size:11px; color:#6B5C3E; line-height:1.6; max-width:260px; }
+.co-tabs{display:flex;gap:1px;background:var(--border);margin-bottom:16px;}
+.co-tab{flex:1;text-align:center;padding:9px 12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);cursor:pointer;touch-action:manipulation;}
+.co-tab.active{color:var(--bronze);background:var(--bg2);}
 
-  /* NEXUS */
-  .nx-nav { display:flex; gap:1px; background:rgba(139,105,20,0.18); width:fit-content; margin-bottom:32px; }
-  .nx-tab { padding:9px 18px; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; cursor:pointer; background:#F2EDE4; font-weight:500; }
-  .nx-tab.active { color:#8B6914; background:#EDE7DC; font-weight:700; }
-  .nx-sec { display:none; }
-  .nx-sec.active { display:block; }
-  .auto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(139,105,20,0.15); }
-  .auto-card { background:#F2EDE4; padding:22px; cursor:pointer; transition:background 0.2s; }
-  .auto-card:hover, .auto-card.exp { background:#EDE7DC; }
-  .auto-st { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
-  .auto-dot { width:7px; height:7px; border-radius:50%; }
-  .dot-live { background:#3A7A4E; box-shadow:0 0 5px rgba(58,122,78,0.4); }
-  .dot-build { background:#8B6914; }
-  .dot-plan { background:#B0A090; }
-  .auto-stlbl { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; font-weight:500; }
-  .auto-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:600; margin-bottom:7px; color:#1C1712; }
-  .auto-body { font-size:12px; color:#6B5C3E; line-height:1.65; margin-bottom:12px; }
-  .auto-metrics { display:flex; gap:16px; margin-bottom:10px; }
-  .am-val { font-family:'Outfit',sans-serif; font-size:17px; font-weight:700; color:#8B6914; }
-  .am-lbl { font-size:10px; color:#8B7355; font-weight:500; }
-  .auto-hint { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(139,105,20,0.35); margin-top:6px; transition:color 0.2s; font-weight:600; }
-  .auto-card:hover .auto-hint { color:#8B6914; }
-  .auto-trend { display:none; border-top:1px solid rgba(139,105,20,0.15); padding-top:14px; margin-top:8px; }
-  .auto-trend.open { display:block; }
-  .auto-trend-lbl { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; margin-bottom:10px; font-weight:600; }
-  .auto-trend-wrap { position:relative; width:100%; height:110px; }
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.fin-tbl{border-collapse:collapse;font-size:12px;min-width:540px;width:100%;}
+.fin-tbl th{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:9px 12px;text-align:right;border-bottom:1px solid var(--border);}
+.fin-tbl th:first-child{text-align:left;}
+.fin-tbl td{padding:10px 12px;text-align:right;border-bottom:1px solid rgba(139,105,20,0.06);color:var(--text);}
+.fin-tbl td:first-child{text-align:left;color:var(--muted);}
+.fin-tbl tr:hover td{background:rgba(139,105,20,0.03);}
+.fin-tbl .sr td{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--bronze);background:rgba(139,105,20,0.05);letter-spacing:0.06em;text-transform:uppercase;}
+.fin-tbl .tr td{font-weight:700;color:var(--text);border-top:1px solid var(--border);}
+.pos{color:var(--green);font-weight:500;}
+.rr{color:var(--bronze);font-weight:700;}
 
-  /* ── LENDER ── */
-  .lender-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(139,105,20,0.15); border:1px solid rgba(139,105,20,0.15); margin-bottom:40px; }
-  .lender-kpi { background:#F2EDE4; padding:24px 22px; }
-  .lkpi-lbl { font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#8B7355; margin-bottom:8px; }
-  .lkpi-val { font-family:'Playfair Display',serif; font-size:28px; font-weight:600; color:#1C1712; line-height:1; margin-bottom:4px; }
-  .lkpi-val span { color:#8B6914; }
-  .lkpi-sub { font-size:11px; color:#8B7355; }
-  .lkpi-sub.warn { color:#8B3A1C; font-weight:600; }
-  .lkpi-sub.ok { color:#3A7A4E; font-weight:600; }
+/* ── PIPELINE ── */
+.pipe-cards{display:flex;flex-direction:column;gap:12px;}
+.pipe-card{border:1px solid var(--border);padding:18px;background:var(--bg);}
+.pipe-card-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;}
+.pipe-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.pipe-vert{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+.stg{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 9px;flex-shrink:0;}
+.stg-s{background:rgba(139,105,20,0.1);color:var(--bronze);border:1px solid var(--border2);}
+.stg-d{background:rgba(58,122,78,0.1);color:var(--green);border:1px solid rgba(58,122,78,0.25);}
+.stg-l{background:rgba(58,90,160,0.08);color:#3A5AA0;border:1px solid rgba(58,90,160,0.25);}
+.pipe-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px;}
+.pipe-m-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.pipe-m-val{font-size:15px;font-weight:600;color:var(--text);}
+.pipe-sum{font-size:12px;color:var(--muted);line-height:1.6;padding-top:10px;border-top:1px solid var(--border);}
 
-  .lender-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
-  .lender-card { border:1px solid rgba(139,105,20,0.18); overflow:hidden; }
-  .lender-card-hd { padding:18px 24px; background:#EDE7DC; border-bottom:1px solid rgba(139,105,20,0.15); display:flex; justify-content:space-between; align-items:center; }
-  .lender-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; color:#1C1712; }
-  .lender-card-tag { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:4px 10px; }
-  .lct-revolving { color:#8B6914; border:1px solid rgba(139,105,20,0.3); background:rgba(139,105,20,0.08); }
-  .lct-term { color:#3A7A4E; border:1px solid rgba(58,122,78,0.3); background:rgba(58,122,78,0.08); }
-  .lct-sub { color:#3A5AA0; border:1px solid rgba(58,90,160,0.3); background:rgba(58,90,160,0.08); }
+/* ── NEXUS ── */
+.nx-nav{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:1px;background:var(--border);margin-bottom:24px;scrollbar-width:none;}
+.nx-nav::-webkit-scrollbar{display:none;}
+.nx-tab{flex-shrink:0;padding:9px 16px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);cursor:pointer;touch-action:manipulation;}
+.nx-tab.active{color:var(--bronze);background:var(--bg2);}
+.nx-sec{display:none;}
+.nx-sec.active{display:block;}
+.auto-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.auto-card{border:1px solid var(--border);padding:18px;background:var(--bg);cursor:pointer;touch-action:manipulation;}
+.auto-card.exp{background:var(--bg2);}
+.auto-st{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.auto-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-live{background:var(--green);box-shadow:0 0 5px rgba(58,122,78,0.5);}
+.dot-build{background:var(--bronze);}
+.dot-plan{background:#B0A090;}
+.auto-stlbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.auto-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.auto-body{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.auto-metrics{display:flex;gap:20px;margin-bottom:10px;flex-wrap:wrap;}
+.am-val{font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:var(--bronze);}
+.am-lbl{font-size:10px;color:var(--muted);font-weight:500;}
+.auto-hint{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(139,105,20,0.4);margin-top:6px;}
+.auto-trend{display:none;border-top:1px solid var(--border);padding-top:14px;margin-top:8px;}
+.auto-trend.open{display:block;}
+.auto-trend-lbl{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.auto-trend-wrap{position:relative;height:110px;width:100%;}
 
-  .facility-rows { }
-  .facility-row { display:grid; grid-template-columns:200px 1fr; gap:0; padding:13px 24px; border-bottom:1px solid rgba(139,105,20,0.06); align-items:baseline; }
-  .facility-row:last-child { border-bottom:none; }
-  .facility-row:hover { background:rgba(139,105,20,0.03); }
-  .fr-lbl { font-size:11px; font-weight:600; color:#8B7355; letter-spacing:0.04em; }
-  .fr-val { font-size:13px; font-weight:600; color:#1C1712; }
-  .fr-val.bronze { color:#8B6914; font-family:'Playfair Display',serif; font-size:18px; }
-  .fr-val.green { color:#3A7A4E; }
-  .fr-val.warn { color:#8B3A1C; }
+/* ── LENDER ── */
+.lender-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:24px;}
+.lkpi{background:var(--bg);padding:18px 16px;}
+.lkpi-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.lkpi-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--text);line-height:1;}
+.lkpi-val span{color:var(--bronze);}
+.lkpi-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.lkpi-sub.ok{color:var(--green);font-weight:500;}
 
-  .util-bar-wrap { margin:0 24px 20px; }
-  .util-bar-labels { display:flex; justify-content:space-between; font-size:11px; color:#8B7355; margin-bottom:6px; font-weight:500; }
-  .util-bar-track { height:8px; background:rgba(139,105,20,0.12); border-radius:2px; overflow:hidden; }
-  .util-bar-fill { height:100%; border-radius:2px; transition:width 0.6s ease; }
-  .util-bar-fill.low { background:#3A7A4E; }
-  .util-bar-fill.mid { background:#8B6914; }
-  .util-bar-fill.high { background:#8B3A1C; }
+.facility-card{border:1px solid var(--border);margin-bottom:14px;background:var(--bg);overflow:hidden;}
+.facility-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.facility-hd-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.fac-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;flex-shrink:0;}
+.fac-rev{color:var(--bronze);border:1px solid var(--border2);background:rgba(139,105,20,0.08);}
+.fac-term{color:var(--green);border:1px solid rgba(58,122,78,0.3);background:rgba(58,122,78,0.08);}
+.fac-rows{}
+.fac-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 18px;border-bottom:1px solid rgba(139,105,20,0.06);gap:12px;}
+.fac-row:last-child{border-bottom:none;}
+.fr-lbl{font-size:12px;font-weight:500;color:var(--muted);}
+.fr-val{font-size:13px;font-weight:600;color:var(--text);text-align:right;}
+.fr-val.bronze{color:var(--bronze);font-family:'Playfair Display',serif;font-size:18px;}
+.fr-val.green{color:var(--green);}
+.util-wrap{padding:0 18px 14px;}
+.util-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.util-track{height:7px;background:rgba(139,105,20,0.1);border-radius:2px;overflow:hidden;}
+.util-fill{height:100%;border-radius:2px;}
+.util-mid{background:var(--bronze);}
+.util-low{background:var(--green);}
 
-  .covenant-table { width:100%; border-collapse:collapse; }
-  .covenant-table th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:10px 14px; text-align:left; border-bottom:2px solid #8B6914; background:rgba(139,105,20,0.04); }
-  .covenant-table td { padding:14px 14px; border-bottom:1px solid rgba(139,105,20,0.07); font-size:12px; color:#1C1712; vertical-align:middle; }
-  .covenant-table tr:hover td { background:rgba(139,105,20,0.03); }
-  .cov-name { font-weight:600; color:#1C1712; }
-  .cov-req { color:#6B5C3E; }
-  .cov-actual { font-weight:700; }
-  .cov-actual.pass { color:#3A7A4E; }
-  .cov-actual.warn { color:#8B3A1C; }
-  .cov-status { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:4px 10px; }
-  .cov-pass { color:#3A7A4E; background:rgba(58,122,78,0.1); border:1px solid rgba(58,122,78,0.25); }
-  .cov-warn { color:#8B6914; background:rgba(139,105,20,0.1); border:1px solid rgba(139,105,20,0.25); }
-  .cov-fail { color:#8B3A1C; background:rgba(139,58,28,0.1); border:1px solid rgba(139,58,28,0.25); }
+.cov-card{border:1px solid var(--border);background:var(--bg);overflow:hidden;}
+.cov-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.cov-hd-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.cov-rows{}
+.cov-row{padding:14px 18px;border-bottom:1px solid rgba(139,105,20,0.06);}
+.cov-row:last-child{border-bottom:none;}
+.cov-row-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;}
+.cov-name{font-size:13px;font-weight:600;color:var(--text);}
+.cov-desc{font-size:11px;color:var(--muted);margin-top:2px;}
+.cov-badge{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 9px;flex-shrink:0;}
+.cov-pass{color:var(--green);background:rgba(58,122,78,0.1);border:1px solid rgba(58,122,78,0.25);}
+.cov-warn{color:var(--bronze);background:rgba(139,105,20,0.1);border:1px solid var(--border2);}
+.cov-row-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.cov-m-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.cov-m-val{font-size:13px;font-weight:600;color:var(--text);}
+.cov-m-val.pass{color:var(--green);}
+.cov-m-val.warn{color:var(--bronze);}
+.cov-m-val.head{color:var(--muted);font-size:12px;}
 
-  /* ── LIQUIDITY ── */
-  .liq-banner { padding:20px 28px; background:#EDE7DC; border:1px solid rgba(139,105,20,0.18); border-left:3px solid #8B6914; margin-bottom:36px; display:flex; align-items:center; gap:16px; }
-  .liq-banner-icon { font-size:18px; color:#8B6914; }
-  .liq-banner-text { font-size:13px; color:#6B5C3E; line-height:1.6; }
-  .liq-banner-text strong { color:#1C1712; }
+/* ── LIQUIDITY ── */
+.liq-banner{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--bronze);margin-bottom:24px;}
+.liq-banner-icon{font-size:16px;color:var(--bronze);flex-shrink:0;padding-top:1px;}
+.liq-banner-text{font-size:12px;color:var(--muted);line-height:1.6;}
+.liq-banner-text strong{color:var(--text);}
 
-  .liq-price-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(139,105,20,0.15); border:1px solid rgba(139,105,20,0.15); margin-bottom:36px; }
-  .liq-price-card { background:#F2EDE4; padding:28px 24px; }
-  .liq-price-card.featured { background:#EDE7DC; }
-  .lpc-co { font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#8B6914; margin-bottom:6px; }
-  .lpc-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; color:#1C1712; margin-bottom:16px; }
-  .lpc-price { font-family:'Playfair Display',serif; font-size:38px; font-weight:600; color:#1C1712; line-height:1; margin-bottom:4px; }
-  .lpc-price span { color:#8B6914; font-size:18px; }
-  .lpc-change { font-size:12px; font-weight:600; margin-bottom:20px; }
-  .lpc-change.up { color:#3A7A4E; }
-  .lpc-change.dn { color:#8B3A1C; }
-  .lpc-metrics { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-top:16px; border-top:1px solid rgba(139,105,20,0.15); }
-  .lpc-m-lbl { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#8B7355; margin-bottom:3px; }
-  .lpc-m-val { font-size:14px; font-weight:600; color:#1C1712; }
+.price-cards{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
+.price-card{border:1px solid var(--border);padding:20px;background:var(--bg2);}
+.pc-co{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);margin-bottom:4px;}
+.pc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);margin-bottom:12px;}
+.pc-price{font-family:'Playfair Display',serif;font-size:32px;font-weight:600;color:var(--text);line-height:1;margin-bottom:4px;}
+.pc-price span{font-size:14px;color:var(--muted);}
+.pc-chg{font-size:12px;font-weight:600;margin-bottom:16px;}
+.pc-chg.up{color:var(--green);}
+.pc-chg.dn{color:var(--red);}
+.pc-mets{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:14px;border-top:1px solid var(--border);}
+.pcm-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.pcm-val{font-size:13px;font-weight:600;color:var(--text);}
 
-  .liq-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
-  .liq-card { border:1px solid rgba(139,105,20,0.18); overflow:hidden; }
-  .liq-card-hd { padding:16px 24px; background:#EDE7DC; border-bottom:1px solid rgba(139,105,20,0.15); }
-  .liq-card-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; color:#1C1712; }
-  .liq-card-sub { font-size:11px; color:#8B7355; margin-top:3px; }
-  .liq-card-body { padding:24px; }
+.order-panel{border:1px solid var(--border);background:var(--bg);margin-bottom:14px;}
+.op-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.op-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.op-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.op-body{padding:18px;}
+.order-type-tabs{display:flex;gap:1px;background:var(--border);margin-bottom:16px;}
+.ot-tab{flex:1;text-align:center;padding:10px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;background:var(--bg);touch-action:manipulation;}
+.ot-tab.sell{color:var(--red);}
+.ot-tab.buy{color:var(--green);}
+.ot-tab.active-sell{background:rgba(139,58,28,0.1);color:var(--red);}
+.ot-tab.active-buy{background:rgba(58,122,78,0.1);color:var(--green);}
+.order-field{margin-bottom:14px;}
+.order-field label{display:block;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.order-field select,.order-field input{width:100%;background:#fff;border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;padding:11px 12px;outline:none;border-radius:0;-webkit-appearance:none;}
+.order-field select:focus,.order-field input:focus{border-color:var(--bronze);}
+.order-summary{background:rgba(139,105,20,0.05);border:1px solid var(--border);padding:14px;margin-bottom:14px;}
+.os-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:4px 0;}
+.os-row.total{font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;font-size:13px;}
+.order-btn{width:100%;padding:14px;border:none;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;touch-action:manipulation;}
+.order-btn.sell{background:var(--red);color:var(--bg);}
+.order-btn.buy{background:var(--green);color:var(--bg);}
+.order-confirm{display:none;margin-top:12px;padding:12px;text-align:center;font-size:12px;font-weight:600;color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
 
-  .order-form { display:flex; flex-direction:column; gap:14px; }
-  .order-tabs { display:flex; gap:1px; background:rgba(139,105,20,0.15); width:fit-content; margin-bottom:4px; }
-  .order-tab { padding:8px 20px; font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#8B7355; cursor:pointer; background:#F2EDE4; transition:all 0.2s; }
-  .order-tab.sell-active { color:#8B3A1C; background:#EDE7DC; }
-  .order-tab.buy-active { color:#3A7A4E; background:#EDE7DC; }
-  .order-field { display:flex; flex-direction:column; gap:5px; }
-  .order-field label { font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#8B7355; }
-  .order-field select, .order-field input {
-    background:#fff; border:1px solid rgba(139,105,20,0.25); color:#1C1712;
-    font-family:'Outfit',sans-serif; font-size:14px; font-weight:500;
-    padding:11px 14px; outline:none; transition:border-color 0.2s; width:100%;
-  }
-  .order-field select:focus, .order-field input:focus { border-color:#8B6914; }
-  .order-summary { background:rgba(139,105,20,0.05); border:1px solid rgba(139,105,20,0.15); padding:14px 16px; }
-  .os-row { display:flex; justify-content:space-between; font-size:12px; color:#6B5C3E; margin-bottom:6px; }
-  .os-row:last-child { margin-bottom:0; font-weight:700; color:#1C1712; border-top:1px solid rgba(139,105,20,0.15); padding-top:8px; margin-top:4px; }
-  .order-btn { padding:13px; font-family:'Outfit',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; border:none; transition:opacity 0.2s; }
-  .order-btn.sell-btn { background:#8B3A1C; color:#F2EDE4; }
-  .order-btn.buy-btn { background:#3A7A4E; color:#F2EDE4; }
-  .order-btn:hover { opacity:0.88; }
+.book-card{border:1px solid var(--border);background:var(--bg);margin-bottom:14px;}
+.book-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.book-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);}
+.book-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.book-rows{padding:8px 0;}
+.book-row{display:grid;grid-template-columns:60px 1fr 80px 60px;padding:10px 18px;border-bottom:1px solid rgba(139,105,20,0.05);font-size:12px;align-items:center;gap:8px;}
+.book-row:last-child{border-bottom:none;}
+.book-row.spread{background:rgba(139,105,20,0.04);justify-content:center;display:flex;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);padding:8px 18px;}
+.br-type-bid{color:var(--green);font-weight:700;}
+.br-type-ask{color:var(--red);font-weight:700;}
+.br-price-bid{color:var(--green);font-weight:600;text-align:right;}
+.br-price-ask{color:var(--red);font-weight:600;text-align:right;}
+.br-shares{color:var(--text);font-weight:500;}
+.br-inv{font-size:11px;color:var(--muted);text-align:right;}
 
-  .order-book { width:100%; border-collapse:collapse; }
-  .order-book th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:8px 12px; border-bottom:1px solid rgba(139,105,20,0.18); text-align:right; }
-  .order-book th:first-child { text-align:left; }
-  .order-book td { padding:10px 12px; font-size:12px; border-bottom:1px solid rgba(139,105,20,0.06); text-align:right; }
-  .order-book td:first-child { text-align:left; font-weight:600; color:#1C1712; }
-  .order-book tr:hover td { background:rgba(139,105,20,0.03); }
-  .ob-bid { color:#3A7A4E; font-weight:600; }
-  .ob-ask { color:#8B3A1C; font-weight:600; }
-  .ob-spread-row td { font-size:10px; color:#8B7355; background:rgba(139,105,20,0.04); text-align:center; padding:6px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; }
+.txn-card{border:1px solid var(--border);background:var(--bg);}
+.txn-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.txn-rows{}
+.txn-row{padding:14px 18px;border-bottom:1px solid rgba(139,105,20,0.06);}
+.txn-row:last-child{border-bottom:none;}
+.txn-row-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px;}
+.txn-co{font-size:13px;font-weight:600;color:var(--text);}
+.txn-date{font-size:11px;color:var(--muted);}
+.txn-row-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.txn-meta{font-size:12px;color:var(--muted);}
+.txn-buy{color:var(--green);font-weight:600;}
+.txn-sell{color:var(--red);font-weight:600;}
+.txn-pending{color:var(--bronze);font-weight:600;}
+.txn-badge{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;}
+.txn-settled{color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
+.txn-pend{color:var(--bronze);background:rgba(139,105,20,0.08);border:1px solid var(--border2);}
 
-  .liq-history { width:100%; border-collapse:collapse; }
-  .liq-history th { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8B7355; padding:9px 14px; border-bottom:2px solid #8B6914; background:rgba(139,105,20,0.04); text-align:left; }
-  .liq-history td { padding:13px 14px; border-bottom:1px solid rgba(139,105,20,0.07); font-size:12px; color:#1C1712; }
-  .liq-history tr:hover td { background:rgba(139,105,20,0.03); }
-  .txn-buy { color:#3A7A4E; font-weight:600; }
-  .txn-sell { color:#8B3A1C; font-weight:600; }
-  .txn-pending { color:#8B6914; font-weight:600; }
-
-  @media(max-width:1100px){
-    .kpi-grid{grid-template-columns:repeat(2,1fr)}
-    .p-grid{grid-template-columns:1fr}
-    .auto-grid{grid-template-columns:repeat(2,1fr)}
-    .lender-kpi-grid{grid-template-columns:repeat(2,1fr)}
-    .lender-grid{grid-template-columns:1fr}
-    .lender-card[style*="span 2"]{grid-column:span 1}
-    .liq-price-row{grid-template-columns:1fr 1fr}
-    .liq-grid{grid-template-columns:1fr}
-  }
-  @media(max-width:700px){
-    /* Nav */
-    .nav{padding:0 16px;flex-wrap:wrap;height:auto;min-height:56px}
-    .nav-logo{padding:14px 0;font-size:18px}
-    .nav-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;width:100%;border-top:1px solid rgba(139,105,20,0.12);padding-bottom:2px}
-    .nav-tab{padding:12px 14px;font-size:10px;white-space:nowrap;flex-shrink:0}
-    .nav-right{display:none}
-
-    /* Gate */
-    .gate-form{width:90%;max-width:340px}
-
-    /* Sections */
-    .section{padding:32px 16px}
-    .sec-title{font-size:clamp(24px,7vw,34px)}
-
-    /* KPI grid */
-    .kpi-grid{grid-template-columns:1fr 1fr}
-    .kpi-val{font-size:24px}
-
-    /* Portfolio */
-    .p-grid{grid-template-columns:1fr}
-    .p-metrics{grid-template-columns:repeat(2,1fr)}
-    .p-card-hd{flex-direction:column;gap:10px;align-items:flex-start}
-
-    /* Run rate */
-    .run-row{flex-direction:column;gap:10px}
-
-    /* Chart cards */
-    .chart-card{padding:18px 14px}
-    .chart-hd{flex-direction:column;gap:8px;align-items:flex-start}
-    .chart-wrap{height:180px}
-
-    /* Fin table — scroll horizontally */
-    .fin-tbl{font-size:11px}
-    .fin-tbl th,.fin-tbl td{padding:8px 8px}
-    .chart-detail{overflow-x:auto}
-
-    /* Co tabs */
-    .co-tabs{width:100%}
-    .co-tab{flex:1;text-align:center;padding:8px 10px}
-
-    /* Pipeline table — scroll */
-    .pipe-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .pipe-tbl{min-width:640px}
-
-    /* Nexus */
-    .nx-nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .nx-tab{white-space:nowrap;flex-shrink:0;padding:8px 14px}
-    .auto-grid{grid-template-columns:1fr}
-    .auto-card{padding:18px 16px}
-
-    /* Lender */
-    .lender-kpi-grid{grid-template-columns:1fr 1fr}
-    .lender-grid{grid-template-columns:1fr}
-    .lender-card[style*="span 2"]{grid-column:span 1}
-    .covenant-table{font-size:11px}
-    .covenant-table th,.covenant-table td{padding:8px 8px}
-    .cov-status{padding:3px 6px;font-size:9px}
-    .facility-row{grid-template-columns:120px 1fr;gap:8px;padding:11px 16px}
-    .lender-card-hd{flex-direction:column;gap:8px;align-items:flex-start;padding:14px 16px}
-
-    /* Covenant table — scroll */
-    .covenant-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .covenant-table{min-width:580px}
-
-    /* Liquidity */
-    .liq-price-row{grid-template-columns:1fr}
-    .liq-price-card{padding:20px}
-    .lpc-price{font-size:28px}
-    .lpc-metrics{grid-template-columns:1fr 1fr}
-    .liq-grid{grid-template-columns:1fr}
-    .liq-banner{flex-direction:column;gap:8px;padding:16px}
-    .order-book th,.order-book td{padding:8px 8px;font-size:11px}
-
-    /* Transaction history — scroll */
-    .liq-hist-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .liq-history{min-width:580px}
-    .liq-history th,.liq-history td{padding:10px 10px;font-size:11px}
-
-    /* Cap rows in lender */
-    .cap-row{padding:12px 16px}
-  }
+/* ── DESKTOP UPGRADES ── */
+@media(min-width:640px){
+  .section{padding:40px 40px;}
+  .nav-top{padding:0 40px;}
+  .kpi-grid{grid-template-columns:repeat(4,1fr);}
+  .p-grid{grid-template-columns:repeat(2,1fr);}
+  .run-row{grid-template-columns:repeat(4,1fr);}
+  .price-cards{grid-template-columns:repeat(3,1fr);}
+  .auto-grid{grid-template-columns:repeat(2,1fr);}
+  .lender-kpis{grid-template-columns:repeat(4,1fr);}
+}
+@media(min-width:1024px){
+  .section{padding:52px 60px;}
+  .nav-top{padding:0 60px;}
+  .nav-tab{padding:14px 20px;}
+  .auto-grid{grid-template-columns:repeat(3,1fr);}
+  .kpi-val{font-size:30px;}
+}
 </style>
 </head>
 <body>
-<div style="height:4px;background:linear-gradient(90deg,#8B6914,#C49A2E,#8B6914);width:100%"></div>
+<div class="top-bar"></div>
 
 <div id="gate">
-  <div class="gate-logo">Orbit<span style="color:#8B6914"> Holdings.</span></div>
+  <div class="gate-logo">Orbit<span> Holdings.</span></div>
   <div class="gate-label">Investor Portal — Restricted Access</div>
   <div class="gate-form">
-    <input type="password" class="gate-input" id="pw" placeholder="Enter access code"/>
+    <input type="password" class="gate-input" id="pw" placeholder="Enter access code" autocomplete="current-password"/>
     <button class="gate-btn" onclick="auth()">Access Portal</button>
     <div class="gate-error" id="pw-err">Incorrect access code. Please try again.</div>
   </div>
@@ -381,7 +321,10 @@
 
 <div id="portal">
   <nav class="nav">
-    <div class="nav-logo">Orbit<span> Holdings.</span></div>
+    <div class="nav-top">
+      <div class="nav-logo">Orbit<span> Holdings.</span></div>
+      <a href="index.html" class="nav-back">← Orbit</a>
+    </div>
     <div class="nav-tabs">
       <div class="nav-tab active" onclick="showSec('overview',this)">Overview</div>
       <div class="nav-tab" onclick="showSec('financials',this)">Financials</div>
@@ -390,28 +333,26 @@
       <div class="nav-tab" onclick="showSec('lender',this)">Lender</div>
       <div class="nav-tab" onclick="showSec('liquidity',this)">Liquidity</div>
     </div>
-    <div class="nav-right"><a href="index.html">← Back to Orbit</a></div>
   </nav>
 
-  <!-- OVERVIEW -->
+  <!-- ══ OVERVIEW ══ -->
   <div class="section active" id="sec-overview">
     <div class="eyebrow">Investor Portal</div>
     <h1 class="sec-title">Portfolio Overview</h1>
     <p class="sec-sub">Last updated: March 2026 · All figures USD · Placeholder data</p>
     <div class="kpi-grid">
       <div class="kpi-card"><div class="kpi-lbl">Portfolio ARR</div><div class="kpi-val">$12.4<span>M</span></div><div class="kpi-d up">↑ 18% YoY</div></div>
-      <div class="kpi-card"><div class="kpi-lbl">Blended EBITDA Margin</div><div class="kpi-val">22<span>%</span></div><div class="kpi-d up">↑ 4pts since acquisition</div></div>
+      <div class="kpi-card"><div class="kpi-lbl">EBITDA Margin</div><div class="kpi-val">22<span>%</span></div><div class="kpi-d up">↑ 4pts since acq.</div></div>
       <div class="kpi-card"><div class="kpi-lbl">Portfolio NRR</div><div class="kpi-val">114<span>%</span></div><div class="kpi-d up">↑ Strong expansion</div></div>
       <div class="kpi-card"><div class="kpi-lbl">Active Companies</div><div class="kpi-val">2</div><div class="kpi-d nt">+ 2 in pipeline</div></div>
     </div>
-
     <div class="p-divider"><div class="p-div-lbl">Active Investments</div><div class="p-div-line"></div><div class="p-div-badge badge-active">2 Companies</div></div>
-    <div class="p-grid" style="margin-bottom:36px">
+    <div class="p-grid" style="margin-bottom:28px">
       <div class="p-card act">
         <div class="p-card-hd"><div><div class="p-card-name">Apex MSP Group</div><div class="p-card-vert">Managed Services</div></div><div class="p-badge act">Active</div></div>
         <div class="p-metrics">
           <div><div class="pm-lbl">ARR</div><div class="pm-val gold">$7.2M</div></div>
-          <div><div class="pm-lbl">Rev Growth</div><div class="pm-val green">+22% YoY</div></div>
+          <div><div class="pm-lbl">Rev Growth</div><div class="pm-val green">+22%</div></div>
           <div><div class="pm-lbl">EBITDA</div><div class="pm-val green">$1.73M</div></div>
           <div><div class="pm-lbl">EBITDA %</div><div class="pm-val">24%</div></div>
           <div><div class="pm-lbl">NRR</div><div class="pm-val">118%</div></div>
@@ -422,7 +363,7 @@
         <div class="p-card-hd"><div><div class="p-card-name">ClearWater Pool Co.</div><div class="p-card-vert">Pool Services</div></div><div class="p-badge act">Active</div></div>
         <div class="p-metrics">
           <div><div class="pm-lbl">ARR</div><div class="pm-val gold">$5.2M</div></div>
-          <div><div class="pm-lbl">Rev Growth</div><div class="pm-val green">+14% YoY</div></div>
+          <div><div class="pm-lbl">Rev Growth</div><div class="pm-val green">+14%</div></div>
           <div><div class="pm-lbl">EBITDA</div><div class="pm-val green">$988K</div></div>
           <div><div class="pm-lbl">EBITDA %</div><div class="pm-val">19%</div></div>
           <div><div class="pm-lbl">NRR</div><div class="pm-val">109%</div></div>
@@ -430,7 +371,6 @@
         </div>
       </div>
     </div>
-
     <div class="p-divider"><div class="p-div-lbl">Pipeline</div><div class="p-div-line"></div><div class="p-div-badge badge-pipe">2 Targets</div></div>
     <div class="p-grid">
       <div class="p-card pip">
@@ -454,47 +394,47 @@
     </div>
   </div>
 
-  <!-- FINANCIALS -->
+  <!-- ══ FINANCIALS ══ -->
   <div class="section" id="sec-financials">
     <div class="eyebrow">Monthly Financials</div>
     <h1 class="sec-title">Portfolio Financials</h1>
-    <p class="sec-sub">Consolidated · Click any chart to expand underlying figures · Placeholder data</p>
-
+    <p class="sec-sub">Consolidated · Tap any chart to expand figures · Placeholder data</p>
     <div class="run-row">
-      <div class="rr-card"><div class="rr-lbl">Annualized Revenue (Run Rate)</div><div class="rr-val">$13.4M</div><div class="rr-sub">Based on Mar '26 · ↑ 18% vs. prior year</div></div>
-      <div class="rr-card"><div class="rr-lbl">Annualized EBITDA (Run Rate)</div><div class="rr-val">$4.56M</div><div class="rr-sub">Based on Mar '26 · 34% margin</div></div>
-      <div class="rr-card"><div class="rr-lbl">YTD Revenue</div><div class="rr-val">$3.24M</div><div class="rr-sub">Jan – Mar '26 · 3 months</div></div>
-      <div class="rr-card"><div class="rr-lbl">YTD EBITDA</div><div class="rr-val">$1.05M</div><div class="rr-sub">Jan – Mar '26 · 32% margin</div></div>
+      <div class="rr-card"><div class="rr-lbl">Ann. Revenue</div><div class="rr-val">$13.4M</div><div class="rr-sub">↑ 18% vs. prior year</div></div>
+      <div class="rr-card"><div class="rr-lbl">Ann. EBITDA</div><div class="rr-val">$4.56M</div><div class="rr-sub">34% margin</div></div>
+      <div class="rr-card"><div class="rr-lbl">YTD Revenue</div><div class="rr-val">$3.24M</div><div class="rr-sub">Jan–Mar '26</div></div>
+      <div class="rr-card"><div class="rr-lbl">YTD EBITDA</div><div class="rr-val">$1.05M</div><div class="rr-sub">32% margin</div></div>
     </div>
-
     <div class="chart-card" onclick="toggleDetail('d-rev','h-rev')">
       <div class="chart-hd">
-        <div><div class="chart-title">Monthly Revenue</div><div class="chart-sub">Recurring · Non-Recurring · Total — Oct '25 to Mar '26</div></div>
-        <div class="chart-hint" id="h-rev">Click to expand ↓</div>
+        <div><div class="chart-title">Monthly Revenue</div><div class="chart-sub">Recurring · Non-Recurring · Total</div></div>
+        <div class="chart-hint" id="h-rev">Expand ↓</div>
       </div>
       <div class="chart-wrap"><canvas id="c-rev"></canvas></div>
       <div class="chart-detail" id="d-rev">
+        <div class="tbl-wrap">
         <table class="fin-tbl">
-          <thead><tr><th>Revenue</th><th>Oct '25</th><th>Nov '25</th><th>Dec '25</th><th>Jan '26</th><th>Feb '26</th><th>Mar '26</th><th style="color:var(--gold)">Run Rate</th></tr></thead>
+          <thead><tr><th>Revenue</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Run Rate</th></tr></thead>
           <tbody>
-            <tr><td>Recurring Revenue</td><td>$892K</td><td>$918K</td><td>$944K</td><td>$971K</td><td>$1.01M</td><td>$1.03M</td><td class="rr">$12.4M</td></tr>
+            <tr><td>Recurring</td><td>$892K</td><td>$918K</td><td>$944K</td><td>$971K</td><td>$1.01M</td><td>$1.03M</td><td class="rr">$12.4M</td></tr>
             <tr><td>Non-Recurring</td><td>$84K</td><td>$76K</td><td>$91K</td><td>$68K</td><td>$72K</td><td>$88K</td><td class="rr">$1.1M</td></tr>
-            <tr class="tr"><td>Total Revenue</td><td>$976K</td><td>$994K</td><td>$1.04M</td><td>$1.04M</td><td>$1.08M</td><td>$1.12M</td><td class="rr">$13.4M</td></tr>
+            <tr class="tr"><td>Total</td><td>$976K</td><td>$994K</td><td>$1.04M</td><td>$1.04M</td><td>$1.08M</td><td>$1.12M</td><td class="rr">$13.4M</td></tr>
             <tr><td>MoM Growth</td><td>—</td><td class="pos">+1.8%</td><td class="pos">+4.6%</td><td class="pos">+0.1%</td><td class="pos">+3.8%</td><td class="pos">+3.4%</td><td>—</td></tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
-
     <div class="chart-card" onclick="toggleDetail('d-ebitda','h-ebitda')">
       <div class="chart-hd">
-        <div><div class="chart-title">EBITDA $ and Margin %</div><div class="chart-sub">Absolute EBITDA (bars) · Margin % (line) — Oct '25 to Mar '26</div></div>
-        <div class="chart-hint" id="h-ebitda">Click to expand ↓</div>
+        <div><div class="chart-title">EBITDA $ and Margin %</div><div class="chart-sub">Bars = EBITDA · Line = Margin %</div></div>
+        <div class="chart-hint" id="h-ebitda">Expand ↓</div>
       </div>
       <div class="chart-wrap"><canvas id="c-ebitda"></canvas></div>
       <div class="chart-detail" id="d-ebitda">
+        <div class="tbl-wrap">
         <table class="fin-tbl">
-          <thead><tr><th>EBITDA</th><th>Oct '25</th><th>Nov '25</th><th>Dec '25</th><th>Jan '26</th><th>Feb '26</th><th>Mar '26</th><th style="color:var(--gold)">Run Rate</th></tr></thead>
+          <thead><tr><th>EBITDA</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Run Rate</th></tr></thead>
           <tbody>
             <tr><td>Gross Profit</td><td>$673K</td><td>$685K</td><td>$721K</td><td>$730K</td><td>$762K</td><td>$797K</td><td class="rr">$9.56M</td></tr>
             <tr><td>Gross Margin</td><td class="pos">69%</td><td class="pos">69%</td><td class="pos">69%</td><td class="pos">70%</td><td class="pos">71%</td><td class="pos">71%</td><td>—</td></tr>
@@ -503,22 +443,22 @@
             <tr><td>EBITDA Margin</td><td class="pos">25%</td><td class="pos">26%</td><td class="pos">28%</td><td class="pos">31%</td><td class="pos">32%</td><td class="pos">34%</td><td>—</td></tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
-
-    <div style="margin-top:44px">
-      <div class="eyebrow" style="margin-bottom:14px">By Portfolio Company</div>
+    <div style="margin-top:32px">
+      <div class="eyebrow" style="margin-bottom:12px">By Portfolio Company</div>
       <div class="co-tabs">
         <div class="co-tab active" onclick="showCo('apex',this)">Apex MSP</div>
         <div class="co-tab" onclick="showCo('cw',this)">ClearWater Pool</div>
       </div>
-      <div id="co-apex">
+      <div id="co-apex"><div class="tbl-wrap">
         <table class="fin-tbl">
-          <thead><tr><th>Apex MSP Group</th><th>Oct '25</th><th>Nov '25</th><th>Dec '25</th><th>Jan '26</th><th>Feb '26</th><th>Mar '26</th><th style="color:var(--gold)">Run Rate</th></tr></thead>
+          <thead><tr><th>Apex MSP</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Run Rate</th></tr></thead>
           <tbody>
             <tr class="sr"><td colspan="8">Revenue</td></tr>
-            <tr><td>Recurring Revenue</td><td>$538K</td><td>$554K</td><td>$571K</td><td>$588K</td><td>$606K</td><td>$624K</td><td class="rr">$7.5M</td></tr>
-            <tr><td>Professional Services</td><td>$61K</td><td>$54K</td><td>$68K</td><td>$48K</td><td>$52K</td><td>$64K</td><td class="rr">$768K</td></tr>
+            <tr><td>Recurring</td><td>$538K</td><td>$554K</td><td>$571K</td><td>$588K</td><td>$606K</td><td>$624K</td><td class="rr">$7.5M</td></tr>
+            <tr><td>Prof. Services</td><td>$61K</td><td>$54K</td><td>$68K</td><td>$48K</td><td>$52K</td><td>$64K</td><td class="rr">$768K</td></tr>
             <tr class="tr"><td>Total Revenue</td><td>$599K</td><td>$608K</td><td>$639K</td><td>$636K</td><td>$658K</td><td>$688K</td><td class="rr">$8.3M</td></tr>
             <tr class="sr"><td colspan="8">Profitability</td></tr>
             <tr><td>Gross Profit</td><td class="pos">$421K</td><td class="pos">$430K</td><td class="pos">$454K</td><td class="pos">$458K</td><td class="pos">$478K</td><td class="pos">$503K</td><td class="rr">$6.0M</td></tr>
@@ -527,14 +467,14 @@
             <tr><td>EBITDA Margin</td><td class="pos">26%</td><td class="pos">27%</td><td class="pos">30%</td><td class="pos">33%</td><td class="pos">34%</td><td class="pos">36%</td><td>—</td></tr>
           </tbody>
         </table>
-      </div>
-      <div id="co-cw" style="display:none">
+      </div></div>
+      <div id="co-cw" style="display:none"><div class="tbl-wrap">
         <table class="fin-tbl">
-          <thead><tr><th>ClearWater Pool Co.</th><th>Oct '25</th><th>Nov '25</th><th>Dec '25</th><th>Jan '26</th><th>Feb '26</th><th>Mar '26</th><th style="color:var(--gold)">Run Rate</th></tr></thead>
+          <thead><tr><th>ClearWater Pool</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Run Rate</th></tr></thead>
           <tbody>
             <tr class="sr"><td colspan="8">Revenue</td></tr>
-            <tr><td>Recurring Revenue</td><td>$354K</td><td>$364K</td><td>$373K</td><td>$383K</td><td>$404K</td><td>$406K</td><td class="rr">$4.9M</td></tr>
-            <tr><td>Professional Services</td><td>$23K</td><td>$22K</td><td>$23K</td><td>$20K</td><td>$20K</td><td>$24K</td><td class="rr">$288K</td></tr>
+            <tr><td>Recurring</td><td>$354K</td><td>$364K</td><td>$373K</td><td>$383K</td><td>$404K</td><td>$406K</td><td class="rr">$4.9M</td></tr>
+            <tr><td>Prof. Services</td><td>$23K</td><td>$22K</td><td>$23K</td><td>$20K</td><td>$20K</td><td>$24K</td><td class="rr">$288K</td></tr>
             <tr class="tr"><td>Total Revenue</td><td>$377K</td><td>$386K</td><td>$396K</td><td>$403K</td><td>$424K</td><td>$430K</td><td class="rr">$5.2M</td></tr>
             <tr class="sr"><td colspan="8">Profitability</td></tr>
             <tr><td>Gross Profit</td><td class="pos">$252K</td><td class="pos">$255K</td><td class="pos">$267K</td><td class="pos">$272K</td><td class="pos">$284K</td><td class="pos">$294K</td><td class="rr">$3.5M</td></tr>
@@ -543,34 +483,84 @@
             <tr><td>EBITDA Margin</td><td class="pos">23%</td><td class="pos">24%</td><td class="pos">25%</td><td class="pos">29%</td><td class="pos">29%</td><td class="pos">31%</td><td>—</td></tr>
           </tbody>
         </table>
-      </div>
+      </div></div>
     </div>
   </div>
 
-  <!-- PIPELINE -->
+  <!-- ══ PIPELINE ══ -->
   <div class="section" id="sec-pipeline">
     <div class="eyebrow">M&A Pipeline</div>
     <h1 class="sec-title">Acquisition Pipeline</h1>
     <p class="sec-sub">Active targets under evaluation · Placeholder data · Confidential</p>
-    <div class="pipe-tbl-wrap">
-    <table class="pipe-tbl">
-      <thead><tr><th>Target</th><th>Stage</th><th>Est. Revenue</th><th>Rev Growth</th><th>EBITDA</th><th>EBITDA %</th><th>Summary</th></tr></thead>
-      <tbody>
-        <tr><td><div class="pipe-name">Target Co. IV</div><div class="pipe-vert">Elevator Maintenance</div></td><td><span class="stg stg-l">LOI</span></td><td><div class="pipe-big">~$3.5M</div></td><td><div class="pipe-big">~6%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$735K</div></td><td><div class="pipe-big">~21%</div></td><td class="pipe-sum">Regional independent across 3 metro markets. Regulated inspection revenue. Strong margins, severe tech debt. Nexus integration scoped.</td></tr>
-        <tr><td><div class="pipe-name">Target Co. III</div><div class="pipe-vert">Waste Management</div></td><td><span class="stg stg-d">Diligence</span></td><td><div class="pipe-big">~$4.0M</div></td><td><div class="pipe-big">~5%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$680K</div></td><td><div class="pipe-big">~17%</div></td><td class="pipe-sum">Specialty waste (grease & medical). Recurring compliance contracts. Underdeveloped AR. Strong route density in target market.</td></tr>
-        <tr><td><div class="pipe-name">Target Co. V</div><div class="pipe-vert">Commercial HVAC</div></td><td><span class="stg stg-d">Diligence</span></td><td><div class="pipe-big">~$6.1M</div></td><td><div class="pipe-big">~7%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$1.16M</div></td><td><div class="pipe-big">~19%</div></td><td class="pipe-sum">B2B service contracts with commercial property managers. High switching costs. Manual billing ripe for Nexus automation.</td></tr>
-        <tr><td><div class="pipe-name">Target Co. VI</div><div class="pipe-vert">Pest Control</div></td><td><span class="stg stg-s">Sourcing</span></td><td><div class="pipe-big">~$2.8M</div></td><td><div class="pipe-big">~5%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$560K</div></td><td><div class="pipe-big">~20%</div></td><td class="pipe-sum">Regional operator, predominantly commercial accounts. Highly recurring. No technology layer. Strong fit with Nexus stack.</td></tr>
-        <tr><td><div class="pipe-name">Target Co. VII</div><div class="pipe-vert">Landscaping</div></td><td><span class="stg stg-s">Sourcing</span></td><td><div class="pipe-big">~$5.2M</div></td><td><div class="pipe-big">~4%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$832K</div></td><td><div class="pipe-big">~16%</div></td><td class="pipe-sum">Commercial-focused. Annual maintenance contracts. Route optimization and AR automation drive immediate margin improvement.</td></tr>
-        <tr><td><div class="pipe-name">Target Co. VIII</div><div class="pipe-vert">Fire & Life Safety</div></td><td><span class="stg stg-s">Sourcing</span></td><td><div class="pipe-big">~$4.4M</div></td><td><div class="pipe-big">~6%</div><div class="pipe-sm">YoY</div></td><td><div class="pipe-big">~$1.06M</div></td><td><div class="pipe-big">~24%</div></td><td class="pipe-sum">Monitoring contracts with near-zero churn. Inspection compliance revenue. Exceptional margins. Early conversations underway.</td></tr>
-      </tbody>
-    </table>
+    <div class="pipe-cards">
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. IV</div><div class="pipe-vert">Elevator Maintenance</div></div><span class="stg stg-l">LOI</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$3.5M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~6% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$735K</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~21%</div></div>
+        </div>
+        <div class="pipe-sum">Regional independent across 3 metro markets. Regulated inspection revenue. Strong margins, severe tech debt. Nexus integration scoped.</div>
+      </div>
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. III</div><div class="pipe-vert">Waste Management</div></div><span class="stg stg-d">Diligence</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$4.0M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~5% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$680K</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~17%</div></div>
+        </div>
+        <div class="pipe-sum">Specialty waste (grease & medical). Recurring compliance contracts. Underdeveloped AR. Strong route density in target market.</div>
+      </div>
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. V</div><div class="pipe-vert">Commercial HVAC</div></div><span class="stg stg-d">Diligence</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$6.1M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~7% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$1.16M</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~19%</div></div>
+        </div>
+        <div class="pipe-sum">B2B service contracts with commercial property managers. High switching costs. Manual billing ripe for Nexus automation.</div>
+      </div>
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. VI</div><div class="pipe-vert">Pest Control</div></div><span class="stg stg-s">Sourcing</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$2.8M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~5% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$560K</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~20%</div></div>
+        </div>
+        <div class="pipe-sum">Regional operator, predominantly commercial accounts. Highly recurring. No technology layer. Strong fit with Nexus stack.</div>
+      </div>
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. VII</div><div class="pipe-vert">Landscaping</div></div><span class="stg stg-s">Sourcing</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$5.2M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~4% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$832K</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~16%</div></div>
+        </div>
+        <div class="pipe-sum">Commercial-focused. Annual maintenance contracts. Route optimization and AR automation drive immediate margin improvement.</div>
+      </div>
+      <div class="pipe-card">
+        <div class="pipe-card-hd"><div><div class="pipe-name">Target Co. VIII</div><div class="pipe-vert">Fire & Life Safety</div></div><span class="stg stg-s">Sourcing</span></div>
+        <div class="pipe-metrics">
+          <div><div class="pipe-m-lbl">Est. Revenue</div><div class="pipe-m-val">~$4.4M</div></div>
+          <div><div class="pipe-m-lbl">Rev Growth</div><div class="pipe-m-val">~6% YoY</div></div>
+          <div><div class="pipe-m-lbl">EBITDA</div><div class="pipe-m-val">~$1.06M</div></div>
+          <div><div class="pipe-m-lbl">EBITDA %</div><div class="pipe-m-val">~24%</div></div>
+        </div>
+        <div class="pipe-sum">Monitoring contracts with near-zero churn. Inspection compliance revenue. Exceptional margins. Early conversations underway.</div>
+      </div>
+    </div>
   </div>
 
-  <!-- NEXUS AI -->
+  <!-- ══ NEXUS AI ══ -->
   <div class="section" id="sec-nexus">
     <div class="eyebrow">Technology & Automation</div>
     <h1 class="sec-title">Nexus AI — Live Stack</h1>
-    <p class="sec-sub">Click any live automation to see performance trends · Placeholder data</p>
+    <p class="sec-sub">Tap any live automation to see performance trends · Placeholder data</p>
     <div class="nx-nav">
       <div class="nx-tab active" onclick="showNx('sales',this)">Sales</div>
       <div class="nx-tab" onclick="showNx('cx',this)">CX</div>
@@ -580,45 +570,45 @@
     </div>
 
     <div class="nx-sec active" id="nx-sales"><div class="auto-grid">
-      <div class="auto-card" onclick="toggleTrend(this,'tr-bdr')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI BDR Outbound Sequencing</div><div class="auto-body">Automated outbound with AI-personalized sequences and intent signal integration.</div><div class="auto-metrics"><div><div class="am-val">3.2×</div><div class="am-lbl">Reply rate lift</div></div><div><div class="am-val">$420K</div><div class="am-lbl">Pipeline generated</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-bdr"><div class="auto-trend-lbl">Pipeline Generated — Monthly ($K)</div><div class="auto-trend-wrap"><canvas id="ch-bdr"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-calls')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Call Recording & Rep Coaching</div><div class="auto-body">Every sales call transcribed, scored, and surfaced with coaching recommendations.</div><div class="auto-metrics"><div><div class="am-val">28%</div><div class="am-lbl">Close rate lift</div></div><div><div class="am-val">100%</div><div class="am-lbl">Call coverage</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-calls"><div class="auto-trend-lbl">Close Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-calls"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-churn')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Churn Prediction Engine</div><div class="auto-body">ML model flags at-risk accounts 60 days before churn using payment and usage signals.</div><div class="auto-metrics"><div><div class="am-val">68%</div><div class="am-lbl">Churn predicted</div></div><div><div class="am-val">$184K</div><div class="am-lbl">ARR saved YTD</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-churn"><div class="auto-trend-lbl">ARR Saved from Churn — Monthly ($K)</div><div class="auto-trend-wrap"><canvas id="ch-churn"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-crm')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">CRM Hygiene & Enrichment</div><div class="auto-body">Automated contact enrichment, duplicate detection, and CRM hygiene across HubSpot.</div><div class="auto-metrics"><div><div class="am-val">94%</div><div class="am-lbl">Data accuracy</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-crm"><div class="auto-trend-lbl">CRM Data Accuracy — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-crm"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-bdr')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI BDR Outbound Sequencing</div><div class="auto-body">Automated outbound with AI-personalized sequences and intent signal integration.</div><div class="auto-metrics"><div><div class="am-val">3.2×</div><div class="am-lbl">Reply rate lift</div></div><div><div class="am-val">$420K</div><div class="am-lbl">Pipeline generated</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-bdr"><div class="auto-trend-lbl">Pipeline Generated — Monthly ($K)</div><div class="auto-trend-wrap"><canvas id="ch-bdr"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-calls')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Call Recording & Rep Coaching</div><div class="auto-body">Every sales call transcribed, scored, and surfaced with coaching recommendations.</div><div class="auto-metrics"><div><div class="am-val">28%</div><div class="am-lbl">Close rate lift</div></div><div><div class="am-val">100%</div><div class="am-lbl">Call coverage</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-calls"><div class="auto-trend-lbl">Close Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-calls"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-churn')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Churn Prediction Engine</div><div class="auto-body">ML model flags at-risk accounts 60 days before churn using payment and usage signals.</div><div class="auto-metrics"><div><div class="am-val">68%</div><div class="am-lbl">Churn predicted</div></div><div><div class="am-val">$184K</div><div class="am-lbl">ARR saved YTD</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-churn"><div class="auto-trend-lbl">ARR Saved from Churn — Monthly ($K)</div><div class="auto-trend-wrap"><canvas id="ch-churn"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-crm')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">CRM Hygiene & Enrichment</div><div class="auto-body">Automated contact enrichment, duplicate detection, and CRM hygiene across HubSpot.</div><div class="auto-metrics"><div><div class="am-val">94%</div><div class="am-lbl">Data accuracy</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-crm"><div class="auto-trend-lbl">CRM Data Accuracy — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-crm"></canvas></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Pricing Optimization Engine</div><div class="auto-body">Dynamic pricing model using payment willingness signals and competitive benchmarks.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-plan"></div><div class="auto-stlbl">Planned</div></div><div class="auto-title">Territory Mapping & Segmentation</div><div class="auto-body">AI-powered territory design using payment density maps and customer clustering.</div><div class="auto-metrics"><div><div class="am-val">Q3 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
     </div></div>
 
     <div class="nx-sec" id="nx-cx"><div class="auto-grid">
-      <div class="auto-card" onclick="toggleTrend(this,'tr-t1')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Autonomous Tier-1 Support</div><div class="auto-body">AI agent resolves billing questions and support requests without human involvement.</div><div class="auto-metrics"><div><div class="am-val">61%</div><div class="am-lbl">Auto-resolution</div></div><div><div class="am-val">4.7★</div><div class="am-lbl">CSAT</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-t1"><div class="auto-trend-lbl">Auto-Resolution Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-t1"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-health')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Customer Health Scoring</div><div class="auto-body">Real-time health scores surfaced in a live dashboard for CSMs across the portfolio.</div><div class="auto-metrics"><div><div class="am-val">100%</div><div class="am-lbl">Account coverage</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-health"><div class="auto-trend-lbl">Avg Health Score — Monthly (0–100)</div><div class="auto-trend-wrap"><canvas id="ch-health"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-onboard')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Onboarding Workflow Automation</div><div class="auto-body">Reduces time-to-value from 3 weeks to 4 days via end-to-end orchestration.</div><div class="auto-metrics"><div><div class="am-val">4 days</div><div class="am-lbl">Time to value</div></div><div><div class="am-val">↓78%</div><div class="am-lbl">vs. manual</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-onboard"><div class="auto-trend-lbl">Avg Onboarding Days — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-onboard"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-retain')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Retention Playbook Automation</div><div class="auto-body">Triggered workflows for at-risk accounts based on health score thresholds.</div><div class="auto-metrics"><div><div class="am-val">43%</div><div class="am-lbl">Save rate on at-risk</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-retain"><div class="auto-trend-lbl">At-Risk Save Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-retain"></canvas></div></div></div>
-      <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Multilingual Support Automation</div><div class="auto-body">Real-time translation layer for Spanish, French (CA), and Portuguese.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-t1')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Autonomous Tier-1 Support</div><div class="auto-body">AI agent resolves billing questions and support requests without human involvement.</div><div class="auto-metrics"><div><div class="am-val">61%</div><div class="am-lbl">Auto-resolution</div></div><div><div class="am-val">4.7★</div><div class="am-lbl">CSAT</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-t1"><div class="auto-trend-lbl">Auto-Resolution Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-t1"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-health')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Customer Health Scoring</div><div class="auto-body">Real-time health scores surfaced in a live dashboard for CSMs across the portfolio.</div><div class="auto-metrics"><div><div class="am-val">100%</div><div class="am-lbl">Account coverage</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-health"><div class="auto-trend-lbl">Avg Health Score — Monthly (0–100)</div><div class="auto-trend-wrap"><canvas id="ch-health"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-onboard')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Onboarding Workflow Automation</div><div class="auto-body">Reduces time-to-value from 3 weeks to 4 days via end-to-end orchestration.</div><div class="auto-metrics"><div><div class="am-val">4 days</div><div class="am-lbl">Time to value</div></div><div><div class="am-val">↓78%</div><div class="am-lbl">vs. manual</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-onboard"><div class="auto-trend-lbl">Avg Onboarding Days — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-onboard"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-retain')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Retention Playbook Automation</div><div class="auto-body">Triggered workflows for at-risk accounts based on health score thresholds.</div><div class="auto-metrics"><div><div class="am-val">43%</div><div class="am-lbl">Save rate</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-retain"><div class="auto-trend-lbl">At-Risk Save Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-retain"></canvas></div></div></div>
+      <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Multilingual Support Automation</div><div class="auto-body">Real-time translation for Spanish, French (CA), and Portuguese.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-plan"></div><div class="auto-stlbl">Planned</div></div><div class="auto-title">Community / User Group Mgmt</div><div class="auto-body">AI-moderated customer community with peer-to-peer knowledge sharing.</div><div class="auto-metrics"><div><div class="am-val">Q4 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
     </div></div>
 
     <div class="nx-sec" id="nx-fin"><div class="auto-grid">
-      <div class="auto-card" onclick="toggleTrend(this,'tr-ar')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AR Automation & Collections</div><div class="auto-body">Intelligent AR with automated dunning, retry logic, and smart escalation via AP rails.</div><div class="auto-metrics"><div><div class="am-val">↓62%</div><div class="am-lbl">DSO reduction</div></div><div><div class="am-val">98.4%</div><div class="am-lbl">Collection rate</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-ar"><div class="auto-trend-lbl">Days Sales Outstanding — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-ar"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-tpv')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Payment Processing (AP Rails)</div><div class="auto-body">Card, ACH, and surcharge processing via Alternative Payments across all portfolio companies.</div><div class="auto-metrics"><div><div class="am-val">$12.4M</div><div class="am-lbl">Annual TPV</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-tpv"><div class="auto-trend-lbl">Monthly TPV ($K)</div><div class="auto-trend-wrap"><canvas id="ch-tpv"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-close')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Financial Close Automation</div><div class="auto-body">Close time reduced from 12 to 3 days with automated reconciliation and variance flagging.</div><div class="auto-metrics"><div><div class="am-val">3 days</div><div class="am-lbl">Close time</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-close"><div class="auto-trend-lbl">Days to Close — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-close"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-fraud')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Risk Scoring & Fraud Monitoring</div><div class="auto-body">Real-time transaction risk scoring trained on portfolio-wide payment data.</div><div class="auto-metrics"><div><div class="am-val">0.04%</div><div class="am-lbl">Fraud rate</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-fraud"><div class="auto-trend-lbl">Fraud Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-fraud"></canvas></div></div></div>
-      <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Cash Flow Forecasting</div><div class="auto-body">ML-based 13-week rolling forecast per entity using payment pattern data.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-ar')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AR Automation & Collections</div><div class="auto-body">Intelligent AR with automated dunning, retry logic, and smart escalation.</div><div class="auto-metrics"><div><div class="am-val">↓62%</div><div class="am-lbl">DSO reduction</div></div><div><div class="am-val">98.4%</div><div class="am-lbl">Collection rate</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-ar"><div class="auto-trend-lbl">Days Sales Outstanding — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-ar"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-tpv')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Payment Processing</div><div class="auto-body">Card, ACH, and surcharge processing across all portfolio companies.</div><div class="auto-metrics"><div><div class="am-val">$12.4M</div><div class="am-lbl">Annual TPV</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-tpv"><div class="auto-trend-lbl">Monthly TPV ($K)</div><div class="auto-trend-wrap"><canvas id="ch-tpv"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-close')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Financial Close Automation</div><div class="auto-body">Close time reduced from 12 to 3 days with automated reconciliation.</div><div class="auto-metrics"><div><div class="am-val">3 days</div><div class="am-lbl">Close time</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-close"><div class="auto-trend-lbl">Days to Close — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-close"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-fraud')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Risk Scoring & Fraud Monitoring</div><div class="auto-body">Real-time transaction risk scoring trained on portfolio-wide payment data.</div><div class="auto-metrics"><div><div class="am-val">0.04%</div><div class="am-lbl">Fraud rate</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-fraud"><div class="auto-trend-lbl">Fraud Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-fraud"></canvas></div></div></div>
+      <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Cash Flow Forecasting</div><div class="auto-body">ML-based 13-week rolling forecast per entity.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Multi-Entity Consolidation</div><div class="auto-body">Automated consolidated reporting across all portfolio companies in real time.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
     </div></div>
 
     <div class="nx-sec" id="nx-ops"><div class="auto-grid">
-      <div class="auto-card" onclick="toggleTrend(this,'tr-clm')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Contract Lifecycle Management</div><div class="auto-body">Zero manual touchpoints for standard contracts. Automated renewal triggers.</div><div class="auto-metrics"><div><div class="am-val">94%</div><div class="am-lbl">Auto-renewal rate</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-clm"><div class="auto-trend-lbl">Auto-Renewal Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-clm"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-disp')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Scheduling & Dispatch Optimization</div><div class="auto-body">AI-optimized routing reduces drive time and improves technician utilization.</div><div class="auto-metrics"><div><div class="am-val">↓31%</div><div class="am-lbl">Drive time</div></div><div><div class="am-val">↑19%</div><div class="am-lbl">Jobs/day</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-disp"><div class="auto-trend-lbl">Jobs Per Technician Per Day — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-disp"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-sop')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI-Generated SOPs</div><div class="auto-body">SOPs auto-generated and maintained using AI. Version-controlled and searchable.</div><div class="auto-metrics"><div><div class="am-val">140+</div><div class="am-lbl">SOPs generated</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-sop"><div class="auto-trend-lbl">Cumulative SOPs Generated</div><div class="auto-trend-wrap"><canvas id="ch-sop"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-kpi')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">KPI Dashboards & BI</div><div class="auto-body">Real-time BI layer with standardized KPIs and automated data ingestion.</div><div class="auto-metrics"><div><div class="am-val">Real-time</div><div class="am-lbl">Data freshness</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-kpi"><div class="auto-trend-lbl">Active KPI Dashboards — Cumulative</div><div class="auto-trend-wrap"><canvas id="ch-kpi"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-clm')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Contract Lifecycle Management</div><div class="auto-body">Zero manual touchpoints for standard contracts. Automated renewal triggers.</div><div class="auto-metrics"><div><div class="am-val">94%</div><div class="am-lbl">Auto-renewal rate</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-clm"><div class="auto-trend-lbl">Auto-Renewal Rate — Monthly (%)</div><div class="auto-trend-wrap"><canvas id="ch-clm"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-disp')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Scheduling & Dispatch Optimization</div><div class="auto-body">AI-optimized routing reduces drive time and improves technician utilization.</div><div class="auto-metrics"><div><div class="am-val">↓31%</div><div class="am-lbl">Drive time</div></div><div><div class="am-val">↑19%</div><div class="am-lbl">Jobs/day</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-disp"><div class="auto-trend-lbl">Jobs Per Technician Per Day</div><div class="auto-trend-wrap"><canvas id="ch-disp"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-sop')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI-Generated SOPs</div><div class="auto-body">SOPs auto-generated and maintained using AI. Version-controlled and searchable.</div><div class="auto-metrics"><div><div class="am-val">140+</div><div class="am-lbl">SOPs generated</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-sop"><div class="auto-trend-lbl">Cumulative SOPs Generated</div><div class="auto-trend-wrap"><canvas id="ch-sop"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-kpi')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">KPI Dashboards & BI</div><div class="auto-body">Real-time BI layer with standardized KPIs and automated data ingestion.</div><div class="auto-metrics"><div><div class="am-val">Real-time</div><div class="am-lbl">Data freshness</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-kpi"><div class="auto-trend-lbl">Active KPI Dashboards — Cumulative</div><div class="auto-trend-wrap"><canvas id="ch-kpi"></canvas></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Compliance & License Tracking</div><div class="auto-body">Automated tracking of licenses, certifications, and regulatory requirements.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-plan"></div><div class="auto-stlbl">Planned</div></div><div class="auto-title">Automated ERP Implementation</div><div class="auto-body">Productized ERP onboarding playbook. Target: 30-day deployment per acquisition.</div><div class="auto-metrics"><div><div class="am-val">30 days</div><div class="am-lbl">Target deploy</div></div></div></div>
     </div></div>
 
     <div class="nx-sec" id="nx-ma"><div class="auto-grid">
-      <div class="auto-card" onclick="toggleTrend(this,'tr-src')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI Deal Sourcing</div><div class="auto-body">Automated target identification using payment data signals and vertical firmographic filters.</div><div class="auto-metrics"><div><div class="am-val">200+</div><div class="am-lbl">Targets scored/mo</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-src"><div class="auto-trend-lbl">Targets Scored — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-src"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-dd')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Diligence Automation</div><div class="auto-body">AI normalizes seller financials, flags anomalies, and benchmarks against portfolio.</div><div class="auto-metrics"><div><div class="am-val">↓60%</div><div class="am-lbl">Diligence time</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-dd"><div class="auto-trend-lbl">Avg Diligence Days — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-dd"></canvas></div></div></div>
-      <div class="auto-card" onclick="toggleTrend(this,'tr-bench')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Portfolio Benchmarking</div><div class="auto-body">Benchmarks targets against existing portfolio on 20+ operational and financial metrics.</div><div class="auto-metrics"><div><div class="am-val">20+</div><div class="am-lbl">Benchmark metrics</div></div></div><div class="auto-hint">↓ View trend</div><div class="auto-trend" id="tr-bench"><div class="auto-trend-lbl">Benchmark Metrics Tracked — Cumulative</div><div class="auto-trend-wrap"><canvas id="ch-bench"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-src')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">AI Deal Sourcing</div><div class="auto-body">Automated target identification using payment data signals and vertical firmographic filters.</div><div class="auto-metrics"><div><div class="am-val">200+</div><div class="am-lbl">Targets scored/mo</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-src"><div class="auto-trend-lbl">Targets Scored — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-src"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-dd')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Diligence Automation</div><div class="auto-body">AI normalizes seller financials, flags anomalies, and benchmarks against portfolio.</div><div class="auto-metrics"><div><div class="am-val">↓60%</div><div class="am-lbl">Diligence time</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-dd"><div class="auto-trend-lbl">Avg Diligence Days — Monthly</div><div class="auto-trend-wrap"><canvas id="ch-dd"></canvas></div></div></div>
+      <div class="auto-card" onclick="toggleTrend(this,'tr-bench')"><div class="auto-st"><div class="auto-dot dot-live"></div><div class="auto-stlbl">Live</div></div><div class="auto-title">Portfolio Benchmarking</div><div class="auto-body">Benchmarks targets against existing portfolio on 20+ operational and financial metrics.</div><div class="auto-metrics"><div><div class="am-val">20+</div><div class="am-lbl">Benchmark metrics</div></div></div><div class="auto-hint">↓ Tap to view trend</div><div class="auto-trend" id="tr-bench"><div class="auto-trend-lbl">Benchmark Metrics Tracked — Cumulative</div><div class="auto-trend-wrap"><canvas id="ch-bench"></canvas></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Integration Playbook Engine</div><div class="auto-body">Auto-generates custom 90-day Nexus integration playbook per acquisition.</div><div class="auto-metrics"><div><div class="am-val">Q2 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-build"></div><div class="auto-stlbl">Building</div></div><div class="auto-title">Cross-Portfolio Data Intelligence</div><div class="auto-body">Shared data warehouse trains models on cross-portfolio payment behavior.</div><div class="auto-metrics"><div><div class="am-val">Q3 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
       <div class="auto-card"><div class="auto-st"><div class="auto-dot dot-plan"></div><div class="auto-stlbl">Planned</div></div><div class="auto-title">Seller Outreach Automation</div><div class="auto-body">Automated outreach to scored acquisition targets with personalized messaging.</div><div class="auto-metrics"><div><div class="am-val">Q4 '26</div><div class="am-lbl">Est. launch</div></div></div></div>
@@ -630,362 +620,348 @@
     <div class="eyebrow">Credit Facility</div>
     <h1 class="sec-title">Lender Dashboard</h1>
     <p class="sec-sub">Senior secured credit facility · Orbit Holdings GP · March 2026 · Placeholder data</p>
-
-    <div class="lender-kpi-grid">
-      <div class="lender-kpi"><div class="lkpi-lbl">Total Committed</div><div class="lkpi-val">$25<span>M</span></div><div class="lkpi-sub">Across all facilities</div></div>
-      <div class="lender-kpi"><div class="lkpi-lbl">Total Drawn</div><div class="lkpi-val">$14.2<span>M</span></div><div class="lkpi-sub ok">57% utilized</div></div>
-      <div class="lender-kpi"><div class="lkpi-lbl">Available Capacity</div><div class="lkpi-val">$10.8<span>M</span></div><div class="lkpi-sub">Undrawn & available</div></div>
-      <div class="lender-kpi"><div class="lkpi-lbl">Blended Interest Rate</div><div class="lkpi-val">8.4<span>%</span></div><div class="lkpi-sub">SOFR + 320bps</div></div>
+    <div class="lender-kpis">
+      <div class="lkpi"><div class="lkpi-lbl">Total Committed</div><div class="lkpi-val">$25<span>M</span></div><div class="lkpi-sub">Across all facilities</div></div>
+      <div class="lkpi"><div class="lkpi-lbl">Total Drawn</div><div class="lkpi-val">$14.2<span>M</span></div><div class="lkpi-sub ok">57% utilized</div></div>
+      <div class="lkpi"><div class="lkpi-lbl">Available</div><div class="lkpi-val">$10.8<span>M</span></div><div class="lkpi-sub">Undrawn</div></div>
+      <div class="lkpi"><div class="lkpi-lbl">Blended Rate</div><div class="lkpi-val">8.4<span>%</span></div><div class="lkpi-sub">SOFR + 320bps</div></div>
     </div>
 
-    <div class="lender-grid">
-      <div class="lender-card">
-        <div class="lender-card-hd"><div class="lender-card-title">Revolving Credit Facility</div><div class="lender-card-tag lct-revolving">Revolving</div></div>
-        <div class="facility-rows">
-          <div class="facility-row"><div class="fr-lbl">Commitment</div><div class="fr-val bronze">$15.0M</div></div>
-          <div class="facility-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$8.5M</div></div>
-          <div class="facility-row"><div class="fr-lbl">Available</div><div class="fr-val green">$6.5M</div></div>
-          <div class="facility-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 300bps (8.2%)</div></div>
-          <div class="facility-row"><div class="fr-lbl">Maturity</div><div class="fr-val">March 2028</div></div>
-          <div class="facility-row"><div class="fr-lbl">Lender</div><div class="fr-val">First National Bank</div></div>
-          <div class="facility-row"><div class="fr-lbl">Security</div><div class="fr-val">First lien on portfolio co. assets</div></div>
-        </div>
-        <div class="util-bar-wrap">
-          <div class="util-bar-labels"><span>Drawn: $8.5M</span><span>Committed: $15.0M (57%)</span></div>
-          <div class="util-bar-track"><div class="util-bar-fill mid" style="width:57%"></div></div>
-        </div>
+    <div class="facility-card">
+      <div class="facility-hd"><div class="facility-hd-name">Revolving Credit Facility</div><span class="fac-tag fac-rev">Revolving</span></div>
+      <div class="fac-rows">
+        <div class="fac-row"><div class="fr-lbl">Commitment</div><div class="fr-val bronze">$15.0M</div></div>
+        <div class="fac-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$8.5M</div></div>
+        <div class="fac-row"><div class="fr-lbl">Available</div><div class="fr-val green">$6.5M</div></div>
+        <div class="fac-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 300bps (8.2%)</div></div>
+        <div class="fac-row"><div class="fr-lbl">Maturity</div><div class="fr-val">March 2028</div></div>
+        <div class="fac-row"><div class="fr-lbl">Lender</div><div class="fr-val">First National Bank</div></div>
+        <div class="fac-row"><div class="fr-lbl">Security</div><div class="fr-val">First lien on portfolio co. assets</div></div>
       </div>
-      <div class="lender-card">
-        <div class="lender-card-hd"><div class="lender-card-title">Term Loan A</div><div class="lender-card-tag lct-term">Term</div></div>
-        <div class="facility-rows">
-          <div class="facility-row"><div class="fr-lbl">Original Principal</div><div class="fr-val bronze">$10.0M</div></div>
-          <div class="facility-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$5.7M</div></div>
-          <div class="facility-row"><div class="fr-lbl">Amortization</div><div class="fr-val">$350K / quarter</div></div>
-          <div class="facility-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 350bps (8.7%)</div></div>
-          <div class="facility-row"><div class="fr-lbl">Maturity</div><div class="fr-val">June 2029</div></div>
-          <div class="facility-row"><div class="fr-lbl">Lender</div><div class="fr-val">Blue Ridge Capital</div></div>
-          <div class="facility-row"><div class="fr-lbl">PIK Toggle</div><div class="fr-val">Available (unused)</div></div>
-        </div>
-        <div class="util-bar-wrap">
-          <div class="util-bar-labels"><span>Outstanding: $5.7M</span><span>Original: $10.0M (57% remaining)</span></div>
-          <div class="util-bar-track"><div class="util-bar-fill low" style="width:57%"></div></div>
-        </div>
+      <div class="util-wrap">
+        <div class="util-labels"><span>Drawn: $8.5M</span><span>57% of $15.0M committed</span></div>
+        <div class="util-track"><div class="util-fill util-mid" style="width:57%"></div></div>
       </div>
-      <div class="lender-card" style="grid-column:span 2">
-        <div class="lender-card-hd"><div class="lender-card-title">Financial Covenants</div><div class="lender-card-tag lct-revolving">Tested Quarterly</div></div>
-        <div style="padding:20px 24px">
-          <div class="covenant-wrap">
-          <table class="covenant-table">
-            <thead><tr><th>Covenant</th><th>Requirement</th><th>Current</th><th>Headroom</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td><div class="cov-name">Total Leverage Ratio</div><div style="font-size:11px;color:#8B7355">Net Debt / EBITDA</div></td><td class="cov-req">≤ 4.0×</td><td class="cov-actual pass">2.6×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">1.4× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
-              <tr><td><div class="cov-name">Interest Coverage Ratio</div><div style="font-size:11px;color:#8B7355">EBITDA / Interest Expense</div></td><td class="cov-req">≥ 3.0×</td><td class="cov-actual pass">4.2×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">1.2× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
-              <tr><td><div class="cov-name">Fixed Charge Coverage</div><div style="font-size:11px;color:#8B7355">EBITDA – Capex / Fixed Charges</div></td><td class="cov-req">≥ 1.25×</td><td class="cov-actual pass">1.61×</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">0.36× cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
-              <tr><td><div class="cov-name">Minimum Liquidity</div><div style="font-size:11px;color:#8B7355">Cash + Revolver Availability</div></td><td class="cov-req">≥ $3.0M</td><td class="cov-actual pass">$8.4M</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">$5.4M cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
-              <tr><td><div class="cov-name">Revenue Growth</div><div style="font-size:11px;color:#8B7355">YoY Portfolio Revenue</div></td><td class="cov-req">≥ 5% YoY</td><td class="cov-actual pass">18% YoY</td><td style="font-size:12px;color:#3A7A4E;font-weight:600">13% cushion</td><td><span class="cov-status cov-pass">✓ Pass</span></td></tr>
-              <tr><td><div class="cov-name">Debt Service Coverage</div><div style="font-size:11px;color:#8B7355">NOI / Debt Service</div></td><td class="cov-req">≥ 1.20×</td><td class="cov-actual warn">1.22×</td><td style="font-size:12px;color:#8B6914;font-weight:600">0.02× cushion</td><td><span class="cov-status cov-warn">⚠ Watch</span></td></tr>
-            </tbody>
-          </table>
-          </div><!-- /covenant-wrap -->
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-hd"><div class="facility-hd-name">Term Loan A</div><span class="fac-tag fac-term">Term</span></div>
+      <div class="fac-rows">
+        <div class="fac-row"><div class="fr-lbl">Original Principal</div><div class="fr-val bronze">$10.0M</div></div>
+        <div class="fac-row"><div class="fr-lbl">Outstanding</div><div class="fr-val">$5.7M</div></div>
+        <div class="fac-row"><div class="fr-lbl">Amortization</div><div class="fr-val">$350K / quarter</div></div>
+        <div class="fac-row"><div class="fr-lbl">Interest Rate</div><div class="fr-val">SOFR + 350bps (8.7%)</div></div>
+        <div class="fac-row"><div class="fr-lbl">Maturity</div><div class="fr-val">June 2029</div></div>
+        <div class="fac-row"><div class="fr-lbl">Lender</div><div class="fr-val">Blue Ridge Capital</div></div>
+        <div class="fac-row"><div class="fr-lbl">PIK Toggle</div><div class="fr-val">Available (unused)</div></div>
+      </div>
+      <div class="util-wrap">
+        <div class="util-labels"><span>Outstanding: $5.7M</span><span>57% of original $10.0M</span></div>
+        <div class="util-track"><div class="util-fill util-low" style="width:57%"></div></div>
+      </div>
+    </div>
+
+    <div class="cov-card">
+      <div class="cov-hd"><div class="cov-hd-name">Financial Covenants</div><span class="fac-tag fac-rev">Tested Quarterly</span></div>
+      <div class="cov-rows">
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Total Leverage Ratio</div><div class="cov-desc">Net Debt / EBITDA</div></div><span class="cov-badge cov-pass">✓ Pass</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≤ 4.0×</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val pass">2.6×</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">1.4× cushion</div></div></div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Interest Coverage Ratio</div><div class="cov-desc">EBITDA / Interest Expense</div></div><span class="cov-badge cov-pass">✓ Pass</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≥ 3.0×</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val pass">4.2×</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">1.2× cushion</div></div></div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Fixed Charge Coverage</div><div class="cov-desc">EBITDA – Capex / Fixed Charges</div></div><span class="cov-badge cov-pass">✓ Pass</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≥ 1.25×</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val pass">1.61×</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">0.36× cushion</div></div></div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Minimum Liquidity</div><div class="cov-desc">Cash + Revolver Availability</div></div><span class="cov-badge cov-pass">✓ Pass</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≥ $3.0M</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val pass">$8.4M</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">$5.4M cushion</div></div></div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Revenue Growth</div><div class="cov-desc">YoY Portfolio Revenue</div></div><span class="cov-badge cov-pass">✓ Pass</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≥ 5% YoY</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val pass">18% YoY</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">13% cushion</div></div></div>
+        </div>
+        <div class="cov-row">
+          <div class="cov-row-top"><div><div class="cov-name">Debt Service Coverage</div><div class="cov-desc">NOI / Debt Service</div></div><span class="cov-badge cov-warn">⚠ Watch</span></div>
+          <div class="cov-row-bottom"><div><div class="cov-m-lbl">Required</div><div class="cov-m-val">≥ 1.20×</div></div><div><div class="cov-m-lbl">Current</div><div class="cov-m-val warn">1.22×</div></div><div><div class="cov-m-lbl">Headroom</div><div class="cov-m-val head">0.02× cushion</div></div></div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- ══ LIQUIDITY ══ -->
   <div class="section" id="sec-liquidity">
     <div class="eyebrow">Private Markets Exchange</div>
     <h1 class="sec-title">Investor Liquidity</h1>
-    <p class="sec-sub">Secondary market for Orbit Holdings portfolio company shares · NAV-based pricing · Placeholder data · All transactions subject to transfer restrictions and board approval</p>
-
+    <p class="sec-sub">Secondary market for portfolio company shares · NAV-based pricing · Placeholder data · All transactions subject to board approval and ROFR provisions · Settlement T+10</p>
     <div class="liq-banner">
       <div class="liq-banner-icon">ℹ</div>
-      <div class="liq-banner-text"><strong>How it works:</strong> Share prices are derived from each portfolio company's most recent NAV calculation, updated quarterly. Buyers and sellers are matched on this platform. All transfers require Orbit Holdings board approval and are subject to ROFR provisions in each company's shareholder agreement. Settlement T+10 business days.</div>
+      <div class="liq-banner-text"><strong>How it works:</strong> Share prices are derived from each portfolio company's most recent NAV, updated quarterly. All transfers require Orbit Holdings board approval. Settlement T+10 business days.</div>
     </div>
-
-    <div class="liq-price-row">
-      <div class="liq-price-card featured">
-        <div class="lpc-co">MSP · Active</div>
-        <div class="lpc-name">Apex MSP Group</div>
-        <div class="lpc-price">$48<span>.40 / share</span></div>
-        <div class="lpc-change up">↑ +$2.10 (+4.5%) vs. last quarter</div>
-        <div class="lpc-metrics">
-          <div><div class="lpc-m-lbl">Shares Outstanding</div><div class="lpc-m-val">420,000</div></div>
-          <div><div class="lpc-m-lbl">Implied Market Cap</div><div class="lpc-m-val">$20.3M</div></div>
-          <div><div class="lpc-m-lbl">NAV / Share</div><div class="lpc-m-val">$48.40</div></div>
-          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
+    <div class="price-cards">
+      <div class="price-card">
+        <div class="pc-co">MSP · Active</div>
+        <div class="pc-name">Apex MSP Group</div>
+        <div class="pc-price">$48<span>.40 / share</span></div>
+        <div class="pc-chg up">↑ +$2.10 (+4.5%) vs. last quarter</div>
+        <div class="pc-mets">
+          <div><div class="pcm-lbl">Shares Out.</div><div class="pcm-val">420,000</div></div>
+          <div><div class="pcm-lbl">Mkt. Cap</div><div class="pcm-val">$20.3M</div></div>
+          <div><div class="pcm-lbl">NAV / Share</div><div class="pcm-val">$48.40</div></div>
+          <div><div class="pcm-lbl">NAV Date</div><div class="pcm-val">Mar 1, 2026</div></div>
         </div>
       </div>
-      <div class="liq-price-card featured">
-        <div class="lpc-co">Pool Services · Active</div>
-        <div class="lpc-name">ClearWater Pool Co.</div>
-        <div class="lpc-price">$31<span>.20 / share</span></div>
-        <div class="lpc-change up">↑ +$1.40 (+4.7%) vs. last quarter</div>
-        <div class="lpc-metrics">
-          <div><div class="lpc-m-lbl">Shares Outstanding</div><div class="lpc-m-val">310,000</div></div>
-          <div><div class="lpc-m-lbl">Implied Market Cap</div><div class="lpc-m-val">$9.7M</div></div>
-          <div><div class="lpc-m-lbl">NAV / Share</div><div class="lpc-m-val">$31.20</div></div>
-          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
+      <div class="price-card">
+        <div class="pc-co">Pool Services · Active</div>
+        <div class="pc-name">ClearWater Pool Co.</div>
+        <div class="pc-price">$31<span>.20 / share</span></div>
+        <div class="pc-chg up">↑ +$1.40 (+4.7%) vs. last quarter</div>
+        <div class="pc-mets">
+          <div><div class="pcm-lbl">Shares Out.</div><div class="pcm-val">310,000</div></div>
+          <div><div class="pcm-lbl">Mkt. Cap</div><div class="pcm-val">$9.7M</div></div>
+          <div><div class="pcm-lbl">NAV / Share</div><div class="pcm-val">$31.20</div></div>
+          <div><div class="pcm-lbl">NAV Date</div><div class="pcm-val">Mar 1, 2026</div></div>
         </div>
       </div>
-      <div class="liq-price-card">
-        <div class="lpc-co">Orbit Holdings GP</div>
-        <div class="lpc-name">GP Unit Price</div>
-        <div class="lpc-price">$112<span>.60 / unit</span></div>
-        <div class="lpc-change up">↑ +$8.20 (+7.9%) vs. last quarter</div>
-        <div class="lpc-metrics">
-          <div><div class="lpc-m-lbl">Units Outstanding</div><div class="lpc-m-val">180,000</div></div>
-          <div><div class="lpc-m-lbl">GP NAV</div><div class="lpc-m-val">$20.3M</div></div>
-          <div><div class="lpc-m-lbl">NAV / Unit</div><div class="lpc-m-val">$112.60</div></div>
-          <div><div class="lpc-m-lbl">Last NAV Date</div><div class="lpc-m-val">Mar 1, 2026</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="liq-grid">
-      <div class="liq-card">
-        <div class="liq-card-hd"><div class="liq-card-title">Place an Order</div><div class="liq-card-sub">Submit buy or sell interest · Subject to approval</div></div>
-        <div class="liq-card-body">
-          <div class="order-form">
-            <div class="order-tabs">
-              <div class="order-tab sell-active" id="tab-sell" onclick="setOrderType('sell')">Sell Shares</div>
-              <div class="order-tab" id="tab-buy" onclick="setOrderType('buy')">Buy Shares</div>
-            </div>
-            <div class="order-field">
-              <label>Company</label>
-              <select id="ord-co" onchange="updateOrderSummary()">
-                <option value="apex" data-price="48.40">Apex MSP Group — $48.40 / share</option>
-                <option value="cw" data-price="31.20">ClearWater Pool Co. — $31.20 / share</option>
-                <option value="gp" data-price="112.60">Orbit Holdings GP — $112.60 / unit</option>
-              </select>
-            </div>
-            <div class="order-field">
-              <label>Number of Shares</label>
-              <input type="number" id="ord-qty" value="500" min="100" step="100" oninput="updateOrderSummary()"/>
-            </div>
-            <div class="order-field">
-              <label>Order Type</label>
-              <select><option>NAV (Market Price)</option><option>Limit Order</option></select>
-            </div>
-            <div class="order-summary">
-              <div class="os-row"><span>Shares</span><span id="s-qty">500</span></div>
-              <div class="os-row"><span>Price per Share</span><span id="s-price">$48.40</span></div>
-              <div class="os-row"><span>Gross Value</span><span id="s-gross">$24,200</span></div>
-              <div class="os-row"><span>Platform Fee (1%)</span><span id="s-fee">$242</span></div>
-              <div class="os-row"><span>Net Proceeds</span><span id="s-net">$23,958</span></div>
-            </div>
-            <button class="order-btn sell-btn" id="ord-btn" onclick="submitOrder()">Submit Sell Order</button>
-            <div id="ord-confirm" style="display:none;font-size:12px;color:#3A7A4E;font-weight:600;text-align:center;padding:10px;background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);">✓ Order submitted. Pending board approval. You'll be notified within 5 business days.</div>
-          </div>
-        </div>
-      </div>
-      <div class="liq-card">
-        <div class="liq-card-hd"><div class="liq-card-title">Live Order Book</div><div class="liq-card-sub">Apex MSP Group · As of March 2026</div></div>
-        <div class="liq-card-body" style="padding:16px">
-          <table class="order-book">
-            <thead><tr><th style="text-align:left">Type</th><th>Shares</th><th>Price</th><th>Investor</th></tr></thead>
-            <tbody>
-              <tr><td class="ob-ask">Ask</td><td>2,000</td><td class="ob-ask">$49.80</td><td style="font-size:11px;color:#8B7355">Inv. #A-014</td></tr>
-              <tr><td class="ob-ask">Ask</td><td>1,500</td><td class="ob-ask">$49.20</td><td style="font-size:11px;color:#8B7355">Inv. #A-008</td></tr>
-              <tr><td class="ob-ask">Ask</td><td>800</td><td class="ob-ask">$48.90</td><td style="font-size:11px;color:#8B7355">Inv. #A-021</td></tr>
-              <tr class="ob-spread-row"><td colspan="4">— NAV: $48.40 · Spread: $0.60 (1.2%) —</td></tr>
-              <tr><td class="ob-bid">Bid</td><td>1,200</td><td class="ob-bid">$48.30</td><td style="font-size:11px;color:#8B7355">Inv. #A-003</td></tr>
-              <tr><td class="ob-bid">Bid</td><td>2,500</td><td class="ob-bid">$47.90</td><td style="font-size:11px;color:#8B7355">Inv. #A-017</td></tr>
-              <tr><td class="ob-bid">Bid</td><td>900</td><td class="ob-bid">$47.50</td><td style="font-size:11px;color:#8B7355">Inv. #A-006</td></tr>
-            </tbody>
-          </table>
+      <div class="price-card">
+        <div class="pc-co">Orbit Holdings GP</div>
+        <div class="pc-name">GP Unit Price</div>
+        <div class="pc-price">$112<span>.60 / unit</span></div>
+        <div class="pc-chg up">↑ +$8.20 (+7.9%) vs. last quarter</div>
+        <div class="pc-mets">
+          <div><div class="pcm-lbl">Units Out.</div><div class="pcm-val">180,000</div></div>
+          <div><div class="pcm-lbl">GP NAV</div><div class="pcm-val">$20.3M</div></div>
+          <div><div class="pcm-lbl">NAV / Unit</div><div class="pcm-val">$112.60</div></div>
+          <div><div class="pcm-lbl">NAV Date</div><div class="pcm-val">Mar 1, 2026</div></div>
         </div>
       </div>
     </div>
 
-    <div style="margin-top:8px">
-      <div class="eyebrow" style="margin-bottom:16px">Recent Transactions</div>
-      <div class="liq-hist-wrap">
-      <table class="liq-history">
-        <thead><tr><th>Date</th><th>Company</th><th>Type</th><th>Shares</th><th>Price</th><th>Gross Value</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Mar 4, 2026</td><td>Apex MSP Group</td><td class="txn-sell">Sell</td><td>1,000</td><td>$48.10</td><td>$48,100</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
-          <tr><td>Feb 22, 2026</td><td>ClearWater Pool Co.</td><td class="txn-buy">Buy</td><td>2,500</td><td>$30.40</td><td>$76,000</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
-          <tr><td>Feb 14, 2026</td><td>Orbit Holdings GP</td><td class="txn-sell">Sell</td><td>400</td><td>$108.20</td><td>$43,280</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
-          <tr><td>Jan 31, 2026</td><td>Apex MSP Group</td><td class="txn-buy">Buy</td><td>3,200</td><td>$46.30</td><td>$148,160</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
-          <tr><td>Jan 18, 2026</td><td>ClearWater Pool Co.</td><td class="txn-sell">Sell</td><td>600</td><td>$29.80</td><td>$17,880</td><td><span class="cov-status cov-pass" style="font-size:10px">✓ Settled</span></td></tr>
-          <tr><td>Jan 8, 2026</td><td>Apex MSP Group</td><td class="txn-pending">Transfer</td><td>1,800</td><td>$46.30</td><td>$83,340</td><td><span class="cov-status cov-warn" style="font-size:10px">⟳ Pending</span></td></tr>
-        </tbody>
-      </table>
-      </div><!-- /liq-hist-wrap -->
+    <div class="order-panel">
+      <div class="op-hd"><div class="op-title">Place an Order</div><div class="op-sub">Submit buy or sell interest · Subject to approval</div></div>
+      <div class="op-body">
+        <div class="order-type-tabs">
+          <div class="ot-tab sell active-sell" id="tab-sell" onclick="setOrderType('sell')">Sell Shares</div>
+          <div class="ot-tab buy" id="tab-buy" onclick="setOrderType('buy')">Buy Shares</div>
+        </div>
+        <div class="order-field">
+          <label>Company</label>
+          <select id="ord-co" onchange="updateOrderSummary()">
+            <option value="apex" data-price="48.40">Apex MSP Group — $48.40 / share</option>
+            <option value="cw" data-price="31.20">ClearWater Pool Co. — $31.20 / share</option>
+            <option value="gp" data-price="112.60">Orbit Holdings GP — $112.60 / unit</option>
+          </select>
+        </div>
+        <div class="order-field">
+          <label>Number of Shares</label>
+          <input type="number" id="ord-qty" value="500" min="100" step="100" oninput="updateOrderSummary()"/>
+        </div>
+        <div class="order-field">
+          <label>Order Type</label>
+          <select><option>NAV (Market Price)</option><option>Limit Order</option></select>
+        </div>
+        <div class="order-summary">
+          <div class="os-row"><span>Shares</span><span id="s-qty">500</span></div>
+          <div class="os-row"><span>Price per Share</span><span id="s-price">$48.40</span></div>
+          <div class="os-row"><span>Gross Value</span><span id="s-gross">$24,200</span></div>
+          <div class="os-row"><span>Platform Fee (1%)</span><span id="s-fee">$242</span></div>
+          <div class="os-row total"><span>Net Proceeds</span><span id="s-net">$23,958</span></div>
+        </div>
+        <button class="order-btn sell" id="ord-btn" onclick="submitOrder()">Submit Sell Order</button>
+        <div class="order-confirm" id="ord-confirm">✓ Order submitted. Pending board approval. You'll be notified within 5 business days.</div>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <div class="book-hd"><div class="book-title">Live Order Book</div><div class="book-sub">Apex MSP Group · As of March 2026</div></div>
+      <div class="book-rows">
+        <div class="book-row"><span class="br-type-ask">Ask</span><span class="br-shares">2,000 shares</span><span class="br-price-ask">$49.80</span><span class="br-inv">Inv. #A-014</span></div>
+        <div class="book-row"><span class="br-type-ask">Ask</span><span class="br-shares">1,500 shares</span><span class="br-price-ask">$49.20</span><span class="br-inv">Inv. #A-008</span></div>
+        <div class="book-row"><span class="br-type-ask">Ask</span><span class="br-shares">800 shares</span><span class="br-price-ask">$48.90</span><span class="br-inv">Inv. #A-021</span></div>
+        <div class="book-row spread">— NAV: $48.40 · Spread: $0.60 (1.2%) —</div>
+        <div class="book-row"><span class="br-type-bid">Bid</span><span class="br-shares">1,200 shares</span><span class="br-price-bid">$48.30</span><span class="br-inv">Inv. #A-003</span></div>
+        <div class="book-row"><span class="br-type-bid">Bid</span><span class="br-shares">2,500 shares</span><span class="br-price-bid">$47.90</span><span class="br-inv">Inv. #A-017</span></div>
+        <div class="book-row"><span class="br-type-bid">Bid</span><span class="br-shares">900 shares</span><span class="br-price-bid">$47.50</span><span class="br-inv">Inv. #A-006</span></div>
+      </div>
+    </div>
+
+    <div class="txn-card" style="margin-top:14px">
+      <div class="txn-hd"><div class="op-title">Recent Transactions</div></div>
+      <div class="txn-rows">
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">Apex MSP Group</div><div class="txn-date">Mar 4, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-sell">Sell</span> · 1,000 shares · $48.10 · <strong>$48,100</strong></div><span class="txn-badge txn-settled">✓ Settled</span></div></div>
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">ClearWater Pool Co.</div><div class="txn-date">Feb 22, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-buy">Buy</span> · 2,500 shares · $30.40 · <strong>$76,000</strong></div><span class="txn-badge txn-settled">✓ Settled</span></div></div>
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">Orbit Holdings GP</div><div class="txn-date">Feb 14, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-sell">Sell</span> · 400 units · $108.20 · <strong>$43,280</strong></div><span class="txn-badge txn-settled">✓ Settled</span></div></div>
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">Apex MSP Group</div><div class="txn-date">Jan 31, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-buy">Buy</span> · 3,200 shares · $46.30 · <strong>$148,160</strong></div><span class="txn-badge txn-settled">✓ Settled</span></div></div>
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">ClearWater Pool Co.</div><div class="txn-date">Jan 18, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-sell">Sell</span> · 600 shares · $29.80 · <strong>$17,880</strong></div><span class="txn-badge txn-settled">✓ Settled</span></div></div>
+        <div class="txn-row"><div class="txn-row-top"><div class="txn-co">Apex MSP Group</div><div class="txn-date">Jan 8, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-pending">Transfer</span> · 1,800 shares · $46.30 · <strong>$83,340</strong></div><span class="txn-badge txn-pend">⟳ Pending</span></div></div>
+      </div>
     </div>
   </div>
 
 </div><!-- /portal -->
 
 <script>
+// ── COLOURS ──
+const G='#8B6914',GR='#3A7A4E',MU='#8B7355',TX='#1C1712',RD='#8B3A1C';
+Chart.defaults.color=MU;
+Chart.defaults.font.family="'Outfit',sans-serif";
+Chart.defaults.font.size=10;
+const tip={backgroundColor:'#EAE3D8',titleColor:TX,bodyColor:MU,borderColor:'rgba(139,105,20,0.25)',borderWidth:1};
 const MO=['Oct','Nov','Dec','Jan','Feb','Mar'];
-const G='#8B6914',GR='#3A7A4E',MU='#8B7355',WH='#1C1712',RD='#8B3A1C';
-Chart.defaults.color=MU; Chart.defaults.font.family="'Outfit',sans-serif"; Chart.defaults.font.size=10;
-const tip={backgroundColor:'#EDE7DC',titleColor:'#1C1712',bodyColor:'#6B5C3E',borderColor:'rgba(139,105,20,0.25)',borderWidth:1};
-const sc=(left=G,right=null)=>{const o={x:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU}},y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU},position:'left'}};if(right)o.y2={grid:{display:false},ticks:{color:right,callback:v=>v+'%'},position:'right'};return o;};
 
+// ── AUTH ──
 function auth(){
-  const val = document.getElementById('pw').value.trim();
-  if(val==='orbit2026'){
-    document.getElementById('gate').style.display='none';
-    document.getElementById('portal').style.display='block';
-    setTimeout(initCharts, 100);
-  } else {
-    document.getElementById('pw-err').style.display='block';
-    document.getElementById('pw').value='';
-    document.getElementById('pw').focus();
-  }
+  try {
+    const val=document.getElementById('pw').value.trim();
+    if(val==='orbit2026'){
+      document.getElementById('gate').style.display='none';
+      document.getElementById('portal').style.display='block';
+      setTimeout(initCharts,150);
+    } else {
+      document.getElementById('pw-err').style.display='block';
+      document.getElementById('pw').value='';
+      document.getElementById('pw').focus();
+    }
+  } catch(e){ console.error('Auth error:',e); }
 }
 document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')auth();});
 
+// ── NAV ──
 function showSec(id,el){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('sec-'+id).classList.add('active'); el.classList.add('active');
+  document.getElementById('sec-'+id).classList.add('active');
+  el.classList.add('active');
 }
 function showCo(id,el){
   ['apex','cw'].forEach(c=>document.getElementById('co-'+c).style.display='none');
   document.querySelectorAll('.co-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('co-'+id).style.display='block'; el.classList.add('active');
+  document.getElementById('co-'+id).style.display='block';
+  el.classList.add('active');
 }
 function showNx(id,el){
   document.querySelectorAll('.nx-sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nx-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('nx-'+id).classList.add('active'); el.classList.add('active');
+  document.getElementById('nx-'+id).classList.add('active');
+  el.classList.add('active');
 }
 function toggleDetail(did,hid){
   const d=document.getElementById(did),h=document.getElementById(hid);
-  const o=d.classList.toggle('open'); h.textContent=o?'Click to collapse ↑':'Click to expand ↓';
+  const o=d.classList.toggle('open');
+  h.textContent=o?'Collapse ↑':'Expand ↓';
 }
 
-const rendered={};
-const chartInstances={};
+// ── TREND CHARTS ──
+const rendered={}, chartInst={};
 function toggleTrend(card,tid){
   const t=document.getElementById(tid);
-  const o=t.classList.toggle('open'); card.classList.toggle('exp',o);
+  const o=t.classList.toggle('open');
+  card.classList.toggle('exp',o);
   if(o&&!rendered[tid]){rendered[tid]=true;renderTrend(tid);}
 }
-
-const trendData={
-  'tr-bdr':  {c:'ch-bdr',  t:'bar',  d:[38,52,61,74,88,107],  col:G},
-  'tr-calls':{c:'ch-calls',t:'line', d:[18,20,22,24,25,28],   col:GR},
-  'tr-churn':{c:'ch-churn',t:'bar',  d:[12,18,24,31,38,42],   col:G},
-  'tr-crm':  {c:'ch-crm',  t:'line', d:[74,78,82,87,91,94],   col:GR},
-  'tr-t1':   {c:'ch-t1',   t:'line', d:[38,44,49,53,57,61],   col:GR},
-  'tr-health':{c:'ch-health',t:'line',d:[62,65,68,71,73,76],  col:G},
-  'tr-onboard':{c:'ch-onboard',t:'bar',d:[18,14,11,8,6,4],    col:RD},
-  'tr-retain':{c:'ch-retain',t:'line',d:[22,28,31,36,40,43],  col:GR},
-  'tr-ar':   {c:'ch-ar',   t:'bar',  d:[32,28,24,20,16,12],   col:RD},
-  'tr-tpv':  {c:'ch-tpv',  t:'bar',  d:[880,920,980,1010,1060,1090],col:G},
-  'tr-close':{c:'ch-close',t:'bar',  d:[11,9,7,5,4,3],        col:RD},
-  'tr-fraud':{c:'ch-fraud',t:'line', d:[0.12,0.09,0.07,0.06,0.05,0.04],col:GR},
-  'tr-clm':  {c:'ch-clm',  t:'line', d:[78,82,86,89,92,94],   col:GR},
-  'tr-disp': {c:'ch-disp', t:'bar',  d:[5.2,5.6,5.9,6.2,6.5,6.8],col:G},
-  'tr-sop':  {c:'ch-sop',  t:'line', d:[32,58,82,104,122,141],col:G},
-  'tr-kpi':  {c:'ch-kpi',  t:'line', d:[4,8,12,16,20,24],     col:GR},
-  'tr-src':  {c:'ch-src',  t:'bar',  d:[98,122,144,162,181,204],col:G},
-  'tr-dd':   {c:'ch-dd',   t:'bar',  d:[42,36,30,26,22,17],   col:RD},
-  'tr-bench':{c:'ch-bench',t:'line', d:[8,10,12,14,17,20],    col:GR},
+const trendCfg={
+  'tr-bdr': {c:'ch-bdr', t:'bar',  d:[38,52,61,74,88,107], col:G},
+  'tr-calls':{c:'ch-calls',t:'line',d:[18,20,22,24,25,28],  col:GR},
+  'tr-churn':{c:'ch-churn',t:'bar', d:[12,18,24,31,38,42],  col:G},
+  'tr-crm':  {c:'ch-crm', t:'line',d:[74,78,82,87,91,94],   col:GR},
+  'tr-t1':   {c:'ch-t1',  t:'line',d:[38,44,49,53,57,61],   col:GR},
+  'tr-health':{c:'ch-health',t:'line',d:[62,65,68,71,73,76],col:G},
+  'tr-onboard':{c:'ch-onboard',t:'bar',d:[18,14,11,8,6,4],  col:RD},
+  'tr-retain':{c:'ch-retain',t:'line',d:[22,28,31,36,40,43],col:GR},
+  'tr-ar':   {c:'ch-ar',  t:'bar', d:[32,28,24,20,16,12],   col:RD},
+  'tr-tpv':  {c:'ch-tpv', t:'bar', d:[880,920,980,1010,1060,1090],col:G},
+  'tr-close':{c:'ch-close',t:'bar',d:[11,9,7,5,4,3],        col:RD},
+  'tr-fraud':{c:'ch-fraud',t:'line',d:[0.12,0.09,0.07,0.06,0.05,0.04],col:GR},
+  'tr-clm':  {c:'ch-clm', t:'line',d:[78,82,86,89,92,94],   col:GR},
+  'tr-disp': {c:'ch-disp',t:'bar', d:[5.2,5.6,5.9,6.2,6.5,6.8],col:G},
+  'tr-sop':  {c:'ch-sop', t:'line',d:[32,58,82,104,122,141],col:G},
+  'tr-kpi':  {c:'ch-kpi', t:'line',d:[4,8,12,16,20,24],     col:GR},
+  'tr-src':  {c:'ch-src', t:'bar', d:[98,122,144,162,181,204],col:G},
+  'tr-dd':   {c:'ch-dd',  t:'bar', d:[42,36,30,26,22,17],   col:RD},
+  'tr-bench':{c:'ch-bench',t:'line',d:[8,10,12,14,17,20],   col:GR},
 };
-
 function renderTrend(tid){
-  const cfg=trendData[tid]; if(!cfg)return;
+  const cfg=trendCfg[tid]; if(!cfg)return;
   const el=document.getElementById(cfg.c); if(!el)return;
-  if(chartInstances[tid]){chartInstances[tid].destroy();delete chartInstances[tid];}
+  if(chartInst[tid]){chartInst[tid].destroy();}
   const isBar=cfg.t==='bar';
-  chartInstances[tid]=new Chart(el,{
+  chartInst[tid]=new Chart(el,{
     type:isBar?'bar':'line',
     data:{labels:MO,datasets:[{data:cfg.d,
-      ...(isBar
-        ?{backgroundColor:cfg.col+'33',borderColor:cfg.col,borderWidth:2,borderRadius:2}
-        :{borderColor:cfg.col,backgroundColor:cfg.col+'15',borderWidth:2,pointBackgroundColor:cfg.col,pointRadius:3,fill:true,tension:0.4})
+      ...(isBar?{backgroundColor:cfg.col+'33',borderColor:cfg.col,borderWidth:2,borderRadius:2}
+               :{borderColor:cfg.col,backgroundColor:cfg.col+'18',borderWidth:2,pointBackgroundColor:cfg.col,pointRadius:3,fill:true,tension:0.4})
     }]},
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      animation:false,
+    options:{responsive:true,maintainAspectRatio:false,animation:false,
       plugins:{legend:{display:false},tooltip:tip},
-      scales:{
-        x:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU,maxRotation:0}},
-        y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU},beginAtZero:false}
-      }
-    }
+      scales:{x:{grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,maxRotation:0,font:{size:10}}},
+              y:{grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,font:{size:10}},beginAtZero:false}}}
   });
 }
 
+// ── MAIN CHARTS ──
 function initCharts(){
-  try {
-  new Chart(document.getElementById('c-rev'),{
-    type:'bar',
-    data:{labels:MO,datasets:[
-      {label:'Recurring',data:[892,918,944,971,1010,1030],backgroundColor:G+'33',borderColor:G,borderWidth:2,borderRadius:2},
-      {label:'Non-Recurring',data:[84,76,91,68,72,88],backgroundColor:GR+'33',borderColor:GR,borderWidth:2,borderRadius:2},
-      {label:'Total',data:[976,994,1035,1039,1082,1118],type:'line',borderColor:WH,backgroundColor:'transparent',borderWidth:2,pointBackgroundColor:WH,pointRadius:3,tension:0.4}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,labels:{color:MU,boxWidth:10,font:{size:10}}},tooltip:tip},
-      scales:{x:{stacked:true,grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU}},
-              y:{stacked:true,grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU,callback:v=>'$'+v+'K'}}}}
-  });
-  new Chart(document.getElementById('c-ebitda'),{
-    type:'bar',
-    data:{labels:MO,datasets:[
-      {label:'EBITDA ($K)',data:[245,258,288,323,346,380],backgroundColor:GR+'33',borderColor:GR,borderWidth:2,borderRadius:2,yAxisID:'y'},
-      {label:'Margin (%)',data:[25,26,28,31,32,34],type:'line',borderColor:G,backgroundColor:'transparent',borderWidth:2,pointBackgroundColor:G,pointRadius:4,tension:0.4,yAxisID:'y2'}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,labels:{color:MU,boxWidth:10,font:{size:10}}},tooltip:tip},
-      scales:{x:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU}},
-              y:{grid:{color:'rgba(139,105,20,0.1)'},ticks:{color:MU,callback:v=>'$'+v+'K'},position:'left'},
-              y2:{grid:{display:false},ticks:{color:G,callback:v=>v+'%'},position:'right'}}}
-  });
-  } catch(e){ console.warn('Chart init error:', e); }
+  try{
+    new Chart(document.getElementById('c-rev'),{
+      type:'bar',
+      data:{labels:MO,datasets:[
+        {label:'Recurring',data:[892,918,944,971,1010,1030],backgroundColor:G+'33',borderColor:G,borderWidth:2,borderRadius:2},
+        {label:'Non-Recurring',data:[84,76,91,68,72,88],backgroundColor:GR+'33',borderColor:GR,borderWidth:2,borderRadius:2},
+        {label:'Total',data:[976,994,1035,1039,1082,1118],type:'line',borderColor:TX,backgroundColor:'transparent',borderWidth:2,pointBackgroundColor:TX,pointRadius:3,tension:0.4}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:true,labels:{color:MU,boxWidth:10,font:{size:10}}},tooltip:tip},
+        scales:{x:{stacked:true,grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,font:{size:10}}},
+                y:{stacked:true,grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,font:{size:10},callback:v=>'$'+v+'K'}}}}
+    });
+    new Chart(document.getElementById('c-ebitda'),{
+      type:'bar',
+      data:{labels:MO,datasets:[
+        {label:'EBITDA ($K)',data:[245,258,288,323,346,380],backgroundColor:GR+'33',borderColor:GR,borderWidth:2,borderRadius:2,yAxisID:'y'},
+        {label:'Margin (%)',data:[25,26,28,31,32,34],type:'line',borderColor:G,backgroundColor:'transparent',borderWidth:2,pointBackgroundColor:G,pointRadius:4,tension:0.4,yAxisID:'y2'}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:true,labels:{color:MU,boxWidth:10,font:{size:10}}},tooltip:tip},
+        scales:{x:{grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,font:{size:10}}},
+                y:{grid:{color:'rgba(139,105,20,0.08)'},ticks:{color:MU,font:{size:10},callback:v=>'$'+v+'K'},position:'left'},
+                y2:{grid:{display:false},ticks:{color:G,font:{size:10},callback:v=>v+'%'},position:'right'}}}
+    });
+  }catch(e){console.warn('Chart init:',e);}
 }
 
 // ── ORDER FORM ──
-const prices = { apex: 48.40, cw: 31.20, gp: 112.60 };
-let orderType = 'sell';
-
-function setOrderType(type) {
-  orderType = type;
-  const sellTab = document.getElementById('tab-sell');
-  const buyTab = document.getElementById('tab-buy');
-  const btn = document.getElementById('ord-btn');
-  if (type === 'sell') {
-    sellTab.className = 'order-tab sell-active';
-    buyTab.className = 'order-tab';
-    btn.className = 'order-btn sell-btn';
-    btn.textContent = 'Submit Sell Order';
-  } else {
-    buyTab.className = 'order-tab buy-active';
-    sellTab.className = 'order-tab';
-    btn.className = 'order-btn buy-btn';
-    btn.textContent = 'Submit Buy Order';
-  }
+const prices={apex:48.40,cw:31.20,gp:112.60};
+let orderMode='sell';
+function setOrderType(type){
+  orderMode=type;
+  document.getElementById('tab-sell').className='ot-tab sell'+(type==='sell'?' active-sell':'');
+  document.getElementById('tab-buy').className='ot-tab buy'+(type==='buy'?' active-buy':'');
+  const btn=document.getElementById('ord-btn');
+  btn.className='order-btn '+(type==='sell'?'sell':'buy');
+  btn.textContent='Submit '+(type==='sell'?'Sell':'Buy')+' Order';
   updateOrderSummary();
 }
-
-function updateOrderSummary() {
-  const sel = document.getElementById('ord-co');
-  const co = sel.value;
-  const price = prices[co];
-  const qty = parseInt(document.getElementById('ord-qty').value) || 0;
-  const gross = price * qty;
-  const fee = gross * 0.01;
-  const net = gross - fee;
-  document.getElementById('s-qty').textContent = qty.toLocaleString();
-  document.getElementById('s-price').textContent = '$' + price.toFixed(2);
-  document.getElementById('s-gross').textContent = '$' + gross.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
-  document.getElementById('s-fee').textContent = '$' + fee.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
-  document.getElementById('s-net').textContent = '$' + net.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+function updateOrderSummary(){
+  const co=document.getElementById('ord-co').value;
+  const price=prices[co]||48.40;
+  const qty=parseInt(document.getElementById('ord-qty').value)||0;
+  const gross=price*qty, fee=gross*0.01, net=gross-fee;
+  const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+  document.getElementById('s-qty').textContent=qty.toLocaleString();
+  document.getElementById('s-price').textContent='$'+price.toFixed(2);
+  document.getElementById('s-gross').textContent=fmt(gross);
+  document.getElementById('s-fee').textContent=fmt(fee);
+  document.getElementById('s-net').textContent=fmt(net);
 }
-
-function submitOrder() {
-  document.getElementById('ord-confirm').style.display = 'block';
-  document.getElementById('ord-btn').style.display = 'none';
-  setTimeout(() => {
-    document.getElementById('ord-confirm').style.display = 'none';
-    document.getElementById('ord-btn').style.display = 'block';
-  }, 6000);
+function submitOrder(){
+  document.getElementById('ord-confirm').style.display='block';
+  document.getElementById('ord-btn').style.display='none';
+  setTimeout(()=>{
+    document.getElementById('ord-confirm').style.display='none';
+    document.getElementById('ord-btn').style.display='block';
+  },6000);
 }
 </script>
 </body>
