@@ -286,6 +286,49 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 .txn-settled{color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
 .txn-pend{color:var(--bronze);background:rgba(139,105,20,0.08);border:1px solid var(--border2);}
 
+/* ── CAPITAL TAB ── */
+.terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:28px;}
+.term-cell{background:var(--bg);padding:14px 16px;}
+.term-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.term-val{font-size:15px;font-weight:600;color:var(--text);line-height:1.2;}
+.term-val.bronze{color:var(--bronze);font-family:'Playfair Display',serif;font-size:18px;}
+.term-note{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.ret-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:14px;}
+.ret-card{background:var(--bg2);padding:16px;}
+.ret-lbl{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.ret-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--bronze);line-height:1;}
+.ret-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5;}
+.ret-bench{border:1px solid var(--border);padding:14px 16px;background:var(--bg);margin-bottom:28px;font-size:12px;color:var(--muted);line-height:1.7;}
+.ret-bench strong{color:var(--text);}
+.proc-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(139,105,20,0.07);}
+.proc-row:last-child{border-bottom:none;}
+.proc-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:rgba(139,105,20,0.2);line-height:1;min-width:28px;}
+.proc-body{flex:1;}
+.proc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.proc-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+.struct-layer{border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.struct-layer-hd{padding:12px 18px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:12px;}
+.struct-layer-tag{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--bronze);}
+.struct-layer-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);}
+.struct-row{display:grid;grid-template-columns:140px 60px 1fr;gap:12px;padding:13px 18px;border-bottom:1px solid rgba(139,105,20,0.06);align-items:start;}
+.struct-row:last-child{border-bottom:none;}
+.struct-row.hl{background:rgba(58,122,78,0.05);}
+.struct-party{font-size:13px;font-weight:600;color:var(--text);}
+.struct-pct{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--bronze);line-height:1;}
+.struct-note{font-size:12px;color:var(--muted);line-height:1.6;padding-top:2px;}
+.struct-callout{margin:0 18px 14px;padding:12px 14px;border-left:2px solid var(--bronze);background:rgba(139,105,20,0.04);font-size:12px;color:var(--muted);line-height:1.65;font-style:italic;}
+.why-grid{display:grid;grid-template-columns:1fr;gap:10px;border:1px solid var(--border);padding:20px;}
+.why-item{display:flex;gap:12px;align-items:flex-start;}
+.why-icon{font-size:15px;color:var(--bronze);min-width:20px;opacity:0.7;}
+.why-text{font-size:13px;color:var(--muted);line-height:1.7;}
+.why-text strong{color:var(--text);font-weight:600;}
+@media(min-width:640px){
+  .terms-grid{grid-template-columns:repeat(3,1fr);}
+  .ret-grid{grid-template-columns:repeat(4,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .struct-row{grid-template-columns:180px 70px 1fr;}
+}
+
 /* ── COMPETITIVE ── */
 .comp-header{border:1px solid var(--border);padding:18px 20px;background:var(--bg2);margin-bottom:28px;}
 .comp-header-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
@@ -386,6 +429,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
     </div>
     <div class="nav-tabs">
       <div class="nav-tab active" onclick="showSec('overview',this)">Overview</div>
+      <div class="nav-tab" onclick="showSec('capital',this)">Capital</div>
       <div class="nav-tab" onclick="showSec('financials',this)">Financials</div>
       <div class="nav-tab" onclick="showSec('pipeline',this)">M&A Pipeline</div>
       <div class="nav-tab" onclick="showSec('nexus',this)">Nexus AI</div>
@@ -453,6 +497,210 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ══ CAPITAL ══ -->
+  <div class="section" id="sec-capital">
+    <div class="eyebrow">Fund & Structure</div>
+    <h1 class="sec-title">Capital</h1>
+    <p class="sec-sub">Fund economics, return targets, and use of proceeds · Placeholder data · Confidential</p>
+
+    <!-- FUND TERMS -->
+    <div class="eyebrow" style="margin-bottom:12px;">Fund Terms</div>
+    <div class="terms-grid" style="margin-bottom:28px;">
+      <div class="term-cell">
+        <div class="term-lbl">Total Raise Target</div>
+        <div class="term-val bronze">$3.0M</div>
+        <div class="term-note">GP-level round · 20% of holdco</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Security</div>
+        <div class="term-val">GP Units</div>
+        <div class="term-note">Ordinary units · no preference</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Current Unit Price</div>
+        <div class="term-val bronze">$112.60</div>
+        <div class="term-note">NAV as of Mar 1, 2026</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Minimum Check</div>
+        <div class="term-val">$100,000</div>
+        <div class="term-note">Accredited investors only</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Management Fee</div>
+        <div class="term-val">1.5%</div>
+        <div class="term-note">Of NAV annually · charged at holdco</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Carried Interest</div>
+        <div class="term-val">20%</div>
+        <div class="term-note">Above 8% preferred return · GP-level</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">GP Commit</div>
+        <div class="term-val">80%</div>
+        <div class="term-note">Founders permanently co-invested</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Liquidity</div>
+        <div class="term-val">NAV Tender</div>
+        <div class="term-note">Periodic tender offers · no hard lock</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-lbl">Next Close</div>
+        <div class="term-val">Jun 30, 2026</div>
+        <div class="term-note">Soft target · rolling closes accepted</div>
+      </div>
+    </div>
+
+    <!-- RETURN TARGETS -->
+    <div class="eyebrow" style="margin-bottom:12px;">Return Targets</div>
+    <div class="ret-grid">
+      <div class="ret-card">
+        <div class="ret-lbl">Target Net IRR</div>
+        <div class="ret-val">22–28%</div>
+        <div class="ret-sub">Annual · net of fees &amp; carry</div>
+      </div>
+      <div class="ret-card">
+        <div class="ret-lbl">Target Net MOIC</div>
+        <div class="ret-val">2.8–3.5×</div>
+        <div class="ret-sub">Over 5–7 year horizon</div>
+      </div>
+      <div class="ret-card">
+        <div class="ret-lbl">NAV / Unit Target</div>
+        <div class="ret-val">$280–340</div>
+        <div class="ret-sub">Year 5 · vs. $112.60 today</div>
+      </div>
+      <div class="ret-card">
+        <div class="ret-lbl">Preferred Return</div>
+        <div class="ret-val">8%</div>
+        <div class="ret-sub">Hurdle before carry accrues</div>
+      </div>
+    </div>
+    <div class="ret-bench">
+      <strong>Benchmark context:</strong> Top-quartile lower mid-market PE funds target 18–22% net IRR and 2.0–2.5× MOIC (Preqin, 2024). Orbit targets above this range through the compounding advantage of the payments data flywheel and Nexus-driven margin expansion — structural value creation not available to financial-engineering-only PE. Permanent capital removes exit timing risk that compresses PE returns.
+    </div>
+
+    <!-- NAV PROJECTION TABLE -->
+    <div class="eyebrow" style="margin-bottom:12px;">Illustrative NAV Bridge — Per GP Unit</div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:28px;">
+      <table class="fin-tbl" style="min-width:480px;">
+        <thead>
+          <tr><th style="text-align:left;">Driver</th><th>Today</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Year 5</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Portfolio Companies</td><td>2</td><td>4</td><td>6</td><td>8</td><td>12+</td></tr>
+          <tr><td>Portfolio ARR</td><td>$12.4M</td><td>$22M</td><td>$36M</td><td>$54M</td><td>$95M+</td></tr>
+          <tr><td>Avg EBITDA Margin</td><td>22%</td><td>26%</td><td>30%</td><td>33%</td><td>36%+</td></tr>
+          <tr><td>Implied EBITDA</td><td>$2.7M</td><td>$5.7M</td><td>$10.8M</td><td>$17.8M</td><td>$34M+</td></tr>
+          <tr class="tr"><td>Est. NAV / GP Unit</td><td class="rr">$112.60</td><td class="rr">$152</td><td class="rr">$198</td><td class="rr">$251</td><td class="rr">$310+</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- USE OF PROCEEDS -->
+    <div class="eyebrow" style="margin-bottom:12px;">Use of Proceeds</div>
+    <div style="border:1px solid var(--border);padding:18px 20px;margin-bottom:28px;">
+      <div class="proc-row">
+        <div class="proc-num">01</div>
+        <div class="proc-body">
+          <div class="proc-title">Acquisition Equity — 3 Companies · ~$1.5M</div>
+          <div class="proc-desc">Equity down payments (20–25% of purchase price) on the next 3 acquisitions. Each deal structured with seller financing and a sub-level raise covering the balance. Target deal size: $3–8M revenue, $600K–$1.5M EBITDA, acquired at 3.5–5× EBITDA.</div>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-num">02</div>
+        <div class="proc-body">
+          <div class="proc-title">Nexus AI Buildout — ~$800K</div>
+          <div class="proc-desc">Engineering and product resources to extend the Nexus stack: cash flow forecasting, multi-entity consolidation, pricing optimization engine, and cross-portfolio data warehouse. Each system deployed across all portfolio companies at near-zero marginal cost.</div>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-num">03</div>
+        <div class="proc-body">
+          <div class="proc-title">M&amp;A Infrastructure — ~$400K</div>
+          <div class="proc-desc">Deal sourcing automation, diligence tooling, and the M&amp;A team required to evaluate 200+ targets per month and close 3–4 deals per year. Covers head of M&amp;A hire, legal, and origination infrastructure.</div>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-num">04</div>
+        <div class="proc-body">
+          <div class="proc-title">Working Capital &amp; Reserves — ~$300K</div>
+          <div class="proc-desc">GP-level operating runway, integration reserves for new acquisitions, and liquidity buffer. Holdco operating costs are deliberately lean — the majority of overhead is borne at the subsidiary level post-integration.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPLOYMENT TIMELINE -->
+    <div class="eyebrow" style="margin-bottom:12px;">Deployment Timeline</div>
+    <div style="border:1px solid var(--border);overflow:hidden;margin-bottom:28px;">
+      <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);">
+        <div style="padding:12px 14px;background:var(--bg3);border-right:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);">Q2 2026</div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.6;">Close GP round. Sign LOI on Target Co. IV (Elevator Maintenance, ~$3.5M rev). Begin Nexus cash flow forecasting build.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);">
+        <div style="padding:12px 14px;background:var(--bg3);border-right:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);">Q3 2026</div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.6;">Close Target Co. IV. Launch sub-level raise for Co. III (Waste Management). Full Nexus stack live across 4 portfolio companies. Cross-portfolio data warehouse operational.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);">
+        <div style="padding:12px 14px;background:var(--bg3);border-right:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);">Q4 2026</div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.6;">Close Target Co. III. Begin sourcing Co. V (Commercial HVAC) and Co. VI (Pest Control). First NAV mark reflecting 4-company portfolio. Tender offer window opens for early GP investors.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);">
+        <div style="padding:12px 14px;background:var(--bg3);border-right:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);">2027</div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.6;">Target 6+ portfolio companies. Launch second GP raise at higher NAV/unit. Payments data flywheel crosses critical mass — cross-portfolio model training live. EBITDA margins targeting 30%+ portfolio-wide.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:90px 1fr;">
+        <div style="padding:12px 14px;background:var(--bg3);border-right:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);">2028+</div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.6;">10–12 portfolio companies. No forced exit. NAV compounds indefinitely. Sub-level raises continue marking up holdco. Data moat and Nexus stack are fully proprietary and defensible at scale.</div>
+      </div>
+    </div>
+
+    <!-- CAPITAL STRUCTURE -->
+    <div class="eyebrow" style="margin-bottom:12px;">Capital Structure</div>
+    <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:20px;">
+      <div class="struct-layer">
+        <div class="struct-layer-hd"><div class="struct-layer-tag">Layer 01</div><div class="struct-layer-name">Orbit Holdings GP</div></div>
+        <div class="struct-row">
+          <div class="struct-party">Outside Investors</div>
+          <div class="struct-pct">20%</div>
+          <div class="struct-note">Growth capital. NAV-based liquidity via periodic tender offers as portfolio appreciates.</div>
+        </div>
+        <div class="struct-row hl">
+          <div class="struct-party">Founders / GP Team</div>
+          <div class="struct-pct">80%</div>
+          <div class="struct-note">Permanent equity. Carries the platform premium — Nexus IP, deal pipeline, data infrastructure.</div>
+        </div>
+      </div>
+      <div class="struct-layer">
+        <div class="struct-layer-hd"><div class="struct-layer-tag">Layer 02</div><div class="struct-layer-name">Per-Subsidiary Raise</div></div>
+        <div class="struct-row hl">
+          <div class="struct-party">Orbit Holdings</div>
+          <div class="struct-pct">70%</div>
+          <div class="struct-note">Board control. Mandates Nexus adoption, payment processing, and upward data sharing.</div>
+        </div>
+        <div class="struct-row">
+          <div class="struct-party">Sub-Level Investors</div>
+          <div class="struct-pct">20%</div>
+          <div class="struct-note">Preferred with 2× liquidation preference. Drag-along rights after year 5.</div>
+        </div>
+        <div class="struct-row">
+          <div class="struct-party">Founder Rollover</div>
+          <div class="struct-pct">10%</div>
+          <div class="struct-note">3-year EBITDA earnout. Aligned without blocking power.</div>
+        </div>
+        <div class="struct-callout">Each sub-level raise at a higher valuation marks up Orbit's NAV — giving holdco investors a return signal without a forced exit.</div>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon">↑</div><div class="why-text"><strong>NAV compounds at the GP level.</strong> Each sub-level raise marks up Orbit's holdco valuation. No forced exit required.</div></div>
+      <div class="why-item"><div class="why-icon">⊕</div><div class="why-text"><strong>Two bites of the apple.</strong> Returns from holdco appreciation and subsidiary cash flows. Sub-level investors fund growth without diluting the GP.</div></div>
+      <div class="why-item"><div class="why-icon">⚙</div><div class="why-text"><strong>Control is non-negotiable.</strong> 70% ownership means Nexus deployment, data sharing, and payment processing are mandated — not negotiated.</div></div>
+      <div class="why-item"><div class="why-icon">◎</div><div class="why-text"><strong>Clean structure.</strong> Payment economics flow through commercial agreements at the subsidiary level — arms-length, auditable, conflict-free.</div></div>
+    </div>
+
   </div>
 
   <!-- ══ FINANCIALS ══ -->
@@ -871,7 +1119,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 
     <!-- DIGEST -->
     <div style="border:1px solid var(--border);background:var(--bg2);padding:20px;margin-bottom:36px;">
-      <div class="eyebrow" style="margin-bottom:14px;">Digest — 10 Articles</div>
+      <div class="eyebrow" style="margin-bottom:14px;">Digest — 11 Articles</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
 
         <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
@@ -955,13 +1203,22 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
           <a href="https://a16z.com/newsletter/december-2024-enterprise-newsletter-ai-is-driving-a-shift-towards-outcome-based-pricing/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
           <div>
             <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">OpenAI · Dec 2025</div>
             <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">OpenAI Takes Ownership Stake in Thrive Holdings</div>
             <div style="font-size:11px;color:var(--muted);line-height:1.6;">OpenAI takes an equity stake in Thrive Holdings — the AI-native services roll-up targeting accounting and IT. OpenAI embeds research, product, and engineering teams inside portfolio companies to build AI from within.</div>
           </div>
           <a href="https://openai.com/index/thrive-holdings/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Zyg · Mar 2026</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Zyg — Agentic Operating System for DTC Scale ($58M Seed)</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">ironSource founders raise $58M (Lightspeed, BVP) to build an AI agentic OS for e-commerce brands — the same "AI as operating system for a category" thesis Orbit executes in field services. Parallel proof of concept from an adjacent market.</div>
+          </div>
+          <a href="https://www.zyg.com/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
         </div>
 
       </div>
@@ -1071,6 +1328,19 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
           <span class="read-cta">Read → bvp.com</span>
         </a>
 
+        <a class="read-card" href="https://www.zyg.com/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Zyg</span>
+            <span class="read-dot"></span>
+            <span class="read-date">March 2026 · $58M Seed</span>
+            <span class="read-badge">Adjacent Signal</span>
+          </div>
+          <div class="read-title">Zyg — Agentic Operating System for DTC Scale</div>
+          <div class="read-body">ironSource founders (Tomer Bar-Zeev, Omer Kaplan) raise $58M from Lightspeed and BVP to build an AI agentic OS for DTC e-commerce. Solo inventors plug into a full-stack platform — brand, ads, SEO, logistics, financing — powered by specialized AI agents and a proprietary "ZyG Score" to predict scale potential. Pay-as-you-grow model; founders retain full IP ownership.</div>
+          <div class="read-relevance">Not a direct competitor, but the most important parallel proof of concept: the same "AI as operating system for a business category" thesis Orbit executes in field services. Zyg's $58M seed at launch shows institutional conviction behind this model. The ironSource playbook (built the dominant growth OS for mobile apps) applied to physical commerce — Orbit is doing the same in recurring services.</div>
+          <span class="read-cta">Read → zyg.com</span>
+        </a>
+
         <a class="read-card" href="https://www.newcomer.co/p/inside-the-vc-roll-up-craze-that" target="_blank" rel="noopener">
           <div class="read-card-meta">
             <span class="read-source">Newcomer</span>
@@ -1132,7 +1402,60 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 
     <div class="comp-header">
       <div class="comp-header-title">Market Context</div>
-      <div class="comp-header-body">The AI-native services roll-up category is forming rapidly. Three distinct archetypes have emerged: (1) single-vertical tech-enabled roll-ups with future SaaS aspirations (Splash), (2) broad SMB holdcos built around operator networks (American Operator), and (3) AI-first institutional platforms with frontier model partnerships (Thrive Holdings). Orbit is the only player combining a payments data flywheel, a live proprietary AI stack, permanent capital, and a recurring field services thesis.</div>
+      <div class="comp-header-body">The AI-native services roll-up category is forming rapidly. Four distinct archetypes have emerged: (1) institutional AI-enabled roll-up platforms backed by top-tier VCs (General Catalyst), (2) AI-first institutional platforms with frontier model partnerships (Thrive Holdings), (3) single-vertical tech-enabled roll-ups with future SaaS aspirations (Splash), and (4) broad SMB holdcos built around operator networks (American Operator). Orbit is the only player combining a payments data flywheel, a live proprietary AI stack, permanent capital, and a recurring field services thesis.</div>
+    </div>
+
+    <!-- GENERAL CATALYST -->
+    <div class="comp-card">
+      <div class="comp-card-hd">
+        <div>
+          <div class="comp-card-name">General Catalyst — AI-Enabled Roll-Up Portfolio</div>
+          <div class="comp-card-tagline">Institutional Platform · "Billions Committed" · Titan MSP · Long Lake · Crescendo · Aug 2025</div>
+        </div>
+        <span class="comp-threat threat-high">High Threat</span>
+      </div>
+      <div class="comp-body">
+        <div class="comp-metrics">
+          <div class="comp-m"><div class="comp-m-lbl">Capital</div><div class="comp-m-val">Billions committed</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Portfolio Cos</div><div class="comp-m-val">5 known</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Target Market</div><div class="comp-m-val">$6T+ services</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Target Margins</div><div class="comp-m-val">30–40% EBITDA</div></div>
+        </div>
+
+        <div class="comp-section-lbl">Thesis (August 2025 — Marc Bhargava &amp; Kate Bender)</div>
+        <div class="comp-list">
+          <div class="comp-item">GC argues AI-enabled roll-ups represent the next wealth-creation wave beyond SaaS — targeting the $6T+ U.S. services sector vs. the $370B software market. "Software only set the table for the future of services."</div>
+          <div class="comp-item">Model: Combine proprietary AI technology with strategic acquisitions to expand capabilities and margin simultaneously — targeting "Rule of 60" (10–20% growth + 30–40% EBITDA) vs. SaaS "Rule of 40."</div>
+          <div class="comp-item">GC identifies and assembles founding teams, provides M&amp;A expertise, integration support, and capital strategy. The "GC Famiglia" shares learnings across portfolio companies in parallel execution.</div>
+        </div>
+
+        <div class="comp-section-lbl">Key Portfolio Companies — Direct Comps</div>
+        <div class="comp-list">
+          <div class="comp-item"><strong style="color:var(--text);">Titan MSP</strong> — IT services transformation platform. Acquired RFA (financial services MSP). Direct competitor to Orbit's Apex MSP Group in the managed IT services vertical.</div>
+          <div class="comp-item"><strong style="color:var(--text);">Long Lake</strong> — Multi-vertical services platform with 18 acquisitions across residential, business, and infrastructure services. Closest structural comp to Orbit's overall holdco thesis.</div>
+          <div class="comp-item"><strong style="color:var(--text);">Crescendo</strong> — Customer service automation achieving 80%+ interaction automation. Acquiring PartnerHero's call centers — applying AI to take over human service delivery at scale.</div>
+          <div class="comp-item"><strong style="color:var(--text);">Eudia</strong> — Legal services AI platform ($1.05T market), combining AI with 300+ legal delivery team. Acquired Johnson Hana. Demonstrates GC's cross-industry roll-up ambition.</div>
+          <div class="comp-item"><strong style="color:var(--text);">Dwelly</strong> — UK property management, 6 acquired agencies, 25–30% productivity gains. Validates the model in property/infrastructure services adjacent to Orbit's field services verticals.</div>
+        </div>
+
+        <div class="comp-section-lbl">Strengths</div>
+        <div class="comp-list">
+          <div class="comp-item strength">Institutional capital at the largest scale — "billions committed" dwarfs all other competitors.</div>
+          <div class="comp-item strength">Titan MSP is a direct, well-funded competitor to Orbit's MSP vertical; Long Lake mirrors Orbit's multi-vertical thesis at 18 acquisitions already.</div>
+          <div class="comp-item strength">GC Famiglia creates a shared learning network across portfolio companies — a structural advantage in playbook iteration speed.</div>
+          <div class="comp-item strength">Proven M&amp;A assembly capability: GC recruits founding teams combining AI technologists, domain experts, and M&amp;A operators — not dependent on a single founder.</div>
+        </div>
+
+        <div class="comp-section-lbl">Weaknesses</div>
+        <div class="comp-list">
+          <div class="comp-item weakness">No payments data moat — GC's model is AI + M&amp;A, not payments + AI + M&amp;A. The transaction data layer is absent.</div>
+          <div class="comp-item weakness">VC structure means each portfolio company faces an exit horizon — no permanent compounding capital.</div>
+          <div class="comp-item weakness">Capability-led AI (delivering outcomes) vs. data flywheel AI — GC's companies improve service delivery but don't compound a cross-portfolio dataset the way Orbit's payment flows do.</div>
+          <div class="comp-item weakness">Breadth across industries (legal, IT, CX, property, multi-vertical) disperses the shared data advantage; Orbit's field services focus keeps data DNA consistent.</div>
+        </div>
+
+        <div class="orbit-edge"><strong>Orbit's edge:</strong> GC is the most sophisticated institutional validator of this thesis — and the most important competitor to watch. Titan MSP and Long Lake are direct comps. The key differentiator is the payments layer: Orbit owns the transaction flow across every portfolio company, creating a compounding data moat GC's model doesn't build. Permanent capital is the second lever — GC portfolio companies will face liquidity events; Orbit's holdco compounds indefinitely.</div>
+      </div>
     </div>
 
     <!-- THRIVE HOLDINGS -->
@@ -1266,60 +1589,68 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
     <!-- COMPARISON TABLE -->
     <div class="eyebrow" style="margin-top:8px;margin-bottom:12px;">Head-to-Head</div>
     <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-    <div class="comp-diff-grid" style="min-width:560px;">
-      <div class="comp-diff-row hd">
+    <div class="comp-diff-grid" style="min-width:660px;grid-template-columns:unset;">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg3);">
         <div class="comp-diff-cell hd-lbl">Dimension</div>
         <div class="comp-diff-cell hd-lbl">Orbit</div>
+        <div class="comp-diff-cell hd-lbl">Gen. Catalyst</div>
         <div class="comp-diff-cell hd-lbl">Thrive</div>
         <div class="comp-diff-cell hd-lbl">Splash</div>
         <div class="comp-diff-cell hd-lbl">Am. Operator</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Payments Moat</div>
         <div class="comp-diff-cell yes">✓ Proprietary</div>
         <div class="comp-diff-cell no">✗ None</div>
         <div class="comp-diff-cell no">✗ None</div>
         <div class="comp-diff-cell no">✗ None</div>
+        <div class="comp-diff-cell no">✗ None</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">AI Stack</div>
-        <div class="comp-diff-cell yes">✓ Live · 30+ systems</div>
-        <div class="comp-diff-cell partial">~ OpenAI embedded</div>
+        <div class="comp-diff-cell yes">✓ Live · 30+</div>
+        <div class="comp-diff-cell partial">~ Capability AI</div>
+        <div class="comp-diff-cell partial">~ OpenAI embed</div>
         <div class="comp-diff-cell partial">~ Future SaaS</div>
         <div class="comp-diff-cell no">✗ Basic reporting</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Permanent Capital</div>
         <div class="comp-diff-cell yes">✓ No clock</div>
         <div class="comp-diff-cell no">✗ VC-backed</div>
+        <div class="comp-diff-cell no">✗ VC-backed</div>
         <div class="comp-diff-cell no">✗ SAFE / VC</div>
-        <div class="comp-diff-cell partial">~ Public (pressure)</div>
+        <div class="comp-diff-cell partial">~ Public</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Vertical Focus</div>
         <div class="comp-diff-cell yes">✓ Field services</div>
-        <div class="comp-diff-cell partial">~ IT + accounting</div>
+        <div class="comp-diff-cell no">✗ Multi-industry</div>
+        <div class="comp-diff-cell partial">~ IT + acctg</div>
         <div class="comp-diff-cell yes">✓ Pool only</div>
         <div class="comp-diff-cell no">✗ Diversified</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Cross-Portfolio Data</div>
         <div class="comp-diff-cell yes">✓ Flywheel</div>
+        <div class="comp-diff-cell partial">~ GC Famiglia</div>
         <div class="comp-diff-cell no">✗ Siloed</div>
         <div class="comp-diff-cell no">✗ Single vertical</div>
         <div class="comp-diff-cell no">✗ No shared DNA</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Control Structure</div>
         <div class="comp-diff-cell yes">✓ 70% mandated</div>
+        <div class="comp-diff-cell partial">~ Varies by co</div>
         <div class="comp-diff-cell partial">~ Varies</div>
         <div class="comp-diff-cell partial">~ Majority</div>
         <div class="comp-diff-cell yes">✓ Board majority</div>
       </div>
-      <div class="comp-diff-row">
+      <div style="display:grid;grid-template-columns:120px repeat(5,1fr);background:var(--bg);">
         <div class="comp-diff-cell lbl">Scale (current)</div>
         <div class="comp-diff-cell partial">~ Early (2 cos)</div>
-        <div class="comp-diff-cell yes">✓ $600M+ deployed</div>
+        <div class="comp-diff-cell yes">✓ Billions · 5 cos</div>
+        <div class="comp-diff-cell yes">✓ $600M+</div>
         <div class="comp-diff-cell no">✗ 1 acquisition</div>
         <div class="comp-diff-cell yes">✓ 99 transactions</div>
       </div>
