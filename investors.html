@@ -286,6 +286,46 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 .txn-settled{color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
 .txn-pend{color:var(--bronze);background:rgba(139,105,20,0.08);border:1px solid var(--border2);}
 
+/* ── COMPETITIVE ── */
+.comp-header{border:1px solid var(--border);padding:18px 20px;background:var(--bg2);margin-bottom:28px;}
+.comp-header-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.comp-header-body{font-size:12px;color:var(--muted);line-height:1.65;}
+.comp-card{border:1px solid var(--border);background:var(--bg);margin-bottom:20px;overflow:hidden;}
+.comp-card-hd{padding:16px 20px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.comp-card-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);}
+.comp-card-tagline{font-size:11px;color:var(--muted);margin-top:3px;}
+.comp-threat{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;flex-shrink:0;}
+.threat-high{color:var(--red);background:rgba(139,58,28,0.1);border:1px solid rgba(139,58,28,0.25);}
+.threat-med{color:var(--bronze);background:rgba(139,105,20,0.1);border:1px solid var(--border2);}
+.threat-low{color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
+.comp-body{padding:18px 20px;}
+.comp-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.comp-m{border:1px solid var(--border);padding:10px 12px;background:var(--bg2);}
+.comp-m-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.comp-m-val{font-size:14px;font-weight:600;color:var(--text);}
+.comp-section-lbl{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;margin-top:14px;}
+.comp-list{display:flex;flex-direction:column;gap:5px;}
+.comp-item{font-size:12px;color:var(--muted);line-height:1.6;padding-left:12px;position:relative;}
+.comp-item::before{content:'—';position:absolute;left:0;color:var(--bronze);opacity:0.5;}
+.comp-item.strength::before{content:'↑';color:var(--green);opacity:0.8;}
+.comp-item.weakness::before{content:'↓';color:var(--red);opacity:0.7;}
+.orbit-edge{margin-top:14px;padding:12px 14px;background:rgba(139,105,20,0.05);border-left:2px solid var(--bronze);font-size:12px;color:var(--text2);line-height:1.65;}
+.orbit-edge strong{color:var(--text);}
+.comp-diff-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:28px;}
+.comp-diff-row{display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;background:var(--bg);}
+.comp-diff-row.hd{background:var(--bg3);}
+.comp-diff-cell{padding:10px 12px;font-size:11px;border-right:1px solid rgba(139,105,20,0.08);}
+.comp-diff-cell:last-child{border-right:none;}
+.comp-diff-cell.lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+.comp-diff-cell.hd-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);}
+.comp-diff-cell.yes{color:var(--green);font-weight:600;}
+.comp-diff-cell.partial{color:var(--bronze);font-weight:600;}
+.comp-diff-cell.no{color:var(--muted);}
+@media(min-width:640px){
+  .comp-metrics{grid-template-columns:repeat(4,1fr);}
+  .comp-diff-row{grid-template-columns:140px 1fr 1fr 1fr 1fr;}
+}
+
 /* ── READING ROOM ── */
 .read-cat{margin-bottom:36px;}
 .read-cat-lbl{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
@@ -352,6 +392,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
       <div class="nav-tab" onclick="showSec('lender',this)">Lender</div>
       <div class="nav-tab" onclick="showSec('liquidity',this)">Liquidity</div>
       <div class="nav-tab" onclick="showSec('reading',this)">Reading Room</div>
+      <div class="nav-tab" onclick="showSec('competitive',this)">Competitive</div>
     </div>
   </nav>
 
@@ -828,6 +869,104 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
     <h1 class="sec-title">Reading Room</h1>
     <p class="sec-sub">Articles, theses, and market signals relevant to Orbit's strategy · Updated March 2026</p>
 
+    <!-- DIGEST -->
+    <div style="border:1px solid var(--border);background:var(--bg2);padding:20px;margin-bottom:36px;">
+      <div class="eyebrow" style="margin-bottom:14px;">Digest — 10 Articles</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Sequoia Capital · Mar 2026</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Services: The New Software</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">AI autopilots sell outcomes, not tools — capturing labor budgets an order of magnitude larger than software budgets. The next trillion-dollar company looks like a services firm.</div>
+          </div>
+          <a href="https://sequoiacap.com/article/services-the-new-software/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Andreessen Horowitz · Nov 2024</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Vertical SaaS: Now with AI Inside</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">AI launches a third wave of vertical SaaS, turning platforms into full-stack operators that 2–10× revenue per customer. Field services companies with workflow data are the highest-value AI plays.</div>
+          </div>
+          <a href="https://a16z.com/vertical-saas-now-with-ai-inside/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">General Catalyst · 2025</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">The Future of Services</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">U.S. services industries generate $6T+ annually vs. a $370B software market — yet remain largely untouched by AI. AI-enabled roll-ups in services dwarf the entire SaaS wave.</div>
+          </div>
+          <a href="https://www.generalcatalyst.com/stories/the-future-of-services" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Sequoia Capital · Dec 2024</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">AI in 2025: Building Blocks Firmly in Place</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">AI infrastructure is locked in — competitive advantage shifts to application-layer companies capturing labor budgets. AI displaces labor (not software), attacking a far larger profit pool than cloud.</div>
+          </div>
+          <a href="https://sequoiacap.com/article/ai-in-2025/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Business Wire · Feb 2026</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Shield Raises $100M From Thrive Holdings for IT Services Platform</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">Direct competitive validation: $100M deployed into an AI-powered IT services roll-up confirms institutional capital is racing into this exact strategy. Speed of data moat accumulation matters.</div>
+          </div>
+          <a href="https://www.businesswire.com/news/home/20260202196878/en/Shield-Raises-%24100-Million-From-Thrive-Holdings-to-Accelerate-the-Growth-of-its-IT-Services-Platform" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Bessemer Venture Partners · 2025</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">BVP Forge — PE for Software-Enabled Services</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">BVP's $1B Fund II targets software-enabled services at $50–500M EV — the exact profile Orbit acquires. The most data-driven firm in venture is validating this asset class at institutional scale.</div>
+          </div>
+          <a href="https://www.bvp.com/forge" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Newcomer · Dec 2025</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Inside the VC Roll-Up Craze That Has Taken Silicon Valley by Storm</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">GC, Thrive, 8VC, and Lightspeed are quietly acquiring fragmented services businesses and applying AI to rebuild unit economics — described as the defining VC strategy of 2025.</div>
+          </div>
+          <a href="https://www.newcomer.co/p/inside-the-vc-roll-up-craze-that" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">McKinsey &amp; Company · 2025</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Technology M&amp;A: AI Enters Its Industrial Phase</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">Tech M&amp;A has shifted from isolated AI experiments to systematic portfolio-wide integration. Acquirers deploying AI across their full portfolio generate significantly higher value than traditional roll-ups.</div>
+          </div>
+          <a href="https://www.mckinsey.com/capabilities/m-and-a/our-insights/technology-m-and-a-ai-enters-its-industrial-phase" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding-bottom:10px;border-bottom:1px solid rgba(139,105,20,0.08);">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">Andreessen Horowitz · Dec 2024</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">AI Is Driving A Shift Towards Outcome-Based Pricing</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">AI forces companies from per-seat to outcome-based pricing as agents deliver work rather than assist. Value capture moves from access to outcomes — the monetization model Nexus enables.</div>
+          </div>
+          <a href="https://a16z.com/newsletter/december-2024-enterprise-newsletter-ai-is-driving-a-shift-towards-outcome-based-pricing/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px;">OpenAI · Dec 2025</div>
+            <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">OpenAI Takes Ownership Stake in Thrive Holdings</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.6;">OpenAI takes an equity stake in Thrive Holdings — the AI-native services roll-up targeting accounting and IT. OpenAI embeds research, product, and engineering teams inside portfolio companies to build AI from within.</div>
+          </div>
+          <a href="https://openai.com/index/thrive-holdings/" target="_blank" rel="noopener" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);white-space:nowrap;text-decoration:none;padding-top:2px;">Read →</a>
+        </div>
+
+      </div>
+    </div>
+
     <!-- THESIS & MARKET -->
     <div class="read-cat">
       <div class="read-cat-lbl">Thesis &amp; Market Opportunity</div>
@@ -892,6 +1031,19 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
     <div class="read-cat">
       <div class="read-cat-lbl">Competitive Signals</div>
       <div class="read-grid">
+
+        <a class="read-card" href="https://openai.com/index/thrive-holdings/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">OpenAI</span>
+            <span class="read-dot"></span>
+            <span class="read-date">December 1, 2025</span>
+            <span class="read-badge">Competitive Signal</span>
+          </div>
+          <div class="read-title">OpenAI Takes Ownership Stake in Thrive Holdings</div>
+          <div class="read-body">OpenAI takes an equity stake in Thrive Holdings — the AI-native services roll-up targeting accounting and IT services. Rather than selling AI as software, OpenAI embeds research, product, and engineering teams directly inside portfolio companies to build AI systems from within and establish repeatable deployment playbooks across service industries.</div>
+          <div class="read-relevance">Thrive Holdings is a direct Orbit comp — same thesis, same verticals, now with OpenAI embedded inside it. The competitive signal here is clear: frontier AI labs are moving from selling tools to owning the services layer. Orbit's differentiation is payments data and permanent capital, not AI access.</div>
+          <span class="read-cta">Read → openai.com</span>
+        </a>
 
         <a class="read-card" href="https://www.businesswire.com/news/home/20260202196878/en/Shield-Raises-%24100-Million-From-Thrive-Holdings-to-Accelerate-the-Growth-of-its-IT-Services-Platform" target="_blank" rel="noopener">
           <div class="read-card-meta">
@@ -967,6 +1119,211 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
         </a>
 
       </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══ COMPETITIVE ══ -->
+  <div class="section" id="sec-competitive">
+    <div class="eyebrow">Competitive Intelligence</div>
+    <h1 class="sec-title">Landscape</h1>
+    <p class="sec-sub">Analysis based on pitch decks, investor memos, and call notes · Confidential · March 2026</p>
+
+    <div class="comp-header">
+      <div class="comp-header-title">Market Context</div>
+      <div class="comp-header-body">The AI-native services roll-up category is forming rapidly. Three distinct archetypes have emerged: (1) single-vertical tech-enabled roll-ups with future SaaS aspirations (Splash), (2) broad SMB holdcos built around operator networks (American Operator), and (3) AI-first institutional platforms with frontier model partnerships (Thrive Holdings). Orbit is the only player combining a payments data flywheel, a live proprietary AI stack, permanent capital, and a recurring field services thesis.</div>
+    </div>
+
+    <!-- THRIVE HOLDINGS -->
+    <div class="comp-card">
+      <div class="comp-card-hd">
+        <div>
+          <div class="comp-card-name">Thrive Holdings</div>
+          <div class="comp-card-tagline">AI-Native Services Roll-Up · IT Services &amp; Accounting · OpenAI Equity Partner</div>
+        </div>
+        <span class="comp-threat threat-high">High Threat</span>
+      </div>
+      <div class="comp-body">
+        <div class="comp-metrics">
+          <div class="comp-m"><div class="comp-m-lbl">Backer</div><div class="comp-m-val">Thrive Capital</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Capital Deployed</div><div class="comp-m-val">$600M+</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">AI Partner</div><div class="comp-m-val">OpenAI (equity)</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Focus</div><div class="comp-m-val">IT Services, Accounting</div></div>
+        </div>
+        <div class="comp-section-lbl">What They're Doing</div>
+        <div class="comp-list">
+          <div class="comp-item">Founded April 2025 by Thrive Capital to acquire and operate companies in accounting and IT services — the same MSP vertical as Orbit's Apex MSP Group.</div>
+          <div class="comp-item">OpenAI took an equity stake in Dec 2025 and embeds cross-functional teams (research, product, engineering) directly inside portfolio companies to build AI from within.</div>
+          <div class="comp-item">Deployed $100M into Shield (IT services platform) via Feb 2026 raise; Crete (accounting) received $500M for AI-driven roll-up.</div>
+          <div class="comp-item">Stated goal: establish a repeatable, scalable AI deployment model across operationally intensive service industries — then expand to additional sectors.</div>
+        </div>
+        <div class="comp-section-lbl">Strengths</div>
+        <div class="comp-list">
+          <div class="comp-item strength">Frontier AI access — OpenAI embedded inside portfolio companies, not just API access.</div>
+          <div class="comp-item strength">Institutional capital at scale — $600M+ deployed, vs. Orbit's early stage.</div>
+          <div class="comp-item strength">IT services focus overlaps directly with Orbit's MSP vertical.</div>
+        </div>
+        <div class="comp-section-lbl">Weaknesses</div>
+        <div class="comp-list">
+          <div class="comp-item weakness">No payments data moat — Thrive does not own the payment layer across portfolio companies.</div>
+          <div class="comp-item weakness">VC-backed structure means forced exits; no permanent compounding capital advantage.</div>
+          <div class="comp-item weakness">AI is externally deployed (OpenAI teams visit); not a proprietary stack trained on proprietary data.</div>
+          <div class="comp-item weakness">Accounting + IT focus limits cross-vertical data flywheel; verticals share little operational DNA.</div>
+        </div>
+        <div class="orbit-edge"><strong>Orbit's edge:</strong> Payments ownership across all portfolio companies creates a cross-portfolio data moat Thrive cannot replicate. OpenAI access is a commodity — payment transaction data is not. Permanent capital means Orbit can out-hold any VC-backed competitor.</div>
+      </div>
+    </div>
+
+    <!-- SPLASH -->
+    <div class="comp-card">
+      <div class="comp-card-hd">
+        <div>
+          <div class="comp-card-name">Splash Ventures</div>
+          <div class="comp-card-tagline">Pool Care Tech-Enabled Roll-Up · San Diego · YC Alumni · April 2024</div>
+        </div>
+        <span class="comp-threat threat-high">High Threat — Pool Vertical</span>
+      </div>
+      <div class="comp-body">
+        <div class="comp-metrics">
+          <div class="comp-m"><div class="comp-m-lbl">Raised</div><div class="comp-m-val">$5.6M</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Valuation</div><div class="comp-m-val">$23.5M post</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Entry Multiple</div><div class="comp-m-val">3–4× EBITDA</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">First Deal</div><div class="comp-m-val">$2.5M / $630K SDE</div></div>
+        </div>
+        <div class="comp-section-lbl">What They're Doing</div>
+        <div class="comp-list">
+          <div class="comp-item">Founded by Ryan (Lawn Love → $20M ARR, sold to LawnStarter 2021). YC alum, previously built and exited two home services businesses.</div>
+          <div class="comp-item">Targeting $350K–$1.5M EBITDA pool cleaning businesses at 3–4× EBITDA. First acquisition: Poologic (500 pools, San Diego) for $2.5M with $1M equity down, $1.5M seller-financed at 7.5% for 6 years.</div>
+          <div class="comp-item">Playbook: Buy → Integrate off-the-shelf FSM tech → Build dominant SEO lead gen engine (replicated from Lawn Love) → Build vertical SaaS once 4–5 companies are acquired.</div>
+          <div class="comp-item">Targeting 2–3 acquisitions in 2024, 3–5 per year thereafter. Next raise: $5M intermediate, then $15–20M Series A.</div>
+          <div class="comp-item">Pool market: $10B/year, 72K+ companies, 70% recurring revenue, 80%+ annual retention. Avg owner in 50s, no national brand exists.</div>
+          <div class="comp-item">Key route economics: buys routes at 10–12× monthly revenue via secondary market, validates customer stickiness thesis.</div>
+        </div>
+        <div class="comp-section-lbl">Strengths</div>
+        <div class="comp-list">
+          <div class="comp-item strength">Proven founder with direct home services operating and scaling experience — not a first-timer.</div>
+          <div class="comp-item strength">SEO/growth marketing playbook from Lawn Love is a genuine differentiated organic growth engine.</div>
+          <div class="comp-item strength">Seller financing structure minimizes equity burn; disciplined capital deployment.</div>
+          <div class="comp-item strength">Deep understanding of pool-specific route economics and secondary market dynamics.</div>
+        </div>
+        <div class="comp-section-lbl">Weaknesses</div>
+        <div class="comp-list">
+          <div class="comp-item weakness">Single vertical — no cross-portfolio data advantage; data moat capped at pool care.</div>
+          <div class="comp-item weakness">Vertical SaaS is a future aspiration ("once we have 4–5 businesses"), not a live operating stack.</div>
+          <div class="comp-item weakness">No payments infrastructure — does not own or monetize the payment layer.</div>
+          <div class="comp-item weakness">VC-backed SAFE structure; Asymmetric Capital Partners as lead means institutional exit pressure.</div>
+          <div class="comp-item weakness">Single founder, lean team — hiring M&amp;A head and Philippines ops is still in progress.</div>
+        </div>
+        <div class="orbit-edge"><strong>Orbit's edge in pool:</strong> ClearWater Pool Co. already has Nexus integrated and live payment data compounding. Splash is still building its tech stack — they're 12–18 months behind on operational AI deployment. Orbit's permanent capital structure allows patient, non-dilutive hold; Splash's SAFE investors will eventually demand liquidity.</div>
+      </div>
+    </div>
+
+    <!-- AMERICAN OPERATOR -->
+    <div class="comp-card">
+      <div class="comp-card-hd">
+        <div>
+          <div class="comp-card-name">American Operator</div>
+          <div class="comp-card-tagline">Main Street SMB Holdco · Operator-First Model · Public Holding Company · January 2026</div>
+        </div>
+        <span class="comp-threat threat-med">Medium Threat</span>
+      </div>
+      <div class="comp-body">
+        <div class="comp-metrics">
+          <div class="comp-m"><div class="comp-m-lbl">TEV Transacted</div><div class="comp-m-val">$300M+</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Transactions</div><div class="comp-m-val">99</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Operator Network</div><div class="comp-m-val">5,100+</div></div>
+          <div class="comp-m"><div class="comp-m-lbl">Entry Multiple</div><div class="comp-m-val">3–5× EBITDA</div></div>
+        </div>
+        <div class="comp-section-lbl">What They're Doing</div>
+        <div class="comp-list">
+          <div class="comp-item">Public holding company designed to match industry-veteran operators with Main Street SMB acquisition targets across diversified industries (plumbing, HVAC, landscaping, home services, manufacturing).</div>
+          <div class="comp-item">Operator-first model: instead of ETA/MBA buyers, they source vetted industry veterans from a 5,100+ operator network to run acquired businesses. Operator carries personal guarantees; American Operator holds majority board control.</div>
+          <div class="comp-item">Private credit arm mirrors SBA underwriting; finances acquisitions with seller notes + term debt. No outside PE capital required per deal.</div>
+          <div class="comp-item">Technology platform handles financial reporting (GL-level API), cap table management, and distribution waterfall calculations across portfolio.</div>
+          <div class="comp-item">Brand assets: "Locally Owned &amp; Operated" certification, SMB15 podcast, media brand — used for deal sourcing and operator recruitment.</div>
+          <div class="comp-item">Operator network grew from ~870 to 5,125 in six months (Apr–Sep 2025), suggesting rapid momentum heading into 2026.</div>
+        </div>
+        <div class="comp-section-lbl">Strengths</div>
+        <div class="comp-list">
+          <div class="comp-item strength">Scale and track record — 99 transactions, $300M+ TEV, 2,400 businesses reviewed. Significant head start.</div>
+          <div class="comp-item strength">Operator network as proprietary deal flow and talent moat — hard to replicate quickly.</div>
+          <div class="comp-item strength">Diversified industry exposure reduces single-vertical risk.</div>
+          <div class="comp-item strength">Media brand and podcast (SMB15) creates organic deal sourcing and operator recruitment at low cost.</div>
+        </div>
+        <div class="comp-section-lbl">Weaknesses</div>
+        <div class="comp-list">
+          <div class="comp-item weakness">No AI stack — technology is basic financial reporting and cap table tooling. No proprietary AI operating layer.</div>
+          <div class="comp-item weakness">No payments moat — diversified industries mean no cross-portfolio data flywheel is possible.</div>
+          <div class="comp-item weakness">Operator-dependent model creates key-person risk at every portfolio company; governance complexity scales poorly.</div>
+          <div class="comp-item weakness">Diversification is a double-edged sword — no deep vertical expertise or compound data advantage within any one sector.</div>
+          <div class="comp-item weakness">Public structure creates liquidity and reporting overhead; less nimble than a private holdco.</div>
+        </div>
+        <div class="orbit-edge"><strong>Orbit's edge:</strong> American Operator is building breadth; Orbit is building depth. Nexus AI and payments data compound strongest within verticals — Orbit's focused field services approach creates moats American Operator's industry-agnostic model structurally cannot. They compete on operator talent; Orbit competes on data and automation.</div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="eyebrow" style="margin-top:8px;margin-bottom:12px;">Head-to-Head</div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <div class="comp-diff-grid" style="min-width:560px;">
+      <div class="comp-diff-row hd">
+        <div class="comp-diff-cell hd-lbl">Dimension</div>
+        <div class="comp-diff-cell hd-lbl">Orbit</div>
+        <div class="comp-diff-cell hd-lbl">Thrive</div>
+        <div class="comp-diff-cell hd-lbl">Splash</div>
+        <div class="comp-diff-cell hd-lbl">Am. Operator</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Payments Moat</div>
+        <div class="comp-diff-cell yes">✓ Proprietary</div>
+        <div class="comp-diff-cell no">✗ None</div>
+        <div class="comp-diff-cell no">✗ None</div>
+        <div class="comp-diff-cell no">✗ None</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">AI Stack</div>
+        <div class="comp-diff-cell yes">✓ Live · 30+ systems</div>
+        <div class="comp-diff-cell partial">~ OpenAI embedded</div>
+        <div class="comp-diff-cell partial">~ Future SaaS</div>
+        <div class="comp-diff-cell no">✗ Basic reporting</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Permanent Capital</div>
+        <div class="comp-diff-cell yes">✓ No clock</div>
+        <div class="comp-diff-cell no">✗ VC-backed</div>
+        <div class="comp-diff-cell no">✗ SAFE / VC</div>
+        <div class="comp-diff-cell partial">~ Public (pressure)</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Vertical Focus</div>
+        <div class="comp-diff-cell yes">✓ Field services</div>
+        <div class="comp-diff-cell partial">~ IT + accounting</div>
+        <div class="comp-diff-cell yes">✓ Pool only</div>
+        <div class="comp-diff-cell no">✗ Diversified</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Cross-Portfolio Data</div>
+        <div class="comp-diff-cell yes">✓ Flywheel</div>
+        <div class="comp-diff-cell no">✗ Siloed</div>
+        <div class="comp-diff-cell no">✗ Single vertical</div>
+        <div class="comp-diff-cell no">✗ No shared DNA</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Control Structure</div>
+        <div class="comp-diff-cell yes">✓ 70% mandated</div>
+        <div class="comp-diff-cell partial">~ Varies</div>
+        <div class="comp-diff-cell partial">~ Majority</div>
+        <div class="comp-diff-cell yes">✓ Board majority</div>
+      </div>
+      <div class="comp-diff-row">
+        <div class="comp-diff-cell lbl">Scale (current)</div>
+        <div class="comp-diff-cell partial">~ Early (2 cos)</div>
+        <div class="comp-diff-cell yes">✓ $600M+ deployed</div>
+        <div class="comp-diff-cell no">✗ 1 acquisition</div>
+        <div class="comp-diff-cell yes">✓ 99 transactions</div>
+      </div>
+    </div>
     </div>
 
   </div>
