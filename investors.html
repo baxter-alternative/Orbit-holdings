@@ -43,9 +43,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 .nav-logo span{color:var(--bronze);}
 .nav-back{margin-left:auto;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
 .nav-back:hover{color:var(--bronze);}
-.nav-tabs{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid var(--border);scrollbar-width:none;}
-.nav-tabs::-webkit-scrollbar{display:none;}
-.nav-tab{flex-shrink:0;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:13px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;touch-action:manipulation;}
+.nav-row{display:flex;align-items:stretch;border-top:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-row::-webkit-scrollbar{display:none;}
+.nav-row+.nav-row{border-top:1px solid var(--border);}
+.nav-row-label{flex-shrink:0;display:flex;align-items:center;padding:0 20px;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);border-right:1px solid var(--border);min-width:100px;opacity:0.7;}
+.nav-tab{flex-shrink:0;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:11px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;touch-action:manipulation;}
 .nav-tab.active{color:var(--bronze);border-bottom-color:var(--bronze);}
 
 /* ── SECTION ── */
@@ -390,6 +392,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 @media(min-width:640px){
   .section{padding:40px 40px;}
   .nav-top{padding:0 40px;}
+  .nav-row-label{padding:0 40px;min-width:120px;}
   .kpi-grid{grid-template-columns:repeat(4,1fr);}
   .p-grid{grid-template-columns:repeat(2,1fr);}
   .run-row{grid-template-columns:repeat(4,1fr);}
@@ -401,11 +404,126 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 @media(min-width:1024px){
   .section{padding:52px 60px;}
   .nav-top{padding:0 60px;}
-  .nav-tab{padding:14px 20px;}
+  .nav-row-label{padding:0 60px;min-width:140px;}
+  .nav-tab{padding:13px 20px;}
   .auto-grid{grid-template-columns:repeat(3,1fr);}
   .kpi-val{font-size:30px;}
   .read-grid{grid-template-columns:repeat(3,1fr);}
 }
+/* PLAYBOOK */
+.pb-toc{margin-bottom:32px;padding:20px;background:var(--bg2);border:1px solid var(--border);}
+.pb-toc-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:12px;}
+.pb-toc-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.pb-toc-link{font-size:12px;color:var(--text2);text-decoration:none;padding:2px 0;}
+.pb-toc-link:hover{color:var(--bronze);}
+.pb-stage-pipeline{display:flex;align-items:stretch;gap:0;margin:20px 0;overflow-x:auto;}
+.pb-stage-box{flex:1;min-width:120px;padding:16px 12px;background:var(--bg2);border:1px solid var(--border);text-align:center;}
+.pb-stage-box:not(:first-child){border-left:none;}
+.pb-stage-num{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--bronze);margin-bottom:4px;}
+.pb-stage-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.pb-stage-cost{font-size:12px;font-weight:600;color:var(--bronze2);}
+.pb-stage-time{font-size:11px;color:var(--muted);}
+.pb-stage-gate{font-size:10px;margin-top:6px;color:var(--muted);}
+.pb-h1{font-family:'Playfair Display',serif;font-size:clamp(18px,4vw,26px);font-weight:600;color:var(--text);margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.pb-h2{font-size:14px;font-weight:700;letter-spacing:0.05em;color:var(--text);margin:24px 0 8px;}
+.pb-h3{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);margin:18px 0 6px;}
+.pb-p{font-size:13px;line-height:1.7;color:var(--text2);margin-bottom:10px;}
+.pb-ul,.pb-ol{padding-left:18px;margin-bottom:12px;}
+.pb-ul li,.pb-ol li{font-size:13px;line-height:1.7;color:var(--text2);margin-bottom:3px;}
+.pb-table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
+.pb-table th{background:var(--bg3);color:var(--text);font-weight:600;text-align:left;padding:8px 10px;border:1px solid var(--border2);}
+.pb-table td{padding:7px 10px;border:1px solid var(--border);color:var(--text2);vertical-align:top;}
+.pb-table tr:nth-child(even) td{background:var(--bg2);}
+.pb-pre{background:var(--bg3);border:1px solid var(--border);padding:14px;overflow-x:auto;margin-bottom:16px;font-size:11px;font-family:monospace;line-height:1.5;color:var(--text);}
+.pb-divider{height:1px;background:var(--border);margin:32px 0;}
+.pb-note{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:10px;}
+
+/* ── PLAYBOOK INTERACTIVE ── */
+.pb-ap-hero{background:linear-gradient(135deg,var(--text) 0%,#2A2015 100%);padding:32px;margin-bottom:24px;position:relative;overflow:hidden;}
+.pb-ap-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(196,154,46,0.1) 0%,transparent 65%);pointer-events:none;}
+.pb-ap-badge{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze2);border:1px solid rgba(196,154,46,0.28);padding:4px 10px;margin-bottom:18px;}
+.pb-ap-badge-dot{width:5px;height:5px;border-radius:50%;background:#3A7A4E;flex-shrink:0;animation:pb-pulse 2s ease infinite;}
+@keyframes pb-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);}}
+.pb-ap-title{font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,32px);font-weight:600;color:rgba(242,237,228,0.95);line-height:1.1;margin-bottom:10px;}
+.pb-ap-sub{font-size:12px;color:rgba(242,237,228,0.42);line-height:1.65;max-width:540px;margin-bottom:28px;}
+.pb-ap-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(242,237,228,0.07);}
+.pb-apm{padding:18px 16px;background:rgba(242,237,228,0.03);transition:background 0.2s;}
+.pb-apm:hover{background:rgba(242,237,228,0.06);}
+.pb-apm-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--bronze2);line-height:1;margin-bottom:4px;}
+.pb-apm-val sup{font-size:14px;vertical-align:top;margin-top:5px;display:inline-block;}
+.pb-apm-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,237,228,0.32);}
+.pb-apm-chg{font-size:11px;color:rgba(58,122,78,0.85);margin-top:3px;}
+
+/* Stage pipeline */
+.pb-stages{display:flex;gap:0;margin-bottom:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.pb-stages::-webkit-scrollbar{display:none;}
+.pb-stage-item{flex:1;min-width:130px;padding:18px 14px;border:1px solid var(--border);border-right:none;background:var(--bg);cursor:pointer;transition:background 0.2s;position:relative;text-align:center;}
+.pb-stage-item:last-child{border-right:1px solid var(--border);}
+.pb-stage-item.pb-done{border-top:2px solid rgba(58,122,78,0.35);}
+.pb-stage-item.pb-active{border-top:2px solid var(--bronze);}
+.pb-stage-item.pb-pending{border-top:2px solid transparent;opacity:0.55;}
+.pb-stage-item.pb-selected{background:var(--bg2);}
+.pb-si-num{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.pb-si-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.pb-si-range{font-size:11px;color:var(--bronze2);font-weight:600;margin-bottom:10px;}
+.pb-si-status{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;display:inline-block;}
+.pb-si-status.done{color:#3A7A4E;background:rgba(58,122,78,0.09);border:1px solid rgba(58,122,78,0.2);}
+.pb-si-status.active{color:var(--bronze);background:rgba(139,105,20,0.09);border:1px solid var(--border2);}
+.pb-si-status.pending{color:var(--muted);border:1px solid rgba(139,105,20,0.12);}
+
+/* Stage detail panels */
+.pb-sd{display:none;border:1px solid var(--border);border-top:none;padding:22px;background:var(--bg2);margin-bottom:20px;}
+.pb-sd.pb-sd-active{display:block;animation:pb-fadein 0.28s ease;}
+@keyframes pb-fadein{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.pb-sd-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+.pb-sd-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;}
+.pb-sd-text{font-size:12px;color:var(--muted);line-height:1.72;margin-bottom:14px;}
+.pb-sd-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0;}
+.pb-sd-tag{font-size:10px;font-weight:600;letter-spacing:0.06em;padding:4px 10px;border:1px solid;}
+.pb-sd-tag.green{color:#3A7A4E;border-color:rgba(58,122,78,0.25);background:rgba(58,122,78,0.07);}
+.pb-sd-tag.bronze{color:var(--bronze);border-color:var(--border2);background:rgba(139,105,20,0.07);}
+.pb-sd-tag.muted{color:var(--muted);border-color:var(--border);}
+.pb-sd-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pb-sd-metric{padding:14px;border:1px solid var(--border);background:var(--bg);text-align:center;}
+.pb-sd-mval{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--bronze);line-height:1;}
+.pb-sd-mlbl{font-size:10px;color:var(--muted);margin-top:5px;font-weight:500;}
+
+/* Funnel chart */
+.pb-funnel-wrap{margin-bottom:24px;border:1px solid var(--border);padding:24px;background:var(--bg);}
+.pb-funnel-title{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--bronze);margin-bottom:20px;}
+.pb-funnel-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.pb-funnel-row:last-child{margin-bottom:0;}
+.pb-fr-label{font-size:11px;font-weight:600;color:var(--muted);min-width:100px;text-align:right;flex-shrink:0;}
+.pb-fr-track{flex:1;height:26px;background:rgba(139,105,20,0.06);border:1px solid var(--border);overflow:hidden;position:relative;}
+.pb-fr-fill{height:100%;background:linear-gradient(90deg,var(--bronze) 0%,var(--bronze2) 100%);transform-origin:left;transform:scaleX(0);transition:transform 1.1s cubic-bezier(0.4,0,0.2,1);}
+.pb-fr-fill.pb-animated{transform:scaleX(var(--pb-scale,1));}
+.pb-fr-val{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);min-width:36px;text-align:right;flex-shrink:0;}
+.pb-fr-conv{font-size:10px;color:#3A7A4E;font-weight:600;min-width:80px;flex-shrink:0;}
+
+/* AP results card */
+.pb-results-card{border:1px solid rgba(58,122,78,0.22);background:rgba(58,122,78,0.03);padding:22px;margin-bottom:28px;}
+.pb-results-hd{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.pb-results-dot{width:7px;height:7px;border-radius:50%;background:#3A7A4E;animation:pb-pulse 2s ease infinite;flex-shrink:0;}
+.pb-results-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);}
+.pb-results-sub{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-left:auto;}
+.pb-results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(58,122,78,0.1);}
+.pb-rg-item{padding:14px 16px;background:var(--bg);}
+.pb-rg-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--text);line-height:1;}
+.pb-rg-val.bronze{color:var(--bronze);}
+.pb-rg-val.green{color:#3A7A4E;}
+.pb-rg-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.pb-rg-note{font-size:11px;color:var(--muted);margin-top:2px;}
+
+@media(min-width:640px){
+  .pb-ap-metrics{grid-template-columns:repeat(4,1fr);}
+  .pb-sd-grid{grid-template-columns:3fr 2fr;align-items:start;}
+  .pb-results-grid{grid-template-columns:repeat(4,1fr);}
+}
+
+/* NAV GROUPS */
+.nav-group-label{flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);padding:0 10px;display:flex;align-items:center;opacity:0.6;}
+.nav-group-sep{flex-shrink:0;width:1px;background:var(--border2);margin:10px 4px;}
+
 </style>
 </head>
 <body>
@@ -427,16 +545,19 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
       <div class="nav-logo">Orbit<span> Holdings.</span></div>
       <a href="index.html" class="nav-back">← Orbit</a>
     </div>
-    <div class="nav-tabs">
+        <div class="nav-row">
+      <div class="nav-row-label">Portfolio</div>
       <div class="nav-tab active" onclick="showSec('overview',this)">Overview</div>
-      <div class="nav-tab" onclick="showSec('capital',this)">Capital</div>
       <div class="nav-tab" onclick="showSec('financials',this)">Financials</div>
-      <div class="nav-tab" onclick="showSec('pipeline',this)">M&A Pipeline</div>
+      <div class="nav-tab" onclick="showSec('pipeline',this)">M&amp;A Pipeline</div>
       <div class="nav-tab" onclick="showSec('nexus',this)">Nexus AI</div>
       <div class="nav-tab" onclick="showSec('lender',this)">Lender</div>
       <div class="nav-tab" onclick="showSec('liquidity',this)">Liquidity</div>
+    </div>
+    <div class="nav-row">
+      <div class="nav-row-label">Research</div>
+      <div class="nav-tab" onclick="showSec('playbook',this)">Playbook</div>
       <div class="nav-tab" onclick="showSec('reading',this)">Reading Room</div>
-      <div class="nav-tab" onclick="showSec('competitive',this)">Competitive</div>
     </div>
   </nav>
 
@@ -1659,6 +1780,2843 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 
   </div>
 
+
+
+  <!-- PLAYBOOK -->
+  <div class="section" id="sec-playbook">
+
+  <!-- AP HERO -->
+  <div class="pb-ap-hero">
+    <div class="pb-ap-badge"><span class="pb-ap-badge-dot"></span>Live Case Study — In Progress</div>
+    <div class="pb-ap-title">The Orbit Playbook,<br>Proven at Alternative Payments</div>
+    <p class="pb-ap-sub">Before we deploy this framework across every acquisition, we built it at AP — our payments portfolio company — and tested it live in the accounting vertical. Here's what the data shows.</p>
+    <div class="pb-ap-metrics">
+      <div class="pb-apm"><div class="pb-apm-val">175</div><div class="pb-apm-lbl">Leads Generated</div><div class="pb-apm-chg">Accounting vertical, Stage 3</div></div>
+      <div class="pb-apm"><div class="pb-apm-val">11</div><div class="pb-apm-lbl">Firms Closed</div><div class="pb-apm-chg">$6K avg ACV each</div></div>
+      <div class="pb-apm"><div class="pb-apm-val">2.46<sup>×</sup></div><div class="pb-apm-lbl">LTV:CAC</div><div class="pb-apm-chg">Referral-adjusted</div></div>
+      <div class="pb-apm"><div class="pb-apm-val">40<sup>%</sup></div><div class="pb-apm-lbl">Referral Rate</div><div class="pb-apm-chg">2× the Stage 3 target</div></div>
+    </div>
+  </div>
+
+  <!-- STAGE PIPELINE — click a stage to see detail -->
+  <div class="pb-stages">
+    <div class="pb-stage-item pb-done" onclick="pbStage(1)">
+      <div class="pb-si-num">Stage 01</div>
+      <div class="pb-si-name">Research</div>
+      <div class="pb-si-range">$5–15K · 4–6 wks</div>
+      <div class="pb-si-status done">Complete ✓</div>
+    </div>
+    <div class="pb-stage-item pb-done" onclick="pbStage(2)">
+      <div class="pb-si-num">Stage 02</div>
+      <div class="pb-si-name">Test</div>
+      <div class="pb-si-range">$25–50K · 8–12 wks</div>
+      <div class="pb-si-status done">Complete ✓</div>
+    </div>
+    <div class="pb-stage-item pb-active pb-selected" onclick="pbStage(3)">
+      <div class="pb-si-num">Stage 03</div>
+      <div class="pb-si-name">Validate</div>
+      <div class="pb-si-range">$110K · 6 months</div>
+      <div class="pb-si-status active">In Progress</div>
+    </div>
+    <div class="pb-stage-item pb-pending" onclick="pbStage(4)">
+      <div class="pb-si-num">Stage 04</div>
+      <div class="pb-si-name">Scale</div>
+      <div class="pb-si-range">$250K+ / yr</div>
+      <div class="pb-si-status pending">Next →</div>
+    </div>
+  </div>
+
+  <!-- STAGE DETAIL PANELS -->
+  <div id="pb-sd-1" class="pb-sd">
+    <div class="pb-sd-grid">
+      <div>
+        <div class="pb-sd-title">Stage 1: Research — Complete</div>
+        <p class="pb-sd-text">AP spent $12K over 5 weeks mapping the CAS/accounting market. We identified 50K+ total addressable firms, validated 3 core pain points (manual AR, slow collections, QBO Payments limitations), and confirmed clear competitive whitespace against Bill.com and Ignition in the SMB CAS segment.</p>
+        <div class="pb-sd-tags">
+          <span class="pb-sd-tag green">50K+ TAM confirmed ✓</span>
+          <span class="pb-sd-tag green">3 pain points validated ✓</span>
+          <span class="pb-sd-tag green">100+ qualified prospects mapped ✓</span>
+          <span class="pb-sd-tag green">Decision: GO ✓</span>
+        </div>
+      </div>
+      <div class="pb-sd-metrics">
+        <div class="pb-sd-metric"><div class="pb-sd-mval">$12K</div><div class="pb-sd-mlbl">Invested</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">5 wks</div><div class="pb-sd-mlbl">Duration</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">GO</div><div class="pb-sd-mlbl">Decision</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pb-sd-2" class="pb-sd">
+    <div class="pb-sd-grid">
+      <div>
+        <div class="pb-sd-title">Stage 2: Test — Complete</div>
+        <p class="pb-sd-text">AP invested $38K over 10 weeks: one conference (AICPA CAS Summit), targeted outbound to 500 accounting firms, and a Woodard community partnership exploration. Met all 4 exit criteria — 64 leads, 13 SQLs, 6 open opportunities, and a 4.2:1 pipeline:spend ratio. Decision: proceed to full Stage 3 validation.</p>
+        <div class="pb-sd-tags">
+          <span class="pb-sd-tag green">64 leads — target 50+ ✓</span>
+          <span class="pb-sd-tag green">13 SQLs — target 10+ ✓</span>
+          <span class="pb-sd-tag green">6 opportunities — target 5+ ✓</span>
+          <span class="pb-sd-tag green">4.2:1 pipeline:spend — target 3:1+ ✓</span>
+        </div>
+      </div>
+      <div class="pb-sd-metrics">
+        <div class="pb-sd-metric"><div class="pb-sd-mval">$38K</div><div class="pb-sd-mlbl">Invested</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">10 wks</div><div class="pb-sd-mlbl">Duration</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">4.2:1</div><div class="pb-sd-mlbl">Pipeline:Spend</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pb-sd-3" class="pb-sd pb-sd-active">
+    <div class="pb-sd-grid">
+      <div>
+        <div class="pb-sd-title">Stage 3: Validate — Month 4 of 6</div>
+        <p class="pb-sd-text">AP is 4 months into a $110K Stage 3 validation. AICPA ENGAGE, Digital CPA, and Scaling New Heights (Woodard) are complete. The Sage Intacct marketplace listing is live. The referral flywheel is activating ahead of schedule — 40%+ of closed firms have referred at least one peer, nearly double the 20% threshold needed to confirm the multiplier thesis.</p>
+        <div class="pb-sd-tags">
+          <span class="pb-sd-tag green">11 firms closed ✓</span>
+          <span class="pb-sd-tag green">40%+ referral activation — 2× target ✓</span>
+          <span class="pb-sd-tag bronze">LTV:CAC 2.46:1 (target: 3:1 — optimizing)</span>
+          <span class="pb-sd-tag bronze">Payback 29 months (within 36-mo acceptable range)</span>
+        </div>
+      </div>
+      <div class="pb-sd-metrics">
+        <div class="pb-sd-metric"><div class="pb-sd-mval">$110K</div><div class="pb-sd-mlbl">Stage Budget</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">Month 4</div><div class="pb-sd-mlbl">of 6</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">SCALE</div><div class="pb-sd-mlbl">Projected</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pb-sd-4" class="pb-sd">
+    <div class="pb-sd-grid">
+      <div>
+        <div class="pb-sd-title">Stage 4: Scale — Planned Q3 2026</div>
+        <p class="pb-sd-text">If Stage 3 exit confirms the referral multiplier (≥20% activation) and primary criteria are met, AP will move to full scale: dedicated SDR, complete AICPA conference calendar, Woodard + Rightworks Academy + CPA.com partner programs, and a CAS-focused content engine targeting firm operators directly.</p>
+        <div class="pb-sd-tags">
+          <span class="pb-sd-tag muted">Full AICPA conference calendar</span>
+          <span class="pb-sd-tag muted">Dedicated SDR headcount</span>
+          <span class="pb-sd-tag muted">3-partner program launch</span>
+          <span class="pb-sd-tag muted">$250K+ annual run rate</span>
+        </div>
+      </div>
+      <div class="pb-sd-metrics">
+        <div class="pb-sd-metric"><div class="pb-sd-mval">$250K+</div><div class="pb-sd-mlbl">Annual Spend</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">Q3 '26</div><div class="pb-sd-mlbl">Est. Start</div></div>
+        <div class="pb-sd-metric"><div class="pb-sd-mval">TBD</div><div class="pb-sd-mlbl">Decision</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNNEL CHART -->
+  <div class="pb-funnel-wrap" id="pb-funnel">
+    <div class="pb-funnel-title">Accounting Market Funnel — Stage 3 Live Results</div>
+    <div class="pb-funnel-row">
+      <div class="pb-fr-label">Leads</div>
+      <div class="pb-fr-track"><div class="pb-fr-fill" data-scale="1"></div></div>
+      <div class="pb-fr-val">175</div>
+      <div class="pb-fr-conv"></div>
+    </div>
+    <div class="pb-funnel-row">
+      <div class="pb-fr-label">SQLs</div>
+      <div class="pb-fr-track"><div class="pb-fr-fill" data-scale="0.314"></div></div>
+      <div class="pb-fr-val">55</div>
+      <div class="pb-fr-conv">31% qual rate</div>
+    </div>
+    <div class="pb-funnel-row">
+      <div class="pb-fr-label">Opportunities</div>
+      <div class="pb-fr-track"><div class="pb-fr-fill" data-scale="0.126"></div></div>
+      <div class="pb-fr-val">22</div>
+      <div class="pb-fr-conv">40% SQL→Opp</div>
+    </div>
+    <div class="pb-funnel-row">
+      <div class="pb-fr-label">Closed-Won</div>
+      <div class="pb-fr-track"><div class="pb-fr-fill" data-scale="0.063"></div></div>
+      <div class="pb-fr-val">11</div>
+      <div class="pb-fr-conv">50% close rate</div>
+    </div>
+  </div>
+
+  <!-- AP RESULTS SUMMARY -->
+  <div class="pb-results-card">
+    <div class="pb-results-hd">
+      <div class="pb-results-dot"></div>
+      <div class="pb-results-title">Alternative Payments — Accounting Vertical Results</div>
+      <div class="pb-results-sub">Stage 3 · Month 4 of 6</div>
+    </div>
+    <div class="pb-results-grid">
+      <div class="pb-rg-item"><div class="pb-rg-val bronze">$6K</div><div class="pb-rg-lbl">Avg ACV</div><div class="pb-rg-note">Per firm, annual</div></div>
+      <div class="pb-rg-item"><div class="pb-rg-val bronze">$10K</div><div class="pb-rg-lbl">CAC</div><div class="pb-rg-note">Fully-loaded cost</div></div>
+      <div class="pb-rg-item"><div class="pb-rg-val green">2.46×</div><div class="pb-rg-lbl">LTV:CAC</div><div class="pb-rg-note">Referral-adjusted</div></div>
+      <div class="pb-rg-item"><div class="pb-rg-val green">40%+</div><div class="pb-rg-lbl">Referral Rate</div><div class="pb-rg-note">2× Stage 3 target</div></div>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="pb-toc">
+    <div class="pb-toc-title">Full Playbook Framework</div>
+    <ol class="pb-toc-list">
+      <li><a class="pb-toc-link" href="#pb-s1">1. Executive Summary</a></li>
+      <li><a class="pb-toc-link" href="#pb-s2">2. Phase 1: Research</a></li>
+      <li><a class="pb-toc-link" href="#pb-s3">3. Phase 2: Marketing Workflows &amp; Conference Strategy</a></li>
+      <li><a class="pb-toc-link" href="#pb-s4">4. Phase 3: List Building &amp; Data Quality</a></li>
+      <li><a class="pb-toc-link" href="#pb-s5">5. ROI Analysis Framework</a></li>
+      <li><a class="pb-toc-link" href="#pb-s6">6. Stage-Gate Investment Model</a></li>
+      <li><a class="pb-toc-link" href="#pb-s7">7. Stage 3 Validation Criteria (Detailed)</a></li>
+      <li><a class="pb-toc-link" href="#pb-s8">8. Accounting Market Application</a></li>
+      <li><a class="pb-toc-link" href="#pb-s9">9. Templates &amp; Tools</a></li>
+    </ol>
+  </div>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 1: EXECUTIVE SUMMARY -->
+  <h2 class="pb-h1" id="pb-s1">1. Executive Summary</h2>
+
+  <h3 class="pb-h2">Purpose</h3>
+  <p class="pb-p">This playbook provides a standardized framework for evaluating and entering new vertical markets. It enables:</p>
+  <ul class="pb-ul">
+    <li><strong>Comparable ROI analysis</strong> across markets and channels</li>
+    <li><strong>Clear exit criteria</strong> at each investment stage</li>
+    <li><strong>Disciplined capital allocation</strong> based on validated metrics</li>
+    <li><strong>Repeatable process</strong> for market expansion</li>
+  </ul>
+
+  <h3 class="pb-h2">Core Principles</h3>
+  <ol class="pb-ol">
+    <li><strong>Stage-gated investment</strong> — Increase spend only as metrics validate</li>
+    <li><strong>Channel attribution</strong> — Track ROI by channel to optimize allocation</li>
+    <li><strong>Referral-adjusted economics</strong> — Account for multiplier effects in partner-heavy markets</li>
+    <li><strong>Kill criteria</strong> — Know when to exit before overspending</li>
+  </ol>
+
+  <h3 class="pb-h2">Framework Overview</h3>
+
+  <div class="pb-stage-pipeline">
+    <div class="pb-stage-box">
+      <div class="pb-stage-num">Stage 1</div>
+      <div class="pb-stage-name">Research</div>
+      <div class="pb-stage-cost">$5–15K</div>
+      <div class="pb-stage-time">4–6 weeks</div>
+      <div class="pb-stage-gate">Go/No-Go Decision</div>
+    </div>
+    <div class="pb-stage-box">
+      <div class="pb-stage-num">Stage 2</div>
+      <div class="pb-stage-name">Test</div>
+      <div class="pb-stage-cost">$25–50K</div>
+      <div class="pb-stage-time">8–12 weeks</div>
+      <div class="pb-stage-gate">Go/No-Go Decision</div>
+    </div>
+    <div class="pb-stage-box">
+      <div class="pb-stage-num">Stage 3</div>
+      <div class="pb-stage-name">Validate</div>
+      <div class="pb-stage-cost">$75–150K</div>
+      <div class="pb-stage-time">2 quarters</div>
+      <div class="pb-stage-gate">Go/No-Go Decision</div>
+    </div>
+    <div class="pb-stage-box">
+      <div class="pb-stage-num">Stage 4</div>
+      <div class="pb-stage-name">Scale</div>
+      <div class="pb-stage-cost">$250K+/yr</div>
+      <div class="pb-stage-time">Ongoing</div>
+      <div class="pb-stage-gate">Quarterly Review</div>
+    </div>
+  </div>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 2: PHASE 1 RESEARCH -->
+  <h2 class="pb-h1" id="pb-s2">2. Phase 1: Research</h2>
+
+  <h3 class="pb-h2">2.1 Secondary Research</h3>
+  <p class="pb-p"><strong>Objective:</strong> Establish market fundamentals before investing in primary research.</p>
+
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Activity</th>
+        <th>Data Sources</th>
+        <th>Key Outputs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Market sizing</td>
+        <td>U.S. Census CBP, IBISWorld, industry surveys</td>
+        <td>TAM/SAM/SOM by segment</td>
+      </tr>
+      <tr>
+        <td>Segment analysis</td>
+        <td>NAICS codes, industry reports</td>
+        <td>ICP definition by firm type</td>
+      </tr>
+      <tr>
+        <td>Competitive mapping</td>
+        <td>Vendor websites, G2/Capterra, pricing pages</td>
+        <td>Feature/price matrix</td>
+      </tr>
+      <tr>
+        <td>Growth dynamics</td>
+        <td>Industry associations, analyst reports</td>
+        <td>Segment growth rates</td>
+      </tr>
+      <tr>
+        <td>Tech stack analysis</td>
+        <td>Integration marketplaces, job postings</td>
+        <td>Ecosystem entry points</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Secondary Research Checklist</h4>
+  <ul class="pb-ul">
+    <li>Total addressable market (TAM) quantified</li>
+    <li>Market segmented by firm type/size/geography</li>
+    <li>Growth rates by segment identified</li>
+    <li>5+ competitors mapped with pricing</li>
+    <li>Key integrations/tech stack identified</li>
+    <li>Industry associations and events listed</li>
+    <li>Regulatory/compliance requirements noted</li>
+  </ul>
+
+  <h3 class="pb-h2">2.2 Primary Research</h3>
+  <p class="pb-p"><strong>Objective:</strong> Validate secondary findings and uncover buying behavior.</p>
+
+  <h4 class="pb-h3">Partner Interview Framework</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Topic Area</th>
+        <th>Sample Questions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Discovery behavior</td>
+        <td>"How did you hear about [product]? Do you actively search for AR solutions?"</td>
+      </tr>
+      <tr>
+        <td>Peer influence</td>
+        <td>"What associations/peer groups do you belong to? How do you learn about new tools?"</td>
+      </tr>
+      <tr>
+        <td>Pain points</td>
+        <td>"Walk me through your invoicing process before [product]. What caused you to seek alternatives?"</td>
+      </tr>
+      <tr>
+        <td>Decision criteria</td>
+        <td>"What 2-3 features drove your decision? How price-sensitive are you?"</td>
+      </tr>
+      <tr>
+        <td>Referral potential</td>
+        <td>"How much do clients trust your software recommendations? Have you recommended [product]?"</td>
+      </tr>
+      <tr>
+        <td>Competitive intel</td>
+        <td>"What other solutions did you evaluate? What do you hear about [competitor]?"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Primary Research Checklist</h4>
+  <ul class="pb-ul">
+    <li>5-10 partner/customer interviews completed</li>
+    <li>3+ pain points validated</li>
+    <li>Buying behavior documented</li>
+    <li>Competitive perception captured</li>
+    <li>Referral potential assessed</li>
+    <li>Key quotes for messaging collected</li>
+  </ul>
+
+  <h3 class="pb-h2">2.3 Research Output Template</h3>
+  <pre class="pb-pre"><code>MARKET RESEARCH SUMMARY: [Market Name]
+
+1. MARKET SIZE
+   - TAM: $_____ (_____ establishments)
+   - SAM: $_____ (_____ target firms)
+   - SOM: $_____ (_____ reachable firms)
+
+2. SEGMENTATION
+   - Segment A: [Description] - [Size] - [Growth Rate]
+   - Segment B: [Description] - [Size] - [Growth Rate]
+   - Segment C: [Description] - [Size] - [Growth Rate]
+
+3. ICP DEFINITION
+   - Firm type: _____
+   - Size: _____ employees
+   - Revenue: $_____
+   - Client count: _____
+   - Tech stack: _____
+   - Buying behavior: _____
+
+4. COMPETITIVE LANDSCAPE
+   | Competitor | Segment | Pricing | Strengths | Weaknesses |
+   |------------|---------|---------|-----------|------------|
+   | | | | | |
+
+5. KEY PAIN POINTS
+   1. _____
+   2. _____
+   3. _____
+
+6. CHANNEL OPPORTUNITIES
+   - Conferences: _____
+   - Partnerships: _____
+   - Communities: _____
+
+7. GO/NO-GO RECOMMENDATION
+   [Recommendation with rationale]</code></pre>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 3: PHASE 2 MARKETING WORKFLOWS -->
+  <h2 class="pb-h1" id="pb-s3">3. Phase 2: Marketing Workflows &amp; Conference Strategy</h2>
+
+  <h3 class="pb-h2">3.1 Conference Targeting Matrix</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Event Tier</th>
+        <th>Characteristics</th>
+        <th>Est. Cost</th>
+        <th>Expected Output</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tier 1</strong></td>
+        <td>Flagship industry event, high decision-maker density</td>
+        <td>$20-30K</td>
+        <td>50-75 leads, 10-15 SQLs</td>
+        <td>Primary</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 2</strong></td>
+        <td>Regional or niche event, targeted audience</td>
+        <td>$10-18K</td>
+        <td>30-50 leads, 6-10 SQLs</td>
+        <td>Secondary</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3</strong></td>
+        <td>Smaller/local events, exploratory</td>
+        <td>$5-10K</td>
+        <td>15-25 leads, 3-5 SQLs</td>
+        <td>Test</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">3.2 Conference Playbook</h3>
+
+  <h4 class="pb-h3">Pre-Event (4-6 weeks out)</h4>
+  <ul class="pb-ul">
+    <li>Pull target attendee list from registration/sponsorship package</li>
+    <li>Cross-reference against enriched prospect list</li>
+    <li>Schedule 10-15 meetings with high-fit prospects pre-event</li>
+    <li>Prepare case study one-pagers with quantified outcomes</li>
+    <li>Create vertical-specific messaging collateral</li>
+    <li>Brief booth staff on ICP, messaging, qualification criteria</li>
+    <li>Set up lead capture system and follow-up sequences</li>
+  </ul>
+
+  <h4 class="pb-h3">At-Event</h4>
+  <ul class="pb-ul">
+    <li>Execute pre-scheduled meetings</li>
+    <li>Staff booth with qualified personnel</li>
+    <li>Lead with pain validation in conversations</li>
+    <li>Demo key differentiating features</li>
+    <li>Capture: firm size, # clients, current stack, pain level (1-5), follow-up permission</li>
+    <li>Host dinner/event for high-value prospects (Tier 1 only)</li>
+  </ul>
+
+  <h4 class="pb-h3">Booth Conversation Framework</h4>
+  <pre class="pb-pre"><code>1. QUALIFY
+   "Do you manage AR for your clients, or just your own firm?"
+   "How many clients are you currently serving?"
+
+2. PAIN PROBE
+   "What's your biggest headache with [current solution]?"
+   "How much time does your team spend on collections?"
+
+3. DIFFERENTIATE
+   "What if you could [key differentiator]?"
+   "Our customers typically see [quantified outcome]..."
+
+4. PROOF
+   "Firms like [reference] save [X hours/dollars]..."
+
+5. NEXT STEP
+   "Can I show you a 15-minute demo next week?"
+   "Who else should be on that call?"</code></pre>
+
+  <h4 class="pb-h3">Post-Event (within 72 hours)</h4>
+  <ul class="pb-ul">
+    <li>Send personalized follow-up referencing specific pain discussed</li>
+    <li>Share relevant case study based on firm profile</li>
+    <li>Book demos within 2 weeks</li>
+    <li>Add all leads to nurture sequence</li>
+    <li>Calculate preliminary event ROI</li>
+    <li>Debrief with team on learnings</li>
+  </ul>
+
+  <h3 class="pb-h2">3.3 Conference ROI Calculator</h3>
+  <pre class="pb-pre"><code>EVENT ROI CALCULATION
+
+Investment
+├── Sponsorship package:        $_______
+├── Booth design/collateral:    $_______
+├── Travel &amp; expenses:          $_______
+├── Entertainment/dinners:      $_______
+├── Staff time (hrs × rate):    $_______
+├── Swag/giveaways:            $_______
+└── TOTAL INVESTMENT:           $_______
+
+Output (90-day attribution window)
+├── Badge scans / Leads:        _______
+├── Qualified conversations:    _______
+├── Demos booked:              _______
+├── SQLs created:              _______
+├── Opportunities opened:       _______
+├── Pipeline value:            $_______
+├── Closed-won (in window):    _______
+└── Revenue (in window):       $_______
+
+Efficiency Metrics
+├── Cost per Lead:             $_______ (Target: &lt; $100)
+├── Cost per SQL:              $_______ (Target: &lt; $500)
+├── Cost per Opportunity:      $_______ (Target: &lt; $2,000)
+├── Pipeline:Spend Ratio:      _____:1  (Target: &gt; 5:1)
+└── Event ROI:                 ______%  (Target: &gt; 300% @ 12mo)
+
+ROI Formula:
+((Pipeline Value × Historical Close Rate) - Investment) ÷ Investment × 100</code></pre>
+
+  <h3 class="pb-h2">3.4 Channel &amp; Partnership Strategy</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Channel Type</th>
+        <th>Activities</th>
+        <th>Investment</th>
+        <th>Timeline</th>
+        <th>Success Metrics</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tech Integration</strong></td>
+        <td>Marketplace listing, API integration, co-marketing</td>
+        <td>$8-15K</td>
+        <td>8-12 weeks</td>
+        <td>Partner-sourced leads, integration usage</td>
+      </tr>
+      <tr>
+        <td><strong>Community Partnership</strong></td>
+        <td>Content collaboration, member access, speaking</td>
+        <td>$5-10K</td>
+        <td>4-6 weeks</td>
+        <td>Community engagement, referrals</td>
+      </tr>
+      <tr>
+        <td><strong>Referral Program</strong></td>
+        <td>Commission structure, enablement materials</td>
+        <td>$2-5K</td>
+        <td>Ongoing</td>
+        <td>Referral leads, partner activation</td>
+      </tr>
+      <tr>
+        <td><strong>Influencer/Thought Leader</strong></td>
+        <td>Sponsorship, co-created content</td>
+        <td>$5-15K</td>
+        <td>4-8 weeks</td>
+        <td>Reach, engagement, attributed leads</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">3.5 Outbound Workflow</h3>
+
+  <h4 class="pb-h3">Sequence Structure</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Touch</th>
+        <th>Channel</th>
+        <th>Timing</th>
+        <th>Content Focus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Email</td>
+        <td>Day 0</td>
+        <td>Pain-focused hook</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>LinkedIn</td>
+        <td>Day 2</td>
+        <td>Connection request + note</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Email</td>
+        <td>Day 4</td>
+        <td>Social proof / case study</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Phone</td>
+        <td>Day 7</td>
+        <td>Voicemail + follow-up email</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Email</td>
+        <td>Day 10</td>
+        <td>Value offer (audit, benchmark)</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>LinkedIn</td>
+        <td>Day 14</td>
+        <td>Engage with content</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Email</td>
+        <td>Day 18</td>
+        <td>Break-up / referral ask</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Outbound Metrics</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Target</th>
+        <th>Calculation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contact rate</td>
+        <td>70%+</td>
+        <td>Contacts reached ÷ Total list</td>
+      </tr>
+      <tr>
+        <td>Open rate</td>
+        <td>35%+</td>
+        <td>Opens ÷ Emails delivered</td>
+      </tr>
+      <tr>
+        <td>Response rate</td>
+        <td>4-6%</td>
+        <td>Responses ÷ Contacts reached</td>
+      </tr>
+      <tr>
+        <td>Meeting rate</td>
+        <td>2-3%</td>
+        <td>Meetings ÷ Contacts reached</td>
+      </tr>
+      <tr>
+        <td>Cost per Meeting</td>
+        <td>&lt; $300</td>
+        <td>Total spend ÷ Meetings</td>
+      </tr>
+      <tr>
+        <td>Cost per SQL</td>
+        <td>&lt; $500</td>
+        <td>Total spend ÷ SQLs</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 4: PHASE 3 LIST BUILDING -->
+  <h2 class="pb-h1" id="pb-s4">4. Phase 3: List Building &amp; Data Quality</h2>
+
+  <h3 class="pb-h2">4.1 Data Enrichment Strategy</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Data Point</th>
+        <th>Source</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Firm name, size, location</td>
+        <td>Census, LinkedIn, ZoomInfo</td>
+        <td>Basic firmographics</td>
+      </tr>
+      <tr>
+        <td>Industry codes (NAICS/SIC)</td>
+        <td>Census, D&amp;B</td>
+        <td>Segment filtering</td>
+      </tr>
+      <tr>
+        <td>Service offerings</td>
+        <td>Website scraping, LinkedIn</td>
+        <td>ICP alignment</td>
+      </tr>
+      <tr>
+        <td>Client verticals served</td>
+        <td>Website, case studies</td>
+        <td>Referral potential</td>
+      </tr>
+      <tr>
+        <td>Tech stack</td>
+        <td>BuiltWith, G2, job postings</td>
+        <td>Integration fit</td>
+      </tr>
+      <tr>
+        <td>Headcount / growth</td>
+        <td>LinkedIn, ZoomInfo</td>
+        <td>Size and trajectory</td>
+      </tr>
+      <tr>
+        <td>Conference attendance</td>
+        <td>Attendee lists, LinkedIn</td>
+        <td>Intent signal</td>
+      </tr>
+      <tr>
+        <td>Funding/ownership</td>
+        <td>Crunchbase, PitchBook</td>
+        <td>Buying capacity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">4.2 TAM/SAM/SOM Framework</h3>
+  <pre class="pb-pre"><code>TAM (Total Addressable Market)
+├── All establishments in target industry
+│
+SAM (Serviceable Addressable Market)
+├── Filter: B2B-focused firms
+├── Filter: Relevant service offerings
+├── Filter: Compatible tech stack
+│
+SOM (Serviceable Obtainable Market)
+├── Filter: Size range (employees, revenue)
+├── Filter: Target client verticals
+├── Filter: Geographic focus
+├── Filter: Integration-ready
+└── Final target list</code></pre>
+
+  <h3 class="pb-h2">4.3 Data Quality Scoring</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Score</th>
+        <th>Criteria</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A (Hot)</strong></td>
+        <td>Perfect ICP fit, intent signals, compatible stack, right size</td>
+        <td>Prioritize for outbound + events</td>
+      </tr>
+      <tr>
+        <td><strong>B (Warm)</strong></td>
+        <td>Good ICP fit, some gaps in data, compatible stack</td>
+        <td>Include in campaigns</td>
+      </tr>
+      <tr>
+        <td><strong>C (Monitor)</strong></td>
+        <td>Partial fit, unclear on key criteria</td>
+        <td>Low-touch nurture</td>
+      </tr>
+      <tr>
+        <td><strong>D (Exclude)</strong></td>
+        <td>Poor fit, wrong segment, incompatible</td>
+        <td>Remove from active lists</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Scoring Rubric Example</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>A (3 pts)</th>
+        <th>B (2 pts)</th>
+        <th>C (1 pt)</th>
+        <th>D (0 pts)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Firm type</td>
+        <td>Core ICP</td>
+        <td>Adjacent</td>
+        <td>Tangential</td>
+        <td>Wrong segment</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>Sweet spot</td>
+        <td>Acceptable</td>
+        <td>Edge case</td>
+        <td>Too small/large</td>
+      </tr>
+      <tr>
+        <td>Tech stack</td>
+        <td>Perfect fit</td>
+        <td>Compatible</td>
+        <td>Unknown</td>
+        <td>Incompatible</td>
+      </tr>
+      <tr>
+        <td>Client verticals</td>
+        <td>High referral potential</td>
+        <td>Some potential</td>
+        <td>Limited</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td>Intent signals</td>
+        <td>Strong</td>
+        <td>Moderate</td>
+        <td>Weak</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pb-p"><strong>Total Score:</strong> A = 12-15 pts | B = 8-11 pts | C = 4-7 pts | D = 0-3 pts</p>
+
+  <h3 class="pb-h2">4.4 Reachability Analysis</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Typical Reachability</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email (direct)</td>
+        <td>60-70%</td>
+        <td>Professional emails often available</td>
+      </tr>
+      <tr>
+        <td>LinkedIn</td>
+        <td>70-80%</td>
+        <td>High professional presence</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>40-50%</td>
+        <td>Gatekeepers common</td>
+      </tr>
+      <tr>
+        <td>Conference</td>
+        <td>5-10% of TAM</td>
+        <td>Limited events, high intent</td>
+      </tr>
+      <tr>
+        <td>Partner referral</td>
+        <td>Variable</td>
+        <td>Highest conversion, lowest volume</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 5: ROI ANALYSIS FRAMEWORK -->
+  <h2 class="pb-h1" id="pb-s5">5. ROI Analysis Framework</h2>
+
+  <h3 class="pb-h2">5.1 Spend Categories &amp; Attribution</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Cost Components</th>
+        <th>Attribution Window</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Conferences</strong></td>
+        <td>Sponsorship, booth, travel, collateral, swag, staff time</td>
+        <td>90 days post-event</td>
+      </tr>
+      <tr>
+        <td><strong>Outbound</strong></td>
+        <td>Data/enrichment, sequencing tools, SDR time</td>
+        <td>60 days from first touch</td>
+      </tr>
+      <tr>
+        <td><strong>Partnerships</strong></td>
+        <td>Integration dev, co-marketing, incentives</td>
+        <td>180 days from launch</td>
+      </tr>
+      <tr>
+        <td><strong>Content/Brand</strong></td>
+        <td>Vertical content, ads, PR</td>
+        <td>180 days (assisted)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">5.2 Fully-Loaded Cost Calculation</h3>
+  <pre class="pb-pre"><code>Fully-Loaded Channel Cost =
+    Direct Spend
+    + (Allocated Headcount × Hourly Rate × Hours)
+    + Overhead %
+
+Example - Conference:
+├── Sponsorship:                    $15,000
+├── Booth/collateral:                $3,000
+├── Travel (2 people × 3 days):      $4,000
+├── SDR time (40 hrs × $50):         $2,000
+├── AE time (20 hrs × $75):          $1,500
+└── FULLY-LOADED COST:              $25,500</code></pre>
+
+  <h3 class="pb-h2">5.3 Core Metrics</h3>
+
+  <h4 class="pb-h3">Funnel Metrics</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Stage</th>
+        <th>Metric</th>
+        <th>Definition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Top</strong></td>
+        <td>Leads Generated</td>
+        <td>Contacts captured with permission</td>
+      </tr>
+      <tr>
+        <td><strong>Mid</strong></td>
+        <td>SQLs Created</td>
+        <td>Leads qualified (fit + intent)</td>
+      </tr>
+      <tr>
+        <td><strong>Mid</strong></td>
+        <td>Opportunities</td>
+        <td>Active deals with defined value</td>
+      </tr>
+      <tr>
+        <td><strong>Bottom</strong></td>
+        <td>Closed-Won</td>
+        <td>Signed customers</td>
+      </tr>
+      <tr>
+        <td><strong>Post-Sale</strong></td>
+        <td>Referrals Generated</td>
+        <td>New leads from referral channel</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Efficiency Metrics</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Formula</th>
+        <th>Target Benchmark</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cost per Lead (CPL)</strong></td>
+        <td>Total Spend ÷ Leads</td>
+        <td>Varies by channel</td>
+      </tr>
+      <tr>
+        <td><strong>Cost per SQL</strong></td>
+        <td>Total Spend ÷ SQLs</td>
+        <td>&lt; $500</td>
+      </tr>
+      <tr>
+        <td><strong>Cost per Opportunity</strong></td>
+        <td>Total Spend ÷ Opps</td>
+        <td>&lt; $1,500</td>
+      </tr>
+      <tr>
+        <td><strong>CAC (Direct)</strong></td>
+        <td>Total Spend ÷ Closed-Won</td>
+        <td>&lt; 12-month ACV</td>
+      </tr>
+      <tr>
+        <td><strong>CAC (Blended)</strong></td>
+        <td>All GTM Spend ÷ All Closed-Won</td>
+        <td>&lt; 18-month ACV</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline Generated</strong></td>
+        <td>Sum of Opp Values</td>
+        <td>&gt; 5× spend</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline Velocity</strong></td>
+        <td>Avg Days Lead → Closed</td>
+        <td>Market-dependent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">5.4 LTV Calculations</h3>
+
+  <h4 class="pb-h3">Standard LTV</h4>
+  <pre class="pb-pre"><code>LTV = (Monthly Revenue × Gross Margin %) × Avg Customer Lifespan (months)
+
+Example:
+├── Monthly Revenue:     $500
+├── Gross Margin:        70%
+├── Avg Lifespan:        36 months
+└── LTV:                 $500 × 0.70 × 36 = $12,600</code></pre>
+
+  <h4 class="pb-h3">Referral-Adjusted LTV</h4>
+  <p class="pb-p">For markets with strong referral dynamics (e.g., accounting, MSP):</p>
+  <pre class="pb-pre"><code>Referral-Adjusted LTV =
+    Direct LTV
+    + (Referral Rate × Referrals per Customer × Referred Customer LTV)
+
+Example:
+├── Direct LTV:                    $12,600
+├── Referral Rate:                 40% of customers refer
+├── Avg Referrals per Customer:    5 clients
+├── Referred Client LTV:           $6,000
+├── Referral Value:                0.40 × 5 × $6,000 = $12,000
+└── REFERRAL-ADJUSTED LTV:         $12,600 + $12,000 = $24,600</code></pre>
+
+  <h3 class="pb-h2">5.5 LTV:CAC Ratio Targets</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Ratio</th>
+        <th>Interpretation</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>&lt; 1:1</td>
+        <td>Losing money</td>
+        <td>Exit or major pivot</td>
+      </tr>
+      <tr>
+        <td>1:1 - 2:1</td>
+        <td>Marginal</td>
+        <td>Optimize or reduce spend</td>
+      </tr>
+      <tr>
+        <td>3:1</td>
+        <td>Healthy</td>
+        <td>Maintain and scale cautiously</td>
+      </tr>
+      <tr>
+        <td>4:1+</td>
+        <td>Strong</td>
+        <td>Scale aggressively</td>
+      </tr>
+      <tr>
+        <td>5:1+</td>
+        <td>Potentially under-investing</td>
+        <td>Increase spend</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">5.6 Market Comparison Scorecard</h3>
+
+  <h4 class="pb-h3">Input Metrics (Spend Profile)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Market A</th>
+        <th>Market B</th>
+        <th>Market C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Conference cost (avg)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Outbound data cost</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SDR hours/SQL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Partnership dev cost</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Total Test Budget</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Output Metrics (Performance)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Market A</th>
+        <th>Market B</th>
+        <th>Market C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Leads generated</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SQLs</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Opportunities</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Pipeline value</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Closed-won</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Revenue (Year 1)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Referrals generated</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Efficiency Metrics (Comparison)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Market A</th>
+        <th>Market B</th>
+        <th>Market C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CPL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Cost per SQL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>CAC</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Direct LTV</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Referral-Adjusted LTV</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>LTV:CAC Ratio</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Payback Period</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Pipeline:Spend Ratio</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 6: STAGE-GATE INVESTMENT MODEL -->
+  <h2 class="pb-h1" id="pb-s6">6. Stage-Gate Investment Model</h2>
+
+  <h3 class="pb-h2">6.1 Stage Overview</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Stage</th>
+        <th>Investment</th>
+        <th>Duration</th>
+        <th>Objective</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stage 1: Research</strong></td>
+        <td>$5-15K</td>
+        <td>4-6 weeks</td>
+        <td>Validate market opportunity</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 2: Test</strong></td>
+        <td>$25-50K</td>
+        <td>8-12 weeks</td>
+        <td>Prove initial traction</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 3: Validate</strong></td>
+        <td>$75-150K</td>
+        <td>2 quarters</td>
+        <td>Prove repeatable economics</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 4: Scale</strong></td>
+        <td>$250K+/yr</td>
+        <td>Ongoing</td>
+        <td>Maximize market capture</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">6.2 Stage 1: Research</h3>
+
+  <h4 class="pb-h3">Activities</h4>
+  <ul class="pb-ul">
+    <li>Secondary research (market sizing, competitive mapping)</li>
+    <li>5-10 partner/customer interviews</li>
+    <li>Initial list build</li>
+    <li>ICP definition</li>
+  </ul>
+
+  <h4 class="pb-h3">Exit Criteria (Must Meet ALL)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>TAM</td>
+        <td>&gt; $50M addressable revenue</td>
+      </tr>
+      <tr>
+        <td>Pain points</td>
+        <td>3+ validated pain points our product solves</td>
+      </tr>
+      <tr>
+        <td>Competitive whitespace</td>
+        <td>Not saturated; clear positioning opportunity</td>
+      </tr>
+      <tr>
+        <td>Prospect availability</td>
+        <td>Path to 100+ qualified prospects</td>
+      </tr>
+      <tr>
+        <td>Reference customer</td>
+        <td>At least 1 existing customer willing to be reference</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Decision</h4>
+  <ul class="pb-ul">
+    <li><strong>PROCEED</strong> to Stage 2 if all criteria met</li>
+    <li><strong>STOP</strong> or <strong>DEFER</strong> if criteria not met</li>
+  </ul>
+
+  <h3 class="pb-h2">6.3 Stage 2: Test</h3>
+
+  <h4 class="pb-h3">Activities</h4>
+  <ul class="pb-ul">
+    <li>1 conference</li>
+    <li>Targeted outbound (500 contacts)</li>
+    <li>1 partnership exploration</li>
+    <li>Vertical landing page/content</li>
+  </ul>
+
+  <h4 class="pb-h3">Exit Criteria (Must Meet 3 of 4)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Leads</td>
+        <td>50+ generated</td>
+      </tr>
+      <tr>
+        <td>SQLs</td>
+        <td>10+ created</td>
+      </tr>
+      <tr>
+        <td>Opportunities</td>
+        <td>5+ opened</td>
+      </tr>
+      <tr>
+        <td>Pipeline:Spend</td>
+        <td>&gt; 3:1 ratio</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Decision</h4>
+  <ul class="pb-ul">
+    <li><strong>PROCEED</strong> to Stage 3 if 3+ criteria met</li>
+    <li><strong>STOP</strong>, <strong>PIVOT</strong>, or <strong>EXTEND</strong> test if &lt; 3 criteria met</li>
+  </ul>
+
+  <h3 class="pb-h2">6.4 Stage 3: Validate</h3>
+
+  <h4 class="pb-h3">Activities</h4>
+  <ul class="pb-ul">
+    <li>2-3 conferences</li>
+    <li>Scaled outbound (2,000+ contacts)</li>
+    <li>Partnership launch</li>
+    <li>Dedicated SDR allocation</li>
+    <li>Vertical messaging and content</li>
+  </ul>
+
+  <h4 class="pb-h3">Exit Criteria</h4>
+  <p class="pb-p">See Section 7: Stage 3 Validation Criteria (Detailed)</p>
+
+  <h4 class="pb-h3">Decision</h4>
+  <ul class="pb-ul">
+    <li><strong>SCALE</strong> — All primary + 4+ secondary criteria met</li>
+    <li><strong>MAINTAIN</strong> — All primary, &lt; 4 secondary met</li>
+    <li><strong>OPTIMIZE</strong> — 4-5 primary met, clear fix path</li>
+    <li><strong>REDUCE</strong> — 2-3 primary met, not strategic</li>
+    <li><strong>EXIT</strong> — &lt; 2 primary met or fundamental issues</li>
+  </ul>
+
+  <h3 class="pb-h2">6.5 Stage 4: Scale</h3>
+
+  <h4 class="pb-h3">Activities</h4>
+  <ul class="pb-ul">
+    <li>Full conference calendar</li>
+    <li>Dedicated SDR(s)</li>
+    <li>Partner program</li>
+    <li>Vertical product investment</li>
+    <li>Content engine</li>
+  </ul>
+
+  <h4 class="pb-h3">Ongoing Thresholds (Quarterly Review)</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LTV:CAC</td>
+        <td>&gt; 3:1</td>
+      </tr>
+      <tr>
+        <td>CAC trend</td>
+        <td>Stable or improving</td>
+      </tr>
+      <tr>
+        <td>Pipeline:Spend</td>
+        <td>&gt; 5:1</td>
+      </tr>
+      <tr>
+        <td>Market share</td>
+        <td>Growing (logo count, revenue %)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pb-p"><strong>If thresholds missed 2 consecutive quarters → Trigger review</strong></p>
+
+  <h3 class="pb-h2">6.6 Exit Decision Matrix</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Signal</th>
+        <th>LTV:CAC &gt; 3:1</th>
+        <th>LTV:CAC 2-3:1</th>
+        <th>LTV:CAC &lt; 2:1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Pipeline:Spend &gt; 5:1</strong></td>
+        <td>SCALE</td>
+        <td>OPTIMIZE</td>
+        <td>DIAGNOSE</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline:Spend 3-5:1</strong></td>
+        <td>MAINTAIN</td>
+        <td>OPTIMIZE</td>
+        <td>REDUCE</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline:Spend &lt; 3:1</strong></td>
+        <td>DIAGNOSE</td>
+        <td>REDUCE</td>
+        <td>EXIT</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Action Definitions</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Definition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SCALE</strong></td>
+        <td>Increase investment, add headcount, expand channels</td>
+      </tr>
+      <tr>
+        <td><strong>MAINTAIN</strong></td>
+        <td>Continue current investment, monitor for improvement</td>
+      </tr>
+      <tr>
+        <td><strong>OPTIMIZE</strong></td>
+        <td>Hold spend flat, improve conversion/efficiency</td>
+      </tr>
+      <tr>
+        <td><strong>DIAGNOSE</strong></td>
+        <td>Pause new spend, analyze root cause, test hypotheses</td>
+      </tr>
+      <tr>
+        <td><strong>REDUCE</strong></td>
+        <td>Cut to maintenance level (minimal presence)</td>
+      </tr>
+      <tr>
+        <td><strong>EXIT</strong></td>
+        <td>Wind down active investment, harvest existing pipeline</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">6.7 Kill Criteria (Immediate Stop)</h3>
+  <p class="pb-p">Trigger immediate market exit review if ANY occur:</p>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Threshold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Zero closed-won</td>
+        <td>0 customers after Stage 2 completion</td>
+      </tr>
+      <tr>
+        <td>Conversion collapse</td>
+        <td>SQL→Opp rate &lt; 10% for 8+ weeks</td>
+      </tr>
+      <tr>
+        <td>Product-market gap</td>
+        <td>3+ lost deals citing missing core feature</td>
+      </tr>
+      <tr>
+        <td>Competitive loss rate</td>
+        <td>&gt; 70% losses to single competitor</td>
+      </tr>
+      <tr>
+        <td>CAC explosion</td>
+        <td>CAC &gt; 24-month ACV</td>
+      </tr>
+      <tr>
+        <td>Churn signal</td>
+        <td>&gt; 30% of early customers churn in Year 1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 7: STAGE 3 VALIDATION CRITERIA -->
+  <h2 class="pb-h1" id="pb-s7">7. Stage 3 Validation Criteria (Detailed)</h2>
+
+  <h3 class="pb-h2">7.1 Overview</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Specification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stage Name</strong></td>
+        <td>Validation</td>
+      </tr>
+      <tr>
+        <td><strong>Objective</strong></td>
+        <td>Prove repeatable, profitable customer acquisition</td>
+      </tr>
+      <tr>
+        <td><strong>Investment Range</strong></td>
+        <td>$75,000 - $150,000</td>
+      </tr>
+      <tr>
+        <td><strong>Duration</strong></td>
+        <td>2 quarters (6 months)</td>
+      </tr>
+      <tr>
+        <td><strong>Entry Requirement</strong></td>
+        <td>Stage 2 exit criteria met (3 of 4)</td>
+      </tr>
+      <tr>
+        <td><strong>Exit Outcome</strong></td>
+        <td>Scale, Maintain, Reduce, or Exit decision</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">7.2 Budget Allocation</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Budget Range</th>
+        <th>% of Total</th>
+        <th>Key Activities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Conferences</strong></td>
+        <td>$35-60K</td>
+        <td>40-45%</td>
+        <td>Sponsorships, booths, travel</td>
+      </tr>
+      <tr>
+        <td><strong>Outbound</strong></td>
+        <td>$15-25K</td>
+        <td>15-20%</td>
+        <td>2,000+ contacts, SDR hours</td>
+      </tr>
+      <tr>
+        <td><strong>Partnerships</strong></td>
+        <td>$10-25K</td>
+        <td>12-18%</td>
+        <td>Integration, co-marketing</td>
+      </tr>
+      <tr>
+        <td><strong>Content &amp; Brand</strong></td>
+        <td>$8-15K</td>
+        <td>10-12%</td>
+        <td>Case studies, ads, PR</td>
+      </tr>
+      <tr>
+        <td><strong>Sales Enablement</strong></td>
+        <td>$5-10K</td>
+        <td>5-8%</td>
+        <td>Pitch decks, battle cards</td>
+      </tr>
+      <tr>
+        <td><strong>Contingency</strong></td>
+        <td>$7.5-15K</td>
+        <td>10%</td>
+        <td>Opportunistic spend</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>$75-150K</strong></td>
+        <td>100%</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">7.3 Primary Exit Criteria (Must Meet ALL)</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Criterion</th>
+        <th>Target</th>
+        <th>Measurement</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>P1</strong></td>
+        <td>Closed-won customers</td>
+        <td>≥ 10</td>
+        <td>CRM closed-won, Stage 3 attribution</td>
+        <td>Proves repeatable sales motion</td>
+      </tr>
+      <tr>
+        <td><strong>P2</strong></td>
+        <td>CAC</td>
+        <td>&lt; 18-month ACV</td>
+        <td>Total spend ÷ closed-won</td>
+        <td>Sustainable unit economics</td>
+      </tr>
+      <tr>
+        <td><strong>P3</strong></td>
+        <td>LTV:CAC (direct)</td>
+        <td>&gt; 2:1</td>
+        <td>Direct LTV ÷ CAC</td>
+        <td>Minimum viable profitability</td>
+      </tr>
+      <tr>
+        <td><strong>P4</strong></td>
+        <td>LTV:CAC (referral-adjusted)</td>
+        <td>&gt; 3:1</td>
+        <td>Referral-adjusted LTV ÷ CAC</td>
+        <td>Accounts for multiplier</td>
+      </tr>
+      <tr>
+        <td><strong>P5</strong></td>
+        <td>Pipeline:Spend ratio</td>
+        <td>&gt; 5:1</td>
+        <td>Pipeline created ÷ spend</td>
+        <td>Leading efficiency indicator</td>
+      </tr>
+      <tr>
+        <td><strong>P6</strong></td>
+        <td>Payback period</td>
+        <td>&lt; 18 months</td>
+        <td>CAC ÷ (Monthly Revenue × Margin)</td>
+        <td>Cash flow sustainability</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">7.4 Secondary Exit Criteria (Must Meet 4 of 6)</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Criterion</th>
+        <th>Target</th>
+        <th>Measurement</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>S1</strong></td>
+        <td>SQL volume</td>
+        <td>≥ 50</td>
+        <td>CRM qualified leads</td>
+        <td>Sufficient top-of-funnel</td>
+      </tr>
+      <tr>
+        <td><strong>S2</strong></td>
+        <td>SQL → Opportunity rate</td>
+        <td>≥ 40%</td>
+        <td>Opportunities ÷ SQLs</td>
+        <td>Sales efficiency signal</td>
+      </tr>
+      <tr>
+        <td><strong>S3</strong></td>
+        <td>Opportunity → Closed rate</td>
+        <td>≥ 25%</td>
+        <td>Closed-won ÷ Opportunities</td>
+        <td>Win rate validation</td>
+      </tr>
+      <tr>
+        <td><strong>S4</strong></td>
+        <td>Average deal size</td>
+        <td>≥ $5,000 ACV</td>
+        <td>Total ACV ÷ Closed-won</td>
+        <td>Revenue quality</td>
+      </tr>
+      <tr>
+        <td><strong>S5</strong></td>
+        <td>Sales cycle length</td>
+        <td>≤ 60 days</td>
+        <td>Avg days SQL → Closed</td>
+        <td>Velocity validation</td>
+      </tr>
+      <tr>
+        <td><strong>S6</strong></td>
+        <td>Referral activation</td>
+        <td>≥ 20%</td>
+        <td>Customers who refer ÷ Total</td>
+        <td>Multiplier validation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">7.5 Early Warning Indicators</h3>
+  <p class="pb-p">Track weekly. If 2+ turn red, trigger mid-stage review.</p>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Indicator</th>
+        <th>Green</th>
+        <th>Yellow</th>
+        <th>Red</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lead flow</td>
+        <td>On pace for 150+</td>
+        <td>75-150 leads</td>
+        <td>&lt; 75 leads</td>
+      </tr>
+      <tr>
+        <td>SQL conversion</td>
+        <td>&gt; 20% of leads</td>
+        <td>15-20%</td>
+        <td>&lt; 15%</td>
+      </tr>
+      <tr>
+        <td>Pipeline growth</td>
+        <td>+$50K/month</td>
+        <td>+$25-50K/month</td>
+        <td>&lt; +$25K/month</td>
+      </tr>
+      <tr>
+        <td>Win rate</td>
+        <td>&gt; 25%</td>
+        <td>15-25%</td>
+        <td>&lt; 15%</td>
+      </tr>
+      <tr>
+        <td>Competitive losses</td>
+        <td>&lt; 40% to any one</td>
+        <td>40-60% to one</td>
+        <td>&gt; 60% to one</td>
+      </tr>
+      <tr>
+        <td>Deal slippage</td>
+        <td>&lt; 20% of opps slip</td>
+        <td>20-35% slip</td>
+        <td>&gt; 35% slip</td>
+      </tr>
+      <tr>
+        <td>Churn signal</td>
+        <td>0 early churns</td>
+        <td>1 early churn</td>
+        <td>2+ early churns</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">7.6 Decision Tree</h3>
+  <pre class="pb-pre"><code>                    All 6 Primary Criteria Met?
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+             YES                              NO
+              │                               │
+              ▼                               ▼
+    4+ Secondary Criteria Met?      How many Primary missed?
+              │                               │
+       ┌──────┴──────┐              ┌─────────┼─────────┐
+       │             │              │         │         │
+      YES            NO            1-2       3-4       5-6
+       │             │              │         │         │
+       ▼             ▼              ▼         ▼         ▼
+    ┌──────┐    ┌──────────┐   ┌────────┐ ┌───────┐ ┌──────┐
+    │SCALE │    │ MAINTAIN │   │OPTIMIZE│ │REDUCE │ │ EXIT │
+    └──────┘    └──────────┘   └────────┘ └───────┘ └──────┘</code></pre>
+
+  <h3 class="pb-h2">7.7 Decision Definitions</h3>
+
+  <h4 class="pb-h3">SCALE (All must be true)</h4>
+  <ul class="pb-ul">
+    <li>All 6 primary criteria met</li>
+    <li>4+ secondary criteria met</li>
+    <li>No red early warning indicators in final month</li>
+    <li>At least 2 channels performing above target</li>
+    <li>Clear path to $500K+ ARR in 12 months</li>
+  </ul>
+  <p class="pb-p"><strong>Actions:</strong> 2-3× budget, dedicated headcount, full conference calendar, product investment</p>
+
+  <h4 class="pb-h3">MAINTAIN (All must be true)</h4>
+  <ul class="pb-ul">
+    <li>All 6 primary criteria met</li>
+    <li>&lt; 4 secondary criteria met</li>
+    <li>At least 1 channel performing well</li>
+    <li>No systemic issues (product gaps, competitive losses)</li>
+  </ul>
+  <p class="pb-p"><strong>Actions:</strong> Continue current investment, monitor for improvement</p>
+
+  <h4 class="pb-h3">OPTIMIZE (Typical profile)</h4>
+  <ul class="pb-ul">
+    <li>4-5 primary criteria met</li>
+    <li>1-2 primary criteria narrowly missed</li>
+    <li>Clear hypothesis for improvement</li>
+    <li>Unit economics fixable with tactical changes</li>
+  </ul>
+  <p class="pb-p"><strong>Actions:</strong> Hold spend flat, improve conversion/efficiency</p>
+
+  <h4 class="pb-h3">REDUCE (Typical profile)</h4>
+  <ul class="pb-ul">
+    <li>Only 2-3 primary criteria met</li>
+    <li>LTV:CAC marginal (1.5-2:1)</li>
+    <li>No channel performing well</li>
+    <li>Market not strategic priority</li>
+  </ul>
+  <p class="pb-p"><strong>Actions:</strong> Cut to maintenance level (minimal presence)</p>
+
+  <h4 class="pb-h3">EXIT (Any of these)</h4>
+  <ul class="pb-ul">
+    <li>&lt; 2 primary criteria met</li>
+    <li>LTV:CAC &lt; 1.5:1</li>
+    <li>Zero closed-won customers</li>
+    <li>Fundamental product-market gap</li>
+    <li>&gt; 70% competitive loss rate to single player</li>
+  </ul>
+  <p class="pb-p"><strong>Actions:</strong> Wind down activities, reassign resources, document learnings</p>
+
+  <h3 class="pb-h2">7.8 Review Cadence</h3>
+
+  <h4 class="pb-h3">Weekly Checkpoint (15 min)</h4>
+  <ul class="pb-ul">
+    <li>Lead/SQL count vs. pace</li>
+    <li>Pipeline additions</li>
+    <li>Early warning indicator check</li>
+    <li>Blocker identification</li>
+  </ul>
+
+  <h4 class="pb-h3">Monthly Business Review (60 min)</h4>
+  <ul class="pb-ul">
+    <li>Funnel metrics vs. target (10 min)</li>
+    <li>Channel performance breakdown (15 min)</li>
+    <li>Deal review: wins, losses, stalls (15 min)</li>
+    <li>Customer feedback/signals (10 min)</li>
+    <li>Budget tracking (5 min)</li>
+    <li>Decisions/adjustments (5 min)</li>
+  </ul>
+
+  <h4 class="pb-h3">Mid-Stage Review — Month 3 (90 min)</h4>
+  <ul class="pb-ul">
+    <li>Performance vs. plan (20 min)</li>
+    <li>Channel deep-dive (20 min)</li>
+    <li>Win/loss analysis (15 min)</li>
+    <li>Competitive update (10 min)</li>
+    <li>Customer health (10 min)</li>
+    <li>Budget reallocation (10 min)</li>
+    <li>Go/no-go decision (5 min)</li>
+  </ul>
+
+  <h4 class="pb-h3">Stage Exit Review — Month 6 (2 hours)</h4>
+  <ul class="pb-ul">
+    <li>Stage 3 results summary (15 min)</li>
+    <li>Unit economics deep-dive (20 min)</li>
+    <li>Channel performance &amp; learnings (20 min)</li>
+    <li>Sales motion &amp; win/loss (20 min)</li>
+    <li>Customer success &amp; referrals (15 min)</li>
+    <li>Competitive &amp; market update (10 min)</li>
+    <li>Recommendation presentation (10 min)</li>
+    <li>Discussion &amp; decision (10 min)</li>
+  </ul>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 8: ACCOUNTING MARKET APPLICATION -->
+  <h2 class="pb-h1" id="pb-s8">8. Accounting Market Application</h2>
+
+  <h3 class="pb-h2">8.1 Market Summary</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>TAM</strong></td>
+        <td>~189K establishments (NAICS 5412)</td>
+      </tr>
+      <tr>
+        <td><strong>SAM</strong></td>
+        <td>~120K B2B-leaning (CPA + bookkeeping)</td>
+      </tr>
+      <tr>
+        <td><strong>SOM</strong></td>
+        <td>~50K+ CAS-focused firms</td>
+      </tr>
+      <tr>
+        <td><strong>Growth</strong></td>
+        <td>CAS/bookkeeping: +17% YoY; Tax prep: -1.3%</td>
+      </tr>
+      <tr>
+        <td><strong>Typical CAS Firm</strong></td>
+        <td>69 clients, $1.6M revenue, $3K/mo per client</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.2 ICP Definition</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Specification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Firm type</td>
+        <td>CAS / outsourced bookkeeping</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>5-50 employees</td>
+      </tr>
+      <tr>
+        <td>Client count</td>
+        <td>30-300 clients</td>
+      </tr>
+      <tr>
+        <td>Revenue</td>
+        <td>$1M - $20M</td>
+      </tr>
+      <tr>
+        <td>Client verticals</td>
+        <td>Service-based B2B (MSPs, agencies, consultancies)</td>
+      </tr>
+      <tr>
+        <td>Tech stack</td>
+        <td>QBO or Sage Intacct</td>
+      </tr>
+      <tr>
+        <td>Current AR</td>
+        <td>QBO Payments, manual, or pain with Bill.com</td>
+      </tr>
+      <tr>
+        <td>Buying behavior</td>
+        <td>Relationship-driven, peer/banker influenced</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.3 Key Insights from Research</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Finding</th>
+        <th>Implication</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Accountants adopt, don't shop</td>
+        <td>Weight toward warm channels (events, partners, referrals)</td>
+      </tr>
+      <tr>
+        <td>Peer groups fragmented</td>
+        <td>Ecosystem placement matters more than community</td>
+      </tr>
+      <tr>
+        <td>Significant whitespace</td>
+        <td>Low awareness = education opportunity</td>
+      </tr>
+      <tr>
+        <td>Pain with status quo universal</td>
+        <td>Clear messaging angles available</td>
+      </tr>
+      <tr>
+        <td>AP sticky when recommended</td>
+        <td>Referral multiplier is real; track activation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.4 Competitive Positioning</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Segment</th>
+        <th>Primary Competitor</th>
+        <th>AP Positioning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Micro (&lt;10 clients)</td>
+        <td>Anchor</td>
+        <td>"Graduate to AP when you scale"</td>
+      </tr>
+      <tr>
+        <td>SMB (30-300 clients)</td>
+        <td><strong>Ignition</strong></td>
+        <td>"AR depth beyond proposals"</td>
+      </tr>
+      <tr>
+        <td>Mid-Market (300+)</td>
+        <td>Aiwyn</td>
+        <td>"Powerful without enterprise complexity"</td>
+      </tr>
+      <tr>
+        <td>Horizontal</td>
+        <td>Bill.com, QBO Payments</td>
+        <td>"Purpose-built for accountants + clients"</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pb-p"><strong>Key Differentiator:</strong> AP serves both CAS firms AND their clients.</p>
+
+  <h3 class="pb-h2">8.5 Stage 3 Budget Recommendation</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Investment</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Conferences</strong></td>
+        <td>$45,000</td>
+        <td>2 Tier 1 + 1 Tier 2</td>
+      </tr>
+      <tr>
+        <td><strong>Outbound</strong></td>
+        <td>$18,000</td>
+        <td>Lower allocation given "adopt not shop"</td>
+      </tr>
+      <tr>
+        <td><strong>Partnerships</strong></td>
+        <td>$20,000</td>
+        <td>Sage Intacct + Woodard</td>
+      </tr>
+      <tr>
+        <td><strong>Content</strong></td>
+        <td>$10,000</td>
+        <td>2 case studies, vertical landing page</td>
+      </tr>
+      <tr>
+        <td><strong>Enablement</strong></td>
+        <td>$5,000</td>
+        <td>CAS-specific materials</td>
+      </tr>
+      <tr>
+        <td><strong>Contingency</strong></td>
+        <td>$12,000</td>
+        <td>Test emerging channels</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>$110,000</strong></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.6 Stage 3 Targets</h3>
+
+  <h4 class="pb-h3">Funnel Targets</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Target</th>
+        <th>Source Breakdown</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Leads</td>
+        <td>175</td>
+        <td>Conferences (120) + Outbound (30) + Partner (25)</td>
+      </tr>
+      <tr>
+        <td>SQLs</td>
+        <td>55</td>
+        <td>31% qualification rate</td>
+      </tr>
+      <tr>
+        <td>Opportunities</td>
+        <td>22</td>
+        <td>40% SQL→Opp</td>
+      </tr>
+      <tr>
+        <td>Closed-Won</td>
+        <td>11</td>
+        <td>50% close rate</td>
+      </tr>
+      <tr>
+        <td>Pipeline Value</td>
+        <td>$275,000</td>
+        <td>$12.5K avg opp</td>
+      </tr>
+      <tr>
+        <td>Revenue (ACV)</td>
+        <td>$66,000</td>
+        <td>$6K avg ACV</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="pb-h3">Unit Economics Targets</h4>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Target</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CAC</td>
+        <td>$10,000</td>
+        <td>$110K ÷ 11 customers</td>
+      </tr>
+      <tr>
+        <td>Direct LTV</td>
+        <td>$12,600</td>
+        <td>Marginal on its own</td>
+      </tr>
+      <tr>
+        <td>LTV:CAC (direct)</td>
+        <td>1.26:1</td>
+        <td>Below target</td>
+      </tr>
+      <tr>
+        <td>Referral-adjusted LTV</td>
+        <td>$24,600</td>
+        <td>Includes multiplier</td>
+      </tr>
+      <tr>
+        <td>LTV:CAC (ref-adj)</td>
+        <td>2.46:1</td>
+        <td>Approaches target</td>
+      </tr>
+      <tr>
+        <td>Payback period</td>
+        <td>29 months</td>
+        <td>Above ideal</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pb-p"><strong>Critical Note:</strong> The accounting market thesis depends on the referral multiplier. Stage 3 must validate that ≥20% of customers generate referrals.</p>
+
+  <h3 class="pb-h2">8.7 Accounting-Specific Adjustments</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Standard Approach</th>
+        <th>Accounting Adjustment</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Equal channel allocation</td>
+        <td>60% to conferences + partners</td>
+        <td>"Adopt not shop" behavior</td>
+      </tr>
+      <tr>
+        <td>60-day attribution</td>
+        <td>90-day attribution</td>
+        <td>Longer relationship cycles</td>
+      </tr>
+      <tr>
+        <td>Direct LTV:CAC &gt; 3:1</td>
+        <td>Referral-adjusted &gt; 3:1</td>
+        <td>Multiplier is core thesis</td>
+      </tr>
+      <tr>
+        <td>Focus on customer count</td>
+        <td>Focus on referral activation</td>
+        <td>Each firm is a channel</td>
+      </tr>
+      <tr>
+        <td>Outbound as primary</td>
+        <td>Outbound as supplement</td>
+        <td>Low response expected</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.8 Target Conferences</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Tier</th>
+        <th>Est. Cost</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AICPA ENGAGE</td>
+        <td>1</td>
+        <td>$25,000</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Digital CPA Conference</td>
+        <td>1</td>
+        <td>$20,000</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Scaling New Heights (Woodard)</td>
+        <td>2</td>
+        <td>$12,000</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Rightworks Academy Live</td>
+        <td>2</td>
+        <td>$10,000</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>AICPA CAS Summit</td>
+        <td>2</td>
+        <td>$10,000</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>Firm Growth Forum</td>
+        <td>3</td>
+        <td>$6,000</td>
+        <td>Low</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.9 Partnership Priorities</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Partner</th>
+        <th>Type</th>
+        <th>Investment</th>
+        <th>Expected Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sage Intacct</strong></td>
+        <td>Tech integration</td>
+        <td>$15,000</td>
+        <td>Marketplace listing, co-marketing</td>
+      </tr>
+      <tr>
+        <td><strong>Woodard</strong></td>
+        <td>Community</td>
+        <td>$8,000</td>
+        <td>Member access, content</td>
+      </tr>
+      <tr>
+        <td><strong>CPA.com</strong></td>
+        <td>Strategic</td>
+        <td>TBD</td>
+        <td>AICPA credibility, reach</td>
+      </tr>
+      <tr>
+        <td><strong>Rightworks Academy</strong></td>
+        <td>Community</td>
+        <td>$5,000</td>
+        <td>Progressive firm access</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="pb-h2">8.10 Risk Factors</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Risk</th>
+        <th>Mitigation</th>
+        <th>Tracking</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Referral multiplier doesn't materialize</td>
+        <td>Track obsessively; kill if &lt; 15%</td>
+        <td>Monthly referral %</td>
+      </tr>
+      <tr>
+        <td>Sales cycle longer than MSP</td>
+        <td>Extend attribution; patience</td>
+        <td>Days to close</td>
+      </tr>
+      <tr>
+        <td>Outbound underperforms</td>
+        <td>Shift to conferences/partners</td>
+        <td>Channel reallocation</td>
+      </tr>
+      <tr>
+        <td>Ignition competitive pressure</td>
+        <td>Sharpen "AR depth" positioning</td>
+        <td>Win/loss vs. Ignition</td>
+      </tr>
+      <tr>
+        <td>Conference ROI lower than expected</td>
+        <td>Right-size sponsorship</td>
+        <td>Per-event ROI</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="pb-divider">
+
+  <!-- SECTION 9: TEMPLATES & TOOLS -->
+  <h2 class="pb-h1" id="pb-s9">9. Templates &amp; Tools</h2>
+
+  <h3 class="pb-h2">9.1 Monthly Report Template</h3>
+  <pre class="pb-pre"><code>═══════════════════════════════════════════════════════════════
+STAGE 3 VALIDATION - MONTHLY REPORT
+Market: _____________ | Month: ___ of 6 | Date: ___________
+═══════════════════════════════════════════════════════════════
+
+EXECUTIVE SUMMARY
+─────────────────
+Overall Status: [ON TRACK / AT RISK / OFF TRACK]
+Key Win: ________________________________________________
+Key Risk: _______________________________________________
+Decision Needed: [Yes/No] _______________________________
+
+═══════════════════════════════════════════════════════════════
+SPEND VS. BUDGET
+─────────────────────────────────────────────────────────────
+Category          Month     YTD       Budget    Remaining
+────────────────  ───────   ───────   ───────   ─────────
+Conferences       $_____    $_____    $_____    $_____
+Outbound          $_____    $_____    $_____    $_____
+Partnerships      $_____    $_____    $_____    $_____
+Content           $_____    $_____    $_____    $_____
+Enablement        $_____    $_____    $_____    $_____
+────────────────  ───────   ───────   ───────   ─────────
+TOTAL             $_____    $_____    $_____    $_____
+
+Burn Rate: ___% of budget | ___% of time elapsed
+
+═══════════════════════════════════════════════════════════════
+PRIMARY CRITERIA TRACKING
+─────────────────────────────────────────────────────────────
+Criterion                 Target     Current    Trend   Status
+────────────────────────  ─────────  ─────────  ─────   ──────
+P1: Closed-won            ≥ 10       _____      [↑↓→]   [G/Y/R]
+P2: CAC                   &lt; 18mo     $_____     [↑↓→]   [G/Y/R]
+P3: LTV:CAC (direct)      &gt; 2:1      _____:1    [↑↓→]   [G/Y/R]
+P4: LTV:CAC (ref-adj)     &gt; 3:1      _____:1    [↑↓→]   [G/Y/R]
+P5: Pipeline:Spend        &gt; 5:1      _____:1    [↑↓→]   [G/Y/R]
+P6: Payback period        &lt; 18mo     _____ mo   [↑↓→]   [G/Y/R]
+
+Primary Criteria On Track: ___ of 6
+
+═══════════════════════════════════════════════════════════════
+SECONDARY CRITERIA TRACKING
+─────────────────────────────────────────────────────────────
+Criterion                 Target     Current    Status
+────────────────────────  ─────────  ─────────  ──────
+S1: SQL volume            ≥ 50       _____      [G/Y/R]
+S2: SQL→Opp rate          ≥ 40%      _____%     [G/Y/R]
+S3: Opp→Close rate        ≥ 25%      _____%     [G/Y/R]
+S4: Avg deal size         ≥ $5K      $_____     [G/Y/R]
+S5: Sales cycle           ≤ 60 days  _____ days [G/Y/R]
+S6: Referral activation   ≥ 20%      _____%     [G/Y/R]
+
+Secondary Criteria Met: ___ of 6
+
+═══════════════════════════════════════════════════════════════
+EARLY WARNING INDICATORS
+─────────────────────────────────────────────────────────────
+Indicator            Green        Yellow       Red        Current
+──────────────────   ──────────   ──────────   ─────────  ───────
+Lead flow            &gt; pace       near pace    &lt; pace     [G/Y/R]
+SQL conversion       &gt; 20%        15-20%       &lt; 15%      [G/Y/R]
+Pipeline growth      +$50K/mo     +$25-50K     &lt; $25K     [G/Y/R]
+Win rate             &gt; 25%        15-25%       &lt; 15%      [G/Y/R]
+Competitive losses   &lt; 40%        40-60%       &gt; 60%      [G/Y/R]
+Deal slippage        &lt; 20%        20-35%       &gt; 35%      [G/Y/R]
+Churn signal         0            1            2+         [G/Y/R]
+
+Red Indicators: ___ (Review triggered if ≥ 2)
+
+═══════════════════════════════════════════════════════════════
+CHANNEL PERFORMANCE
+─────────────────────────────────────────────────────────────
+Channel        Spend     Leads    SQLs    Opps    Closed   CAC
+────────────   ───────   ─────    ────    ────    ──────   ───────
+Conference 1   $_____    _____    _____   _____   _____    $_____
+Conference 2   $_____    _____    _____   _____   _____    $_____
+Outbound       $_____    _____    _____   _____   _____    $_____
+Partner        $_____    _____    _____   _____   _____    $_____
+Inbound        $_____    _____    _____   _____   _____    $_____
+────────────   ───────   ─────    ────    ────    ──────   ───────
+TOTAL          $_____    _____    _____   _____   _____    $_____
+
+Best Performing: _____________ - _________________________
+Worst Performing: ____________ - _________________________
+
+═══════════════════════════════════════════════════════════════
+WIN/LOSS ANALYSIS
+─────────────────────────────────────────────────────────────
+Wins This Month: ___
+  • _____________ - $_____ - _____________________________
+  • _____________ - $_____ - _____________________________
+
+Losses This Month: ___
+  • _____________ - Lost to _________ - __________________
+  • _____________ - Lost to _________ - __________________
+
+Win Rate: ___% (Target: 25%)
+Top Loss Reason: _________________________________________
+Competitive Breakdown: [Competitor]: ___% | [Competitor]: ___%
+
+═══════════════════════════════════════════════════════════════
+CUSTOMER SIGNALS
+─────────────────────────────────────────────────────────────
+Stage 3 Customers: ___
+  Active &amp; Healthy: ___
+  At Risk: ___
+  Churned: ___
+
+Referral Activity:
+  Customers who have referred: ___ (___%)
+  Referral leads generated: ___
+  Referral revenue: $_____
+
+Feedback Themes:
+  + ____________________________________________________
+  - ____________________________________________________
+
+═══════════════════════════════════════════════════════════════
+PROJECTION TO EXIT
+─────────────────────────────────────────────────────────────
+                      Projected    Target    Gap
+                      ─────────    ──────    ─────────
+Closed-won            _____        10        _____
+LTV:CAC (direct)      _____:1      2:1       _____
+LTV:CAC (ref-adj)     _____:1      3:1       _____
+Pipeline:Spend        _____:1      5:1       _____
+
+Projected Exit Decision: [SCALE / MAINTAIN / OPTIMIZE / REDUCE]
+
+═══════════════════════════════════════════════════════════════
+NEXT MONTH PRIORITIES
+─────────────────────────────────────────────────────────────
+1. __________________________________________________
+2. __________________________________________________
+3. __________________________________________________
+
+Experiments/Tests:
+• __________________________________________________
+• __________________________________________________
+
+═══════════════════════════════════════════════════════════════</code></pre>
+
+  <h3 class="pb-h2">9.2 Conference ROI Tracker</h3>
+  <pre class="pb-pre"><code>═══════════════════════════════════════════════════════════════
+CONFERENCE ROI TRACKER
+═══════════════════════════════════════════════════════════════
+
+Event Name: _____________________  Date: ___________________
+Location: _______________________  Tier: ___________________
+
+─────────────────────────────────────────────────────────────
+INVESTMENT
+─────────────────────────────────────────────────────────────
+Sponsorship package:           $_____________
+Booth design/collateral:       $_____________
+Travel &amp; expenses:             $_____________
+Entertainment/dinners:         $_____________
+Staff time (___hrs × $___):    $_____________
+Swag/giveaways:               $_____________
+─────────────────────────────────────────────────────────────
+TOTAL INVESTMENT:              $_____________
+
+─────────────────────────────────────────────────────────────
+OUTPUT (90-day attribution)
+─────────────────────────────────────────────────────────────
+Badge scans / Leads:           _____________
+Qualified conversations:       _____________
+Demos booked:                  _____________
+Demos completed:               _____________
+SQLs created:                  _____________
+Opportunities opened:          _____________
+Pipeline value:                $_____________
+Closed-won:                    _____________
+Revenue (ACV):                 $_____________
+
+─────────────────────────────────────────────────────────────
+EFFICIENCY METRICS
+─────────────────────────────────────────────────────────────
+                    Actual       Target       Status
+                    ──────────   ──────────   ──────
+Cost per Lead       $_________   &lt; $100       [G/Y/R]
+Cost per SQL        $_________   &lt; $500       [G/Y/R]
+Cost per Opp        $_________   &lt; $2,000     [G/Y/R]
+Pipeline:Spend      _________:1  &gt; 5:1        [G/Y/R]
+Event ROI (12mo)    _________%   &gt; 300%       [G/Y/R]
+
+─────────────────────────────────────────────────────────────
+QUALITATIVE NOTES
+─────────────────────────────────────────────────────────────
+What worked well:
+__________________________________________________________
+__________________________________________________________
+
+What to improve:
+__________________________________________________________
+__________________________________________________________
+
+Key competitive intel:
+__________________________________________________________
+__________________________________________________________
+
+Recommendation for next year: [Attend / Skip / Increase / Decrease]
+__________________________________________________________
+
+═══════════════════════════════════════════════════════════════</code></pre>
+
+  <h3 class="pb-h2">9.3 Channel Attribution Tracker</h3>
+  <pre class="pb-pre"><code>═══════════════════════════════════════════════════════════════
+CHANNEL ATTRIBUTION - STAGE 3 CUMULATIVE
+Market: _____________  Period: ________ to ________
+═══════════════════════════════════════════════════════════════
+
+─────────────────────────────────────────────────────────────
+PERFORMANCE BY CHANNEL
+─────────────────────────────────────────────────────────────
+
+Channel           Spend      Leads   SQLs   Opps   Won   Revenue
+────────────────  ─────────  ─────   ────   ────   ───   ────────
+Conference 1      $_______   _____   ____   ____   ___   $_______
+Conference 2      $_______   _____   ____   ____   ___   $_______
+Conference 3      $_______   _____   ____   ____   ___   $_______
+Outbound          $_______   _____   ____   ____   ___   $_______
+Partner-Sourced   $_______   _____   ____   ____   ___   $_______
+Partner-Influenced $_______  _____   ____   ____   ___   $_______
+Inbound/Content   $_______   _____   ____   ____   ___   $_______
+Referral          $_______   _____   ____   ____   ___   $_______
+────────────────  ─────────  ─────   ────   ────   ───   ────────
+TOTAL             $_______   _____   ____   ____   ___   $_______
+
+─────────────────────────────────────────────────────────────
+EFFICIENCY BY CHANNEL
+─────────────────────────────────────────────────────────────
+
+Channel           CPL       Cost/SQL   Cost/Opp   CAC       Pipe:Spend
+────────────────  ────────  ─────────  ─────────  ────────  ──────────
+Conference 1      $_______  $_______   $_______   $_______  _______:1
+Conference 2      $_______  $_______   $_______   $_______  _______:1
+Conference 3      $_______  $_______   $_______   $_______  _______:1
+Outbound          $_______  $_______   $_______   $_______  _______:1
+Partner-Sourced   $_______  $_______   $_______   $_______  _______:1
+Inbound/Content   $_______  $_______   $_______   $_______  _______:1
+Referral          $_______  $_______   $_______   $_______  _______:1
+────────────────  ────────  ─────────  ─────────  ────────  ──────────
+BLENDED           $_______  $_______   $_______   $_______  _______:1
+
+─────────────────────────────────────────────────────────────
+CONVERSION RATES BY CHANNEL
+─────────────────────────────────────────────────────────────
+
+Channel           Lead→SQL   SQL→Opp   Opp→Won   Lead→Won
+────────────────  ─────────  ────────  ────────  ─────────
+Conference 1      _______%   _______%  _______%  _______%
+Conference 2      _______%   _______%  _______%  _______%
+Conference 3      _______%   _______%  _______%  _______%
+Outbound          _______%   _______%  _______%  _______%
+Partner-Sourced   _______%   _______%  _______%  _______%
+Inbound/Content   _______%   _______%  _______%  _______%
+Referral          _______%   _______%  _______%  _______%
+────────────────  ─────────  ────────  ────────  ─────────
+BLENDED           _______%   _______%  _______%  _______%
+
+─────────────────────────────────────────────────────────────
+CHANNEL RANKING (by efficiency)
+─────────────────────────────────────────────────────────────
+1. _________________ - CAC: $_______ - Pipe:Spend: ____:1
+2. _________________ - CAC: $_______ - Pipe:Spend: ____:1
+3. _________________ - CAC: $_______ - Pipe:Spend: ____:1
+4. _________________ - CAC: $_______ - Pipe:Spend: ____:1
+
+─────────────────────────────────────────────────────────────
+REALLOCATION RECOMMENDATION
+─────────────────────────────────────────────────────────────
+Increase:  _________________ (+$_______)
+Maintain:  _________________
+Decrease:  _________________ (-$_______)
+Cut:       _________________
+
+═══════════════════════════════════════════════════════════════</code></pre>
+
+  <h3 class="pb-h2">9.4 Unit Economics Calculator</h3>
+  <pre class="pb-pre"><code>═══════════════════════════════════════════════════════════════
+UNIT ECONOMICS CALCULATOR
+Market: _____________  Date: ___________
+═══════════════════════════════════════════════════════════════
+
+─────────────────────────────────────────────────────────────
+CUSTOMER ACQUISITION COST (CAC)
+─────────────────────────────────────────────────────────────
+Total GTM Spend (Stage 3):        $_____________
+Closed-Won Customers:             _____________
+─────────────────────────────────────────────────────────────
+CAC:                              $_____________
+
+─────────────────────────────────────────────────────────────
+DIRECT LIFETIME VALUE (LTV)
+─────────────────────────────────────────────────────────────
+Average Monthly Revenue:          $_____________
+Gross Margin %:                   _____________%
+Average Customer Lifespan:        _____________ months
+─────────────────────────────────────────────────────────────
+Direct LTV:                       $_____________
+(Monthly Revenue × Margin × Lifespan)
+
+─────────────────────────────────────────────────────────────
+REFERRAL-ADJUSTED LTV
+─────────────────────────────────────────────────────────────
+Direct LTV:                       $_____________
+Referral Rate (% who refer):      _____________%
+Avg Referrals per Referrer:       _____________
+Referred Customer LTV:            $_____________
+─────────────────────────────────────────────────────────────
+Referral Value:                   $_____________
+(Rate × Referrals × Referred LTV)
+
+Referral-Adjusted LTV:            $_____________
+(Direct LTV + Referral Value)
+
+─────────────────────────────────────────────────────────────
+KEY RATIOS
+─────────────────────────────────────────────────────────────
+                        Actual       Target       Status
+                        ──────────   ──────────   ──────
+LTV:CAC (Direct)        _______:1    &gt; 2:1        [G/Y/R]
+LTV:CAC (Ref-Adjusted)  _______:1    &gt; 3:1        [G/Y/R]
+
+─────────────────────────────────────────────────────────────
+PAYBACK PERIOD
+─────────────────────────────────────────────────────────────
+CAC:                              $_____________
+Monthly Gross Profit:             $_____________
+(Monthly Revenue × Margin)
+─────────────────────────────────────────────────────────────
+Payback Period:                   _____________ months
+(CAC ÷ Monthly Gross Profit)
+
+Target: &lt; 18 months               Status: [G/Y/R]
+
+─────────────────────────────────────────────────────────────
+SENSITIVITY ANALYSIS
+─────────────────────────────────────────────────────────────
+If Referral Rate increases to ___%, LTV:CAC becomes ___:1
+If CAC decreases to $_____, LTV:CAC becomes ___:1
+If Lifespan increases to ___ months, LTV:CAC becomes ___:1
+
+Break-even Referral Rate (for 3:1 LTV:CAC): ___%
+
+═══════════════════════════════════════════════════════════════</code></pre>
+
+  <h3 class="pb-h2">9.5 Stage Exit Decision Checklist</h3>
+  <pre class="pb-pre"><code>═══════════════════════════════════════════════════════════════
+STAGE 3 EXIT DECISION CHECKLIST
+Market: _____________  Date: ___________
+═══════════════════════════════════════════════════════════════
+
+─────────────────────────────────────────────────────────────
+PRIMARY CRITERIA (Must meet ALL for Scale/Maintain)
+─────────────────────────────────────────────────────────────
+[ ] P1: Closed-won ≥ 10          Actual: ___    [MET/NOT MET]
+[ ] P2: CAC &lt; 18-month ACV       Actual: $___   [MET/NOT MET]
+[ ] P3: LTV:CAC (direct) &gt; 2:1   Actual: ___:1  [MET/NOT MET]
+[ ] P4: LTV:CAC (ref-adj) &gt; 3:1  Actual: ___:1  [MET/NOT MET]
+[ ] P5: Pipeline:Spend &gt; 5:1     Actual: ___:1  [MET/NOT MET]
+[ ] P6: Payback &lt; 18 months      Actual: ___ mo [MET/NOT MET]
+
+Primary Criteria Met: ___ / 6
+
+─────────────────────────────────────────────────────────────
+SECONDARY CRITERIA (Must meet 4 of 6 for Scale)
+─────────────────────────────────────────────────────────────
+[ ] S1: SQLs ≥ 50                Actual: ___    [MET/NOT MET]
+[ ] S2: SQL→Opp ≥ 40%            Actual: ___%   [MET/NOT MET]
+[ ] S3: Opp→Close ≥ 25%          Actual: ___%   [MET/NOT MET]
+[ ] S4: Avg Deal ≥ $5K ACV       Actual: $___   [MET/NOT MET]
+[ ] S5: Sales Cycle ≤ 60 days    Actual: ___ d  [MET/NOT MET]
+[ ] S6: Referral Rate ≥ 20%      Actual: ___%   [MET/NOT MET]
+
+Secondary Criteria Met: ___ / 6
+
+─────────────────────────────────────────────────────────────
+KILL CRITERIA CHECK
+─────────────────────────────────────────────────────────────
+[ ] Zero closed-won after full stage?           [YES/NO]
+[ ] SQL→Opp &lt; 10% for 8+ weeks?                 [YES/NO]
+[ ] 3+ deals lost to missing core feature?      [YES/NO]
+[ ] &gt;70% losses to single competitor?           [YES/NO]
+[ ] CAC &gt; 24-month ACV?                         [YES/NO]
+[ ] &gt;30% early customer churn?                  [YES/NO]
+
+Any Kill Criteria Triggered: [YES/NO]
+
+─────────────────────────────────────────────────────────────
+CHANNEL HEALTH
+─────────────────────────────────────────────────────────────
+Channels performing above target: ___ / ___
+Best channel: _____________ (CAC: $_____)
+Worst channel: ____________ (CAC: $_____)
+
+─────────────────────────────────────────────────────────────
+DECISION MATRIX
+─────────────────────────────────────────────────────────────
+All 6 Primary Met?     [YES/NO]
+4+ Secondary Met?      [YES/NO]
+Kill Criteria Clear?   [YES/NO]
+2+ Channels Working?   [YES/NO]
+
+─────────────────────────────────────────────────────────────
+DECISION
+─────────────────────────────────────────────────────────────
+Based on criteria above:
+
+[ ] SCALE    - All primary + 4+ secondary + no kills + 2+ channels
+[ ] MAINTAIN - All primary + &lt;4 secondary + no systemic issues
+[ ] OPTIMIZE - 4-5 primary + clear fix + no kills
+[ ] REDUCE   - 2-3 primary + not strategic priority
+[ ] EXIT     - &lt;2 primary OR kill criteria triggered
+
+RECOMMENDED DECISION: _______________________________________
+
+─────────────────────────────────────────────────────────────
+RATIONALE
+─────────────────────────────────────────────────────────────
+___________________________________________________________
+___________________________________________________________
+___________________________________________________________
+___________________________________________________________
+
+─────────────────────────────────────────────────────────────
+NEXT STEPS
+─────────────────────────────────────────────────────────────
+1. ________________________________________________________
+2. ________________________________________________________
+3. ________________________________________________________
+
+─────────────────────────────────────────────────────────────
+APPROVALS
+─────────────────────────────────────────────────────────────
+Prepared by: ____________________  Date: __________
+Reviewed by: ____________________  Date: __________
+Approved by: ____________________  Date: __________
+
+═══════════════════════════════════════════════════════════════</code></pre>
+
+  <hr class="pb-divider">
+
+  <!-- DOCUMENT CONTROL -->
+  <h3 class="pb-h2">Document Control</h3>
+  <table class="pb-table">
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Date</th>
+        <th>Author</th>
+        <th>Changes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.0</td>
+        <td>[Date]</td>
+        <td>[Name]</td>
+        <td>Initial creation</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="pb-note">This playbook is a living document. Update as market learnings accumulate and processes mature.</p>
+
+</div>
+
 </div><!-- /portal -->
 
 <script>
@@ -1693,6 +4651,26 @@ function showSec(id,el){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('sec-'+id).classList.add('active');
   el.classList.add('active');
+  if(id==='playbook') setTimeout(initPlaybookFunnel,120);
+}
+
+// ── PLAYBOOK INTERACTIVE ──
+let pbFunnelDone=false;
+function pbStage(n){
+  document.querySelectorAll('.pb-stage-item').forEach(s=>s.classList.remove('pb-selected'));
+  document.querySelectorAll('.pb-sd').forEach(s=>s.classList.remove('pb-sd-active'));
+  const items=document.querySelectorAll('.pb-stage-item');
+  if(items[n-1]) items[n-1].classList.add('pb-selected');
+  const det=document.getElementById('pb-sd-'+n);
+  if(det) det.classList.add('pb-sd-active');
+}
+function initPlaybookFunnel(){
+  if(pbFunnelDone) return;
+  pbFunnelDone=true;
+  document.querySelectorAll('.pb-fr-fill').forEach(f=>{
+    f.style.setProperty('--pb-scale', f.dataset.scale||'1');
+    requestAnimationFrame(()=>{ f.classList.add('pb-animated'); });
+  });
 }
 function showCo(id,el){
   ['apex','cw'].forEach(c=>document.getElementById('co-'+c).style.display='none');
