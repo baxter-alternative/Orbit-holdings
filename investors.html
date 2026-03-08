@@ -286,6 +286,23 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 .txn-settled{color:var(--green);background:rgba(58,122,78,0.08);border:1px solid rgba(58,122,78,0.2);}
 .txn-pend{color:var(--bronze);background:rgba(139,105,20,0.08);border:1px solid var(--border2);}
 
+/* ── READING ROOM ── */
+.read-cat{margin-bottom:36px;}
+.read-cat-lbl{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.read-cat-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+.read-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.read-card{border:1px solid var(--border);padding:18px;background:var(--bg);text-decoration:none;display:block;transition:background 0.2s;}
+.read-card:hover{background:var(--bg2);}
+.read-card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;}
+.read-source{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--bronze);}
+.read-dot{width:3px;height:3px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.read-date{font-size:10px;color:var(--muted);}
+.read-badge{font-size:10px;font-weight:600;padding:2px 8px;border:1px solid var(--border2);color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+.read-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.3;}
+.read-body{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:10px;}
+.read-relevance{font-size:11px;color:var(--text2);background:rgba(139,105,20,0.05);border-left:2px solid var(--bronze);padding:8px 10px;margin-bottom:12px;line-height:1.6;}
+.read-cta{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--bronze);}
+
 /* ── DESKTOP UPGRADES ── */
 @media(min-width:640px){
   .section{padding:40px 40px;}
@@ -296,6 +313,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
   .price-cards{grid-template-columns:repeat(3,1fr);}
   .auto-grid{grid-template-columns:repeat(2,1fr);}
   .lender-kpis{grid-template-columns:repeat(4,1fr);}
+  .read-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(min-width:1024px){
   .section{padding:52px 60px;}
@@ -303,6 +321,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
   .nav-tab{padding:14px 20px;}
   .auto-grid{grid-template-columns:repeat(3,1fr);}
   .kpi-val{font-size:30px;}
+  .read-grid{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
@@ -332,6 +351,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
       <div class="nav-tab" onclick="showSec('nexus',this)">Nexus AI</div>
       <div class="nav-tab" onclick="showSec('lender',this)">Lender</div>
       <div class="nav-tab" onclick="showSec('liquidity',this)">Liquidity</div>
+      <div class="nav-tab" onclick="showSec('reading',this)">Reading Room</div>
     </div>
   </nav>
 
@@ -799,6 +819,156 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
         <div class="txn-row"><div class="txn-row-top"><div class="txn-co">Apex MSP Group</div><div class="txn-date">Jan 8, 2026</div></div><div class="txn-row-bottom"><div class="txn-meta"><span class="txn-pending">Transfer</span> · 1,800 shares · $46.30 · <strong>$83,340</strong></div><span class="txn-badge txn-pend">⟳ Pending</span></div></div>
       </div>
     </div>
+  </div>
+
+
+  <!-- ══ READING ROOM ══ -->
+  <div class="section" id="sec-reading">
+    <div class="eyebrow">Curated Research</div>
+    <h1 class="sec-title">Reading Room</h1>
+    <p class="sec-sub">Articles, theses, and market signals relevant to Orbit's strategy · Updated March 2026</p>
+
+    <!-- THESIS & MARKET -->
+    <div class="read-cat">
+      <div class="read-cat-lbl">Thesis &amp; Market Opportunity</div>
+      <div class="read-grid">
+
+        <a class="read-card" href="https://sequoiacap.com/article/services-the-new-software/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Sequoia Capital</span>
+            <span class="read-dot"></span>
+            <span class="read-date">March 5, 2026</span>
+            <span class="read-badge">Thesis</span>
+          </div>
+          <div class="read-title">Services: The New Software</div>
+          <div class="read-body">AI has crossed the threshold from copilot to autopilot — enabling companies to sell outcomes rather than tools. The next trillion-dollar company will look like a services firm. Autopilots capture labor budgets that are an order of magnitude larger than software budgets.</div>
+          <div class="read-relevance">Orbit's entire model is the execution layer of this thesis. Every acquisition is a bet that AI-native services businesses — not software platforms — are the generational opportunity.</div>
+          <span class="read-cta">Read → sequoiacap.com</span>
+        </a>
+
+        <a class="read-card" href="https://a16z.com/vertical-saas-now-with-ai-inside/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Andreessen Horowitz</span>
+            <span class="read-dot"></span>
+            <span class="read-date">November 2024</span>
+            <span class="read-badge">Thesis</span>
+          </div>
+          <div class="read-title">Vertical SaaS: Now with AI Inside</div>
+          <div class="read-body">AI launches a third wave of vertical SaaS — turning platforms into full-stack operators that 2–10× revenue per customer by automating sales, support, finance, and ops. Field services companies that own workflow data become the highest-value AI plays.</div>
+          <div class="read-relevance">The Nexus AI stack is exactly this: AI layered into recurring field services businesses to multiply per-customer economics. Orbit is building what a16z describes as the defensible vertical AI opportunity.</div>
+          <span class="read-cta">Read → a16z.com</span>
+        </a>
+
+        <a class="read-card" href="https://www.generalcatalyst.com/stories/the-future-of-services" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">General Catalyst</span>
+            <span class="read-dot"></span>
+            <span class="read-date">2025</span>
+            <span class="read-badge">Market Context</span>
+          </div>
+          <div class="read-title">The Future of Services</div>
+          <div class="read-body">U.S. services industries generate $6T+ annually versus a $370B software market — yet remain largely untouched by AI. GC frames AI-enabled roll-ups in services as a market opportunity that dwarfs the entire SaaS wave.</div>
+          <div class="read-relevance">Orbit operates at the intersection GC identifies: recurring services businesses where AI transforms delivery economics, not just workflow efficiency. The TAM is an order of magnitude larger than it appears.</div>
+          <span class="read-cta">Read → generalcatalyst.com</span>
+        </a>
+
+        <a class="read-card" href="https://sequoiacap.com/article/ai-in-2025/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Sequoia Capital</span>
+            <span class="read-dot"></span>
+            <span class="read-date">December 2024</span>
+            <span class="read-badge">Market Context</span>
+          </div>
+          <div class="read-title">AI in 2025: Building Blocks Firmly in Place</div>
+          <div class="read-body">By end of 2025, AI infrastructure will be locked in — shifting competitive advantage toward application-layer companies capturing labor budgets rather than software budgets. AI displaces labor, not software, attacking a profit pool an order of magnitude larger than cloud.</div>
+          <div class="read-relevance">Orbit's timing is deliberate. Portfolio companies with Nexus integrated today will have 12–24 months of compounding data advantage over acquirers deploying in 2027.</div>
+          <span class="read-cta">Read → sequoiacap.com</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- COMPETITIVE SIGNALS -->
+    <div class="read-cat">
+      <div class="read-cat-lbl">Competitive Signals</div>
+      <div class="read-grid">
+
+        <a class="read-card" href="https://www.businesswire.com/news/home/20260202196878/en/Shield-Raises-%24100-Million-From-Thrive-Holdings-to-Accelerate-the-Growth-of-its-IT-Services-Platform" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Business Wire</span>
+            <span class="read-dot"></span>
+            <span class="read-date">February 2, 2026</span>
+            <span class="read-badge">Competitive Signal</span>
+          </div>
+          <div class="read-title">Shield Raises $100M From Thrive Holdings to Accelerate IT Services Platform</div>
+          <div class="read-body">Thrive Holdings deploys $100M into Shield, an AI-powered IT services roll-up targeting the same managed services vertical as Orbit's Apex MSP Group. Direct institutional validation that capital is racing into this exact strategy.</div>
+          <div class="read-relevance">Shield is the closest direct comp to Orbit's MSP thesis. Their raise confirms both the appetite and the urgency — the window to establish data moat advantage is now, not 2027.</div>
+          <span class="read-cta">Read → businesswire.com</span>
+        </a>
+
+        <a class="read-card" href="https://www.bvp.com/forge" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Bessemer Venture Partners</span>
+            <span class="read-dot"></span>
+            <span class="read-date">2025 — Fund II Close</span>
+            <span class="read-badge">Competitive Signal</span>
+          </div>
+          <div class="read-title">BVP Forge — PE for Software-Enabled Services</div>
+          <div class="read-body">BVP's dedicated PE arm for software-enabled and services businesses at $50–500M enterprise value closes a $1B Fund II. The most data-driven firm in venture deploying permanent-style capital into exactly Orbit's target profile.</div>
+          <div class="read-relevance">BVP Forge is both a competitive signal and a proof point. Their $1B raise validates the asset class at the institutional level. Their target size range ($50–500M EV) maps directly onto Orbit's acquisition criteria.</div>
+          <span class="read-cta">Read → bvp.com</span>
+        </a>
+
+        <a class="read-card" href="https://www.newcomer.co/p/inside-the-vc-roll-up-craze-that" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Newcomer</span>
+            <span class="read-dot"></span>
+            <span class="read-date">December 2025</span>
+            <span class="read-badge">Market Context</span>
+          </div>
+          <div class="read-title">Inside the VC Roll-Up Craze That Has Taken Silicon Valley by Storm</div>
+          <div class="read-body">General Catalyst, Thrive Capital, 8VC, and Lightspeed are quietly acquiring fragmented services businesses — accounting, legal, IT, call centers — applying AI to rebuild unit economics. Described as the defining VC strategy of 2025.</div>
+          <div class="read-relevance">Orbit is ahead of this institutional wave. The firms named are moving into adjacent verticals — Orbit's head start in MSP and field services represents a meaningful data and timing advantage that closes quickly.</div>
+          <span class="read-cta">Read → newcomer.co</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- M&A & OPERATIONS -->
+    <div class="read-cat">
+      <div class="read-cat-lbl">M&amp;A Strategy &amp; Operations</div>
+      <div class="read-grid">
+
+        <a class="read-card" href="https://www.mckinsey.com/capabilities/m-and-a/our-insights/technology-m-and-a-ai-enters-its-industrial-phase" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">McKinsey &amp; Company</span>
+            <span class="read-dot"></span>
+            <span class="read-date">2025</span>
+            <span class="read-badge">M&amp;A Strategy</span>
+          </div>
+          <div class="read-title">Technology M&amp;A: AI Enters Its Industrial Phase</div>
+          <div class="read-body">Tech M&A has shifted from isolated AI experiments to systematic, portfolio-wide integration. Acquirers deploying AI across their entire portfolio are generating significantly higher value creation than traditional software roll-ups.</div>
+          <div class="read-relevance">Nexus AI is Orbit's integration layer. McKinsey's data supports the thesis that systematic AI deployment across acquired businesses — not one-off automation — is where durable value is created post-close.</div>
+          <span class="read-cta">Read → mckinsey.com</span>
+        </a>
+
+        <a class="read-card" href="https://a16z.com/newsletter/december-2024-enterprise-newsletter-ai-is-driving-a-shift-towards-outcome-based-pricing/" target="_blank" rel="noopener">
+          <div class="read-card-meta">
+            <span class="read-source">Andreessen Horowitz</span>
+            <span class="read-dot"></span>
+            <span class="read-date">December 2024</span>
+            <span class="read-badge">Pricing &amp; Revenue</span>
+          </div>
+          <div class="read-title">AI Is Driving A Shift Towards Outcome-Based Pricing</div>
+          <div class="read-body">AI forces companies away from per-seat models toward usage- and outcome-based pricing as AI agents deliver work rather than assist humans. The value capture layer in software is moving from access to outcomes.</div>
+          <div class="read-relevance">This is the monetization model Orbit's Nexus stack enables. Portfolio companies that move to outcome-based pricing post-acquisition capture a fundamentally larger share of customer value.</div>
+          <span class="read-cta">Read → a16z.com</span>
+        </a>
+
+      </div>
+    </div>
+
   </div>
 
 </div><!-- /portal -->
